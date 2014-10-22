@@ -5,10 +5,21 @@
  */
 package MainCharacter;
 
+import Mapa.Celda;
+import java.util.ArrayList;
+
 /**
  *
  * @author yagouus
  */
 public class Personaje {
+    
+    private String Nombre;
+    private Integer vida;
+    private Integer energia;
+    private Integer pasos;
+    private Mochila backpack;
+    private Celda posicion;
+    private ArrayList<Celda> recorrido;
     
 }

@@ -5,10 +5,16 @@
  */
 package Mapa;
 
-/**
- *
- * @author yagouus
- */
+import Items.Objeto;
+import java.awt.Point;
+import java.util.ArrayList;
+
 public class Celda {
+    private Point coordenadas;
+    private String descripcion;
+    private ArrayList<Objeto> items;
+    private boolean transitable;
+    private boolean esInicio;
+    private boolean esFin;
     
 }

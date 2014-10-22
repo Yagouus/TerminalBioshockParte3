@@ -7,8 +7,9 @@ package MainCharacter;
 
 /**
  *
- * @author yagouus ez nasi
+ * @author 
  */
 public class Acciones {
+    
     
 }

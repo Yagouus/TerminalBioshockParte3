@@ -5,10 +5,15 @@
  */
 package Mapa;
 
-/**
- *
- * @author yagouus
- */
+import java.awt.Point;
+import java.util.HashMap;
+
+
 public class Mapa {
+    private String Descripcion;
+    private HashMap<Point,Celda> mapa;
+    private Integer largo;
+    private Integer ancho;
     
+  
 }

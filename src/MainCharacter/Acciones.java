@@ -7,7 +7,7 @@ package MainCharacter;
 
 /**
  *
- * @author yagouus
+ * @author yagouus pesnes nazis
  */
 public class Acciones {
     

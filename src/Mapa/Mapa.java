@@ -14,6 +14,7 @@ public final class Mapa {
     private HashMap<Point,Celda> mapa;
     private final Point tamaño;
     
+    // Constructor
     public Mapa(int x, int y){
         
         this.tamaño = new Point(x,y);
@@ -27,7 +28,26 @@ public final class Mapa {
         
                 
     }   
-  
+ 
+    // Getters
+    public String getDescripcion() {
+        return Descripcion;
+    }
+    
+     public HashMap<Point, Celda> getMapa() {
+        return mapa;
+    }
+
+     // Setters
+    public void setDescripcion(String Descripcion) {
+        this.Descripcion = Descripcion;
+    }
+
+    public void setMapa(HashMap<Point, Celda> mapa) {
+        this.mapa = mapa;
+    }
+    
+    // Metodos propios
     public void insertaCelda(int x, int y, Celda celda){
        
         Point punto = new Point(x,y);
@@ -44,22 +64,6 @@ public final class Mapa {
             }
         }
         
-    }
-
-    public String getDescripcion() {
-        return Descripcion;
-    }
-
-    public void setDescripcion(String Descripcion) {
-        this.Descripcion = Descripcion;
-    }
-
-    public HashMap<Point, Celda> getMapa() {
-        return mapa;
-    }
-
-    public void setMapa(HashMap<Point, Celda> mapa) {
-        this.mapa = mapa;
     }
     
 }

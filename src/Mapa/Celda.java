@@ -16,6 +16,7 @@ public class Celda {
     private final boolean esInicio;
     private final boolean esFin;
     
+    // Constructor    
     public Celda(){
         
         this.descripcion = "Unknown";
@@ -26,6 +27,7 @@ public class Celda {
         
     }
 
+    // Metodo para imprimir
     @Override
     public String toString() {
         if(transitable)

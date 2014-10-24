@@ -5,11 +5,17 @@
  */
 package MainCharacter;
 
+import Mapa.Mapa;
+
 /**
  *
  * @author 
  */
 public class Acciones {
     
+    public void Mover(Personaje character,Mapa mapa){
+        
+        
+    }
     
 }

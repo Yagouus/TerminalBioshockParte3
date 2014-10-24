@@ -6,15 +6,32 @@
 package Mapa;
 
 import Items.Objeto;
-import java.awt.Point;
 import java.util.ArrayList;
 
 public class Celda {
-    private Point coordenadas;
-    private String descripcion;
-    private ArrayList<Objeto> items;
-    private boolean transitable;
-    private boolean esInicio;
-    private boolean esFin;
+   
+    private final String descripcion;
+    private final ArrayList<Objeto> items;
+    private final boolean transitable;
+    private final boolean esInicio;
+    private final boolean esFin;
+    
+    public Celda(){
+        
+        this.descripcion = "Unknown";
+        this.items = new ArrayList<>();
+        this.transitable = true;
+        this.esInicio = false;
+        this.esFin = false;
+        
+    }
+
+    @Override
+    public String toString() {
+        if(transitable)
+        return "*";
+        else
+        return ".";
+    }    
     
 }

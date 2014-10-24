@@ -22,8 +22,18 @@ public class PrincipalTerminalBioshock {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Celda j;
-        Mapa i;
+        Mapa map = new Mapa(3,3);
+        
+        map.insertaCelda(0, 0, new Celda());
+        map.insertaCelda(0, 1, new Celda());
+        map.insertaCelda(0, 2, new Celda());
+        map.insertaCelda(1, 0, new Celda());
+        map.insertaCelda(1, 1, new Celda());
+        map.insertaCelda(1, 2, new Celda());
+        map.insertaCelda(2, 0, new Celda());
+        map.insertaCelda(2, 1, new Celda());
+        map.insertaCelda(2, 2, new Celda());
+      
         
         System.out.println("                                                    ``````````````````````````````````````````..........``````                                              \n" +
 "                               ```````````````````     ``````````.............,,,,,,,,,...........,,...````````````.````````                                    \n" +
@@ -81,6 +91,14 @@ public class PrincipalTerminalBioshock {
 "                                                                               ``                                                                               \n" +
 "                                                                                                                                                                \n" +
 "                                                                                                                                                             ");
+   
+        map.imprimeMapa();
+        
     }
+    
+    // Insertamos celdas
+    
+    
+    
     
 }

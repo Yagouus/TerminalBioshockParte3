@@ -50,7 +50,7 @@ public class PrincipalTerminalBioshock {
         // Mostramos el resultado final de la partida
         map.imprimeMapa(personaje);
         System.out.println(personaje);
-        System.out.println("\nHAS COMPLETADO EL JUEGO");
+        JOptionPane.showMessageDialog(null, "\nHAS COMPLETADO EL JUEGO");
         System.out.println("\nEL RECORRIDO QUE HAS SEGUIDO ES:");
         System.out.println(personaje.getRecorrido());
 

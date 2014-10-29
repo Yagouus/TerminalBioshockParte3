@@ -22,6 +22,8 @@ public final class Mapa {
             }
         }
 
+        //descripcion
+        
     }
 
     // Getters
@@ -56,7 +58,7 @@ public final class Mapa {
             System.out.print("\n");
             for (int j = 0; j < tamaño.y; j++) {
                 if(personaje.getPosicion().equals(new Point(i,j))){
-                    System.out.print("3 ");
+                    System.out.print("☻ ");
                 }else{
                 System.out.print(this.getMapa().get(new Point(i, j)) + " ");
                 }
@@ -105,8 +107,11 @@ public final class Mapa {
         map.getMapa().get(new Point(9, 6)).setDescripcion("Celda oscura y mohosa");
         map.getMapa().get(new Point(9, 5)).setDescripcion(Descripcion);
         
-        map.getMapa().get(new Point(8, 0)).setDescripcion("Acabas de entrar en esta mazmorra, esta oscuro y humedo");
-        map.getMapa().get(new Point(8, 1)).setDescripcion(Descripcion);        
+        map.getMapa().get(new Point(8, 0)).setDescripcion("Entras en las catacumbas de Rapture a traves de una gran puerta, tras tu primer paso en ella estas se iluminan.\n"
+                + "Al adentrarte en la cueva, en la pared derecha ves una estatua de un hombre en la que dice: \n\t\t'NO GODS OR KINGS.\n\t\t    ONLY MAN'\n"
+                + "Al fondo del oscuro pasillo se ve una batisfera, entras en ella, y esta desciende numerosos metros bajo el mar.\nDurante el descenso escuchas a dos hombres "
+                + "hablar a traves de la radio de la batisfera.\nMiras a traves de sus cristales observando una increible ciudad submarina.");
+        map.getMapa().get(new Point(8, 1)).setDescripcion("");        
         map.getMapa().get(new Point(8, 2)).setDescripcion(Descripcion);
         map.getMapa().get(new Point(8, 3)).setDescripcion(Descripcion);
         map.getMapa().get(new Point(8, 6)).setDescripcion(Descripcion);

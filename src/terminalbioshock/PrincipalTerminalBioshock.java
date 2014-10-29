@@ -6,6 +6,9 @@ import java.awt.Point;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class PrincipalTerminalBioshock {
+    
+    // Te dejo un enlace a una tabla de UNICODE
+    // http://unicode-table.com/en/#control-character
 
     public static void main(String[] args) {
 

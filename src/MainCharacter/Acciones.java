@@ -12,12 +12,14 @@ public class Acciones {
         switch(opcion){
             
             case "Mover":
+            case "mover":
                 
                 personaje.getAccionesPersonaje().Mover(personaje, personaje.getMapa());
                 
                 break;
                 
             case "Mirar":
+            case "mirar":
                 
                 break;
             

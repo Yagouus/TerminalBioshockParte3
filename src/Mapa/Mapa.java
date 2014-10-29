@@ -101,6 +101,52 @@ public final class Mapa {
         map.getMapa().get(new Point(0, 5)).setTransitable(true);
         map.getMapa().get(new Point(9, 5)).setTransitable(true);
         map.getMapa().get(new Point(9, 6)).setTransitable(true);
+        
+        map.getMapa().get(new Point(9, 6)).setDescripcion("Celda oscura y mohosa");
+        map.getMapa().get(new Point(9, 5)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(8, 0)).setDescripcion("Acabas de entrar en esta mazmorra, esta oscuro y humedo");
+        map.getMapa().get(new Point(8, 1)).setDescripcion(Descripcion);        
+        map.getMapa().get(new Point(8, 2)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(8, 3)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(8, 6)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(8, 7)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(8, 8)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(7, 8)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(7, 3)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(7, 1)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(6, 8)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(6, 6)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(6, 5)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(6, 4)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(6, 3)).setDescripcion(Descripcion);        
+        map.getMapa().get(new Point(6, 1)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(5, 8)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(5, 3)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(5, 1)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(4, 8)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(4, 3)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(3, 8)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(3, 3)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(2, 8)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(2, 7)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(2, 6)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(2, 5)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(2, 4)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(2, 3)).setDescripcion(Descripcion);
+    
+        map.getMapa().get(new Point(1, 5)).setDescripcion(Descripcion);
+        
+        map.getMapa().get(new Point(0, 5)).setDescripcion(Descripcion);
+        
+        
+        
 
     }
 

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Celda {
 
-    private final String descripcion;
-    private final ArrayList<Objeto> items;
+    private  String descripcion;
+    private  ArrayList<Objeto> items;
     private  boolean personaje;
     private  boolean transitable;
     private  boolean esInicio;
@@ -65,6 +65,10 @@ public class Celda {
     // Setters
     public void setPersonaje() {
         this.personaje = true;
+    }
+    
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void setTransitable(boolean transitable) {

@@ -1,13 +1,11 @@
-
 package MainCharacter;
 
-import Mapa.Celda;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
 
 public class Personaje {
-    
+
     private String Nombre;
     private Integer vida;
     private Integer energia;
@@ -16,12 +14,13 @@ public class Personaje {
     private Point posicion;
     private ArrayList<String> recorrido;
     private Mapa mapa;
+    private String life;
     private Acciones accionesPersonaje;
-    
-    public Personaje(Mapa mapa){
-        
+
+    public Personaje(Mapa mapa) {
+
         this.Nombre = "Unknown";
-        this.vida = 100;
+        this.vida = 5;
         this.energia = 100;
         this.pasos = 0;
         this.mochila = new Mochila();
@@ -29,11 +28,11 @@ public class Personaje {
         this.recorrido = new ArrayList<>();
         this.posicion = mapa.getInicio();
         this.accionesPersonaje = new Acciones();
-        
+
     }
-    
-    public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia){
-        
+
+    public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia) {
+
         this.Nombre = Nombre;
         this.vida = vida;
         this.energia = energia;
@@ -43,17 +42,37 @@ public class Personaje {
         this.posicion = mapa.getInicio();
         this.recorrido = new ArrayList<>();
         this.accionesPersonaje = new Acciones();
-  
         
-    }    
-    
+
+    }
+
     // Getters
     public String getNombre() {
         return Nombre;
     }
 
-    public Integer getVida() {
-        return vida;
+    public String getVida() {
+
+        switch (vida) {
+            case 5:
+                this.life = "♥♥♥♥♥";
+                break;
+            case 4:
+                this.life = "♥♥♥♥";
+                break;
+            case 3:
+                this.life = "♥♥♥";
+                break;
+            case 2:
+                this.life = "♥♥";
+                break;
+            case 1:
+                this.life = "♥";
+                break;
+
+        }
+        
+        return this.life;  
     }
 
     public Integer getEnergia() {
@@ -62,10 +81,6 @@ public class Personaje {
 
     public Integer getPasos() {
         return pasos;
-    }
-
-    public Mochila getMochila() {
-        return mochila;
     }
 
     public Point getPosicion() {
@@ -84,7 +99,6 @@ public class Personaje {
         return accionesPersonaje;
     }
 
-    
     // Setters
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
@@ -102,26 +116,19 @@ public class Personaje {
         this.pasos = pasos;
     }
 
-    public void setMochila(Mochila mochila) {
-        this.mochila = mochila;
-    }
-
     public void setPosicion(Point posicion) {
         this.posicion = posicion;
     }
 
-    public void setRecorrido(ArrayList<String> recorrido) {
-        this.recorrido = recorrido;
+
+    // Metodos propios
+    
+    public String MostrarAcciones(){
+        return "[Mover, Mirar, CogerObjeto, DejarObjeto, UsarObjeto]";
+    }
+    @Override
+    public String toString() {
+        return "\n\n[NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + "]";//To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setMapa(Mapa mapa) {
-        this.mapa = mapa;
-    }
-
-    public void setAccionesPersonaje(Acciones accionesPersonaje) {
-        this.accionesPersonaje = accionesPersonaje;
-    }
-    
-    
-    
 }

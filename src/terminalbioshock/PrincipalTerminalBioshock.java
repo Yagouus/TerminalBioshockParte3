@@ -35,6 +35,7 @@ public class PrincipalTerminalBioshock {
         } while (!map.getMapa().get((personaje.getPosicion())).isEsFin());
 
         map.imprimeMapa(personaje);
+        System.out.println(personaje);
         System.out.println("\nHAS COMPLETADO EL JUEGO");
         System.out.println("\nEL RECORRIDO QUE HAS SEGUIDO ES:");
         System.out.println(personaje.getRecorrido());

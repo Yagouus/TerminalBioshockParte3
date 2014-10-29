@@ -109,7 +109,7 @@ public class Personaje {
     }
 
     public void setEnergia(Integer energia) {
-        this.energia = energia;
+        this.energia = this.energia + energia;
     }
 
     public void setPasos(Integer pasos) {
@@ -124,7 +124,7 @@ public class Personaje {
     // Metodos propios
     
     public String MostrarAcciones(){
-        return "[Mover, Mirar, CogerObjeto, DejarObjeto, UsarObjeto]";
+        return "[Mover, Mirar, CogerObjeto, DejarObjeto, VerMochila]";
     }
     @Override
     public String toString() {

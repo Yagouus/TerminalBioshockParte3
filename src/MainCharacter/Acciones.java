@@ -92,6 +92,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Norte");
+                        personaje.setEnergia(-3);
 
                     }
                 }
@@ -107,6 +108,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Sur");
+                        personaje.setEnergia(-3);
 
                     }
                 }
@@ -122,6 +124,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Este");
+                        personaje.setEnergia(-3);
 
                     }
                 }
@@ -137,6 +140,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Oeste");
+                        personaje.setEnergia(-3);
 
                     }
                 }

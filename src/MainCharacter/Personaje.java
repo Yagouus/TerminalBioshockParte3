@@ -14,7 +14,7 @@ public class Personaje {
     private Integer pasos;
     private Mochila mochila;
     private Point posicion;
-    private ArrayList<Celda> recorrido;
+    private ArrayList<String> recorrido;
     private Mapa mapa;
     private Acciones accionesPersonaje;
     
@@ -28,6 +28,7 @@ public class Personaje {
         this.mapa = mapa;
         this.recorrido = new ArrayList<>();
         this.posicion = mapa.getInicio();
+        this.accionesPersonaje = new Acciones();
         
     }
     
@@ -41,10 +42,12 @@ public class Personaje {
         this.mapa = mapa;
         this.posicion = mapa.getInicio();
         this.recorrido = new ArrayList<>();
+        this.accionesPersonaje = new Acciones();
   
         
     }    
-
+    
+    // Getters
     public String getNombre() {
         return Nombre;
     }
@@ -69,7 +72,7 @@ public class Personaje {
         return posicion;
     }
 
-    public ArrayList<Celda> getRecorrido() {
+    public ArrayList<String> getRecorrido() {
         return recorrido;
     }
 
@@ -80,5 +83,45 @@ public class Personaje {
     public Acciones getAccionesPersonaje() {
         return accionesPersonaje;
     }
+
+    
+    // Setters
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
+    }
+
+    public void setVida(Integer vida) {
+        this.vida = vida;
+    }
+
+    public void setEnergia(Integer energia) {
+        this.energia = energia;
+    }
+
+    public void setPasos(Integer pasos) {
+        this.pasos = pasos;
+    }
+
+    public void setMochila(Mochila mochila) {
+        this.mochila = mochila;
+    }
+
+    public void setPosicion(Point posicion) {
+        this.posicion = posicion;
+    }
+
+    public void setRecorrido(ArrayList<String> recorrido) {
+        this.recorrido = recorrido;
+    }
+
+    public void setMapa(Mapa mapa) {
+        this.mapa = mapa;
+    }
+
+    public void setAccionesPersonaje(Acciones accionesPersonaje) {
+        this.accionesPersonaje = accionesPersonaje;
+    }
+    
+    
     
 }

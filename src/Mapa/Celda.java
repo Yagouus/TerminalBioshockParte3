@@ -37,6 +37,7 @@ public class Celda {
 
     }
 
+    // Getters
     public String getDescripcion() {
         return descripcion;
     }
@@ -61,6 +62,7 @@ public class Celda {
         return esFin;
     }
 
+    // Setters
     public void setPersonaje() {
         this.personaje = true;
     }
@@ -73,8 +75,8 @@ public class Celda {
         this.esInicio = true;
     }
 
-    public void setEsFin(boolean esFin) {
-        this.esFin = esFin;
+    public void setEsFin() {
+        this.esFin = true;
     }
 
     // Metodo para imprimir
@@ -83,7 +85,7 @@ public class Celda {
         if (transitable) 
             return " ";
          else 
-            return "O";
+            return "X";
         
     }
 

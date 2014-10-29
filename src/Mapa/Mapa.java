@@ -56,7 +56,7 @@ public final class Mapa {
             System.out.print("\n");
             for (int j = 0; j < tamaño.y; j++) {
                 if(personaje.getPosicion().equals(new Point(i,j))){
-                    System.out.print(" ");
+                    System.out.print("3 ");
                 }else{
                 System.out.print(this.getMapa().get(new Point(i, j)) + " ");
                 }
@@ -73,7 +73,6 @@ public final class Mapa {
         map.getMapa().get(new Point(6, 1)).setTransitable(true);
         map.getMapa().get(new Point(5, 1)).setTransitable(true);
         map.getMapa().get(new Point(5, 2)).setTransitable(true);
-        map.getMapa().get(new Point(5, 3)).setTransitable(true);
         map.getMapa().get(new Point(4, 3)).setTransitable(true);
         map.getMapa().get(new Point(3, 3)).setTransitable(true);
         map.getMapa().get(new Point(2, 3)).setTransitable(true);
@@ -100,6 +99,8 @@ public final class Mapa {
         map.getMapa().get(new Point(8, 2)).setTransitable(true);
         map.getMapa().get(new Point(1, 5)).setTransitable(true);
         map.getMapa().get(new Point(0, 5)).setTransitable(true);
+        map.getMapa().get(new Point(9, 5)).setTransitable(true);
+        map.getMapa().get(new Point(9, 6)).setTransitable(true);
 
     }
 

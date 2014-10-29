@@ -83,7 +83,7 @@ public class Celda {
         if (transitable) 
             return " ";
          else 
-            return "▓";
+            return "O";
         
     }
 

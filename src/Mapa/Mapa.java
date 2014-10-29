@@ -56,7 +56,7 @@ public final class Mapa {
             System.out.print("\n");
             for (int j = 0; j < tamaño.y; j++) {
                 if(personaje.getPosicion().equals(new Point(i,j))){
-                    System.out.print(" ");
+                    System.out.print(" ");
                 }else{
                 System.out.print(this.getMapa().get(new Point(i, j)) + " ");
                 }

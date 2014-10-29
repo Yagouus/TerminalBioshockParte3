@@ -2,6 +2,7 @@ package MainCharacter;
 
 import Mapa.Mapa;
 import java.awt.Point;
+import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class Acciones {
@@ -80,9 +81,16 @@ public class Acciones {
             }
         }
 
-        aux = showInputDialog("A donde quiere moverse? ");
+        
+        
+        boolean repetir;
 
-        switch (aux) {
+        do{
+            aux = showInputDialog("A donde quiere moverse? ");
+            repetir = false;
+        
+        switch (aux) {         
+            
 
             case "n":
             case "N":
@@ -96,6 +104,9 @@ public class Acciones {
                         personaje.getRecorrido().add("Norte");
                         personaje.setEnergia(-3);
 
+                    }else{
+                        repetir = true;
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
                     }
                 }
                 break;
@@ -112,6 +123,9 @@ public class Acciones {
                         personaje.getRecorrido().add("Sur");
                         personaje.setEnergia(-3);
 
+                    }else{
+                        repetir = true;
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
                     }
                 }
                 break;
@@ -128,6 +142,9 @@ public class Acciones {
                         personaje.getRecorrido().add("Este");
                         personaje.setEnergia(-3);
 
+                    }else{
+                        repetir = true;
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
                     }
                 }
                 break;
@@ -144,11 +161,16 @@ public class Acciones {
                         personaje.getRecorrido().add("Oeste");
                         personaje.setEnergia(-3);
 
+                    }else{
+                        repetir = true;
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
                     }
                 }
                 break;
 
         }
+        
+        }while(repetir);
 
     }
 

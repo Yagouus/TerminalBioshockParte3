@@ -53,6 +53,7 @@ public final class Mapa {
     }
 
     public void imprimeMapa(Personaje personaje) {
+        
 
         for (int i = 0; i < tamaño.x; i++) {
             System.out.print("\n");

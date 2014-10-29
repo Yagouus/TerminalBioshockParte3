@@ -76,6 +76,11 @@ public final class Mapa {
         map.getMapa().get(new Point(6, 1)).setTransitable(true);
         map.getMapa().get(new Point(5, 1)).setTransitable(true);
         map.getMapa().get(new Point(5, 2)).setTransitable(true);
+        map.getMapa().get(new Point(5, 3)).setTransitable(true);
+        map.getMapa().get(new Point(5, 5)).setTransitable(true);
+        map.getMapa().get(new Point(4, 5)).setTransitable(true);
+        map.getMapa().get(new Point(4, 6)).setTransitable(true);
+        map.getMapa().get(new Point(4, 5)).setTransitable(true);
         map.getMapa().get(new Point(4, 3)).setTransitable(true);
         map.getMapa().get(new Point(3, 3)).setTransitable(true);
         map.getMapa().get(new Point(2, 3)).setTransitable(true);
@@ -102,11 +107,14 @@ public final class Mapa {
         map.getMapa().get(new Point(8, 2)).setTransitable(true);
         map.getMapa().get(new Point(1, 5)).setTransitable(true);
         map.getMapa().get(new Point(0, 5)).setTransitable(true);
-        map.getMapa().get(new Point(9, 5)).setTransitable(true);
-        map.getMapa().get(new Point(9, 6)).setTransitable(true);
-        
-        map.getMapa().get(new Point(9, 6)).setDescripcion("Celda oscura y mohosa");
-        map.getMapa().get(new Point(9, 5)).setDescripcion(Descripcion);
+        map.getMapa().get(new Point(1, 1)).setTransitable(true);
+        map.getMapa().get(new Point(2, 1)).setTransitable(true);
+        map.getMapa().get(new Point(2, 2)).setTransitable(true);
+        map.getMapa().get(new Point(1, 8)).setTransitable(true);
+        map.getMapa().get(new Point(1, 9)).setTransitable(true);
+        map.getMapa().get(new Point(8, 9)).setTransitable(true);
+
+        //Descripciones
         
         map.getMapa().get(new Point(8, 0)).setDescripcion("Entras en las catacumbas de Rapture a traves de una gran puerta, tras tu primer paso en ella estas se iluminan.\n"
                 + "Al adentrarte en la cueva, en la pared derecha ves una estatua de un hombre en la que dice: \n\t\t'NO GODS OR KINGS.\n\t\t    ONLY MAN'\n"

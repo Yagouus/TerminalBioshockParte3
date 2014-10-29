@@ -14,7 +14,7 @@ public class PrincipalTerminalBioshock {
 
     public static void main(String[] args) {
 
-        Mapa map = new Mapa(12, 12);
+        Mapa map = new Mapa(11, 11);
         map.mapaTransitable(map);
         map.getMapa().get(new Point(8, 0)).setEsInicio();
         map.getMapa().get(new Point(0, 5)).setEsFin();
@@ -41,7 +41,7 @@ public class PrincipalTerminalBioshock {
             System.out.println(personaje);
             System.out.println(personaje.MostrarAcciones());
      
-            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar", "Elige un opción chico, quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
             aux = aux1.toString();
             personaje.getAccionesPersonaje().SeleccionarOpcion(aux, personaje);
 

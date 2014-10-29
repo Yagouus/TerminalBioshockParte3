@@ -86,7 +86,7 @@ public class Acciones {
         boolean repetir;
 
         do{
-            aux = showInputDialog("A donde quiere moverse? ");
+            aux = showInputDialog("Elige una direccion chico, ¿quieres? ");
             repetir = false;
         
         switch (aux) {         

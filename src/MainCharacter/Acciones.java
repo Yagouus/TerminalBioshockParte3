@@ -30,6 +30,8 @@ public class Acciones {
     }
     
     public void Mover(Personaje personaje, Mapa mapa) {
+        
+        String Mensaje = "";
 
         Point posicionPersonaje = new Point();
         int x, y;
@@ -39,7 +41,7 @@ public class Acciones {
 
         String aux;
 
-        System.out.println("\nMovimientos disponibles:");
+        Mensaje += ("\nMovimientos disponibles:");
 
         // Norte
         posicionPersonaje.x = x - 1;
@@ -47,7 +49,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                System.out.println("Norte");
+                Mensaje +=(" Norte");
             }
         }
 
@@ -57,7 +59,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                System.out.println("Sur");
+                Mensaje +=(" Sur");
             }
         }
 
@@ -67,7 +69,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                System.out.println("Este");
+               Mensaje +=(" Este");
             }
         }
 
@@ -77,7 +79,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                System.out.println("Oeste");
+                Mensaje +=(" Oeste");
             }
         }
 
@@ -85,8 +87,11 @@ public class Acciones {
         
         boolean repetir;
 
+        Mensaje += "\nElige una direccion chico, ¿quieres? ";    
+        
         do{
-            aux = showInputDialog("Elige una direccion chico, ¿quieres? ");
+            
+            aux = showInputDialog(Mensaje);
             repetir = false;
         
         switch (aux) {         
@@ -106,7 +111,7 @@ public class Acciones {
 
                     }else{
                         repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 break;
@@ -125,7 +130,7 @@ public class Acciones {
 
                     }else{
                         repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
+                       JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 break;
@@ -144,7 +149,7 @@ public class Acciones {
 
                     }else{
                         repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 break;
@@ -163,7 +168,7 @@ public class Acciones {
 
                     }else{
                         repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico");
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 break;

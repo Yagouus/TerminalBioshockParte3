@@ -33,6 +33,8 @@ public class Acciones {
             case "Mirar":
             case "mirar":
                 
+                personaje.getAccionesPersonaje().Mirar(personaje);
+                
                 break;
             
             
@@ -52,7 +54,7 @@ public class Acciones {
         x = personaje.getPosicion().x;
         y = personaje.getPosicion().y;
 
-        String aux;
+        String aux = null;
 
         Mensaje += ("\nMovimientos disponibles:");
 
@@ -103,8 +105,9 @@ public class Acciones {
         //Mensaje += "\nElige una direccion chico, ¿quieres? ";    
         
         do{
-            
+            do{
             aux = showInputDialog(null, Mensaje, "Elige una direccion chico, ¿quieres?", JOptionPane.QUESTION_MESSAGE);
+            }while(aux == null);
             repetir = false;
         
         switch (aux) {         
@@ -192,7 +195,13 @@ public class Acciones {
 
     }
 
-    public void Mirar() {
+    public void Mirar(Personaje personaje) {
+        
+        
+        JOptionPane.showMessageDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
+        
+   
+        
 
     }
 

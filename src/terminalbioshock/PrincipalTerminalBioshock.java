@@ -39,18 +39,23 @@ public class PrincipalTerminalBioshock {
             JOptionPane.showMessageDialog(null, "\n" + map.getMapa().get(personaje.getPosicion()).getDescripcion());
             }
             System.out.println(personaje);
-            System.out.println(personaje.MostrarAcciones());
-     
-            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-            aux = aux1.toString();
-            personaje.getAccionesPersonaje().SeleccionarOpcion(aux, personaje);
+            System.out.println(personaje.MostrarAcciones()); 
+                        
+            personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 
-        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin());
+        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() != 0);
 
-        // Mostramos el resultado final de la partida
+        // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
+        
+        if(personaje.getEnergia() == 0){
+            
+            
+            
+        }else{
         map.imprimeMapa(personaje);
         System.out.println(personaje);
         JOptionPane.showMessageDialog(null, "\nHAS COMPLETADO EL JUEGO");
+        }
         System.out.println("\nEL RECORRIDO QUE HAS SEGUIDO ES:");
         System.out.println(personaje.getRecorrido());
 

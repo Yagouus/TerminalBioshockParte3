@@ -2,15 +2,26 @@ package MainCharacter;
 
 import Mapa.Mapa;
 import java.awt.Point;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class Acciones {
 
     
-    public void SeleccionarOpcion(String opcion, Personaje personaje){
+    public void SeleccionarOpcion(Personaje personaje){
         
-        switch(opcion){
+        Object aux1;
+        String aux = null;
+        ImageIcon icon = new ImageIcon("Images/Atlas.jpg");
+        
+        do{
+        aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);            
+        }while(aux1 == null);
+               
+        aux = aux1.toString();
+        
+        switch(aux){
             
             case "Mover":
             case "mover":
@@ -26,6 +37,8 @@ public class Acciones {
             
             
         }
+        
+        
         
     }
     
@@ -49,7 +62,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje +=(" Norte");
+                Mensaje +=(" Norte(N)");
             }
         }
 
@@ -59,7 +72,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje +=(" Sur");
+                Mensaje +=(" Sur(S)");
             }
         }
 
@@ -69,7 +82,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-               Mensaje +=(" Este");
+               Mensaje +=(" Este(E)");
             }
         }
 
@@ -79,7 +92,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje +=(" Oeste");
+                Mensaje +=(" Oeste(O)");
             }
         }
 
@@ -87,11 +100,11 @@ public class Acciones {
         
         boolean repetir;
 
-        Mensaje += "\nElige una direccion chico, ¿quieres? ";    
+        //Mensaje += "\nElige una direccion chico, ¿quieres? ";    
         
         do{
             
-            aux = showInputDialog(Mensaje);
+            aux = showInputDialog(null, Mensaje, "Elige una direccion chico, ¿quieres?", JOptionPane.QUESTION_MESSAGE);
             repetir = false;
         
         switch (aux) {         
@@ -183,4 +196,13 @@ public class Acciones {
 
     }
 
+    public void RestarVida(Personaje personaje){
+        
+    }
+    
+    public void RestarEnergia(Personaje personaje){
+        
+        
+        
+    }
 }

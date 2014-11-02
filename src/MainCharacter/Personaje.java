@@ -29,6 +29,7 @@ public class Personaje {
         this.posicion = mapa.getInicio();
         this.accionesPersonaje = new Acciones();
 
+
     }
 
     public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia) {
@@ -42,7 +43,7 @@ public class Personaje {
         this.posicion = mapa.getInicio();
         this.recorrido = new ArrayList<>();
         this.accionesPersonaje = new Acciones();
-        
+  
 
     }
 

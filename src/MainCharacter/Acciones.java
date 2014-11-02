@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class Acciones {
-
+    
     
     public void SeleccionarOpcion(Personaje personaje){
         
@@ -123,7 +123,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Norte");
-                        personaje.setEnergia(-3);
+                        personaje.setEnergia(personaje.getEnergia()-3);
 
                     }else{
                         repetir = true;
@@ -142,7 +142,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Sur");
-                        personaje.setEnergia(-3);
+                        personaje.setEnergia(personaje.getEnergia()-3);
 
                     }else{
                         repetir = true;
@@ -161,7 +161,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Este");
-                        personaje.setEnergia(-3);
+                        personaje.setEnergia(personaje.getEnergia()-3);
 
                     }else{
                         repetir = true;
@@ -180,7 +180,7 @@ public class Acciones {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
                         personaje.setPosicion(posicionPersonaje);
                         personaje.getRecorrido().add("Oeste");
-                        personaje.setEnergia(-3);
+                        personaje.setEnergia(personaje.getEnergia()-3);
 
                     }else{
                         repetir = true;
@@ -205,13 +205,12 @@ public class Acciones {
 
     }
 
-    public void RestarVida(Personaje personaje){
-        
+    public void RestarVida(Personaje personaje){     
     }
     
-    public void RestarEnergia(Personaje personaje){
+    public void RestarEnergia(Personaje personaje, int resta){
         
-        
+         personaje.setEnergia(personaje.getEnergia()- resta);
         
     }
 }

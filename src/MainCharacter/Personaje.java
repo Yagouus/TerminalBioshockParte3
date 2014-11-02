@@ -105,11 +105,17 @@ public class Personaje {
     }
 
     public void setVida(Integer vida) {
+        
+        if(vida < 0 || vida > 5)
+            System.out.println("Parametro Invalido");
+        else
         this.vida = vida;
     }
 
     public void setEnergia(Integer energia) {
-        this.energia = this.energia + energia;
+        if(energia < 0 || energia > 100)
+            System.out.println("Parametro Invalido");
+        this.energia = energia;
     }
 
     public void setPasos(Integer pasos) {

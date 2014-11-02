@@ -120,9 +120,11 @@ public class Acciones {
 
                 if (mapa.getMapa().get(posicionPersonaje) != null) {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        personaje.setMovimientos(personaje.getPosicion());
                         personaje.setPosicion(posicionPersonaje);
-                        personaje.getRecorrido().add("Norte");
+                        personaje.setRecorrido("Norte");
                         personaje.setEnergia(personaje.getEnergia()-3);
+                        
 
                     }else{
                         repetir = true;
@@ -139,9 +141,11 @@ public class Acciones {
 
                 if (mapa.getMapa().get(posicionPersonaje) != null) {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        personaje.setMovimientos(personaje.getPosicion());
                         personaje.setPosicion(posicionPersonaje);
-                        personaje.getRecorrido().add("Sur");
+                        personaje.setRecorrido("Sur");
                         personaje.setEnergia(personaje.getEnergia()-3);
+                        
 
                     }else{
                         repetir = true;
@@ -158,9 +162,10 @@ public class Acciones {
 
                 if (mapa.getMapa().get(posicionPersonaje) != null) {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        personaje.setMovimientos(personaje.getPosicion());
                         personaje.setPosicion(posicionPersonaje);
-                        personaje.getRecorrido().add("Este");
-                        personaje.setEnergia(personaje.getEnergia()-3);
+                        personaje.setRecorrido("Este");
+                        personaje.setEnergia(personaje.getEnergia()-3);                        
 
                     }else{
                         repetir = true;
@@ -177,9 +182,11 @@ public class Acciones {
 
                 if (mapa.getMapa().get(posicionPersonaje) != null) {
                     if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        personaje.setMovimientos(personaje.getPosicion());
                         personaje.setPosicion(posicionPersonaje);
-                        personaje.getRecorrido().add("Oeste");
+                        personaje.setRecorrido("Oeste");
                         personaje.setEnergia(personaje.getEnergia()-3);
+                        
 
                     }else{
                         repetir = true;
@@ -197,7 +204,7 @@ public class Acciones {
     public void Mirar(Personaje personaje) {
         
         
-        JOptionPane.showMessageDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
+        JOptionPane.showMessageDialog(null, "Encuntras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
         
    
         

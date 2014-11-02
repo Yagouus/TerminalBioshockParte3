@@ -30,11 +30,12 @@ public class PrincipalTerminalBioshock {
         do {
 
             map.imprimeMapa(personaje);
-
-            if (map.getMapa().get(personaje.getPosicion()).getDescripcion() != null) 
-                JOptionPane.showMessageDialog(null, "\n" + map.getMapa().get(personaje.getPosicion()).getDescripcion());
-            
             System.out.println(personaje);
+
+            // Comprueba que existe descripcion y que el jugador no ha pasaso por ahi antes
+            if (map.getMapa().get(personaje.getPosicion()).getDescripcion() != null && !personaje.getMovimientos().contains(personaje.getPosicion()))  
+                JOptionPane.showMessageDialog(null, "\n" + map.getMapa().get(personaje.getPosicion()).getDescripcion());           
+            
 
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 

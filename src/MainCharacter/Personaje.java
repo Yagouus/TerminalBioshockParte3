@@ -1,5 +1,6 @@
 package MainCharacter;
 
+
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Personaje {
     private Mochila mochila;
     private Point posicion;
     private ArrayList<String> recorrido;
+    private ArrayList<Point> movimientos;
     private Mapa mapa;
     private String life;
     private Acciones accionesPersonaje;
@@ -26,6 +28,7 @@ public class Personaje {
         this.mochila = new Mochila();
         this.mapa = mapa;
         this.recorrido = new ArrayList<>();
+        this.movimientos = new ArrayList<>();
         this.posicion = mapa.getInicio();
         this.accionesPersonaje = new Acciones();
 
@@ -42,6 +45,7 @@ public class Personaje {
         this.mapa = mapa;
         this.posicion = mapa.getInicio();
         this.recorrido = new ArrayList<>();
+        this.movimientos = new ArrayList<>();
         this.accionesPersonaje = new Acciones();
   
 
@@ -78,6 +82,10 @@ public class Personaje {
 
     public Integer getEnergia() {
         return energia;
+    }
+
+    public ArrayList<Point> getMovimientos() {
+        return movimientos;
     }
 
     public Integer getPasos() {
@@ -126,13 +134,25 @@ public class Personaje {
     public void setPosicion(Point posicion) {
         this.posicion = posicion;
     }
-
-
-    // Metodos propios
     
-    public String MostrarAcciones(){
-        return "[Mover, Mirar, CogerObjeto, DejarObjeto, VerMochila]";
+     public void setMovimientos(ArrayList<Point> movimientos) {
+        this.movimientos = movimientos;
     }
+     
+     public void setMovimientos(Point celda) {
+        this.movimientos.add(celda);
+    }
+
+    public void setRecorrido(ArrayList<String> recorrido) {
+        this.recorrido = recorrido;
+    }
+    
+    public void setRecorrido(String direccion) {
+        this.recorrido.add(direccion);
+    }
+
+
+    // Metodos propios    
     @Override
     public String toString() {
         return "\n\n[NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + "]";//To change body of generated methods, choose Tools | Templates.

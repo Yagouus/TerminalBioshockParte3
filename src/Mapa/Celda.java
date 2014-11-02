@@ -8,7 +8,6 @@ public class Celda {
 
     private  String descripcion;
     private  ArrayList<Objeto> items;
-    private  boolean personaje;
     private  boolean transitable;
     private  boolean esInicio;
     private  boolean esFin;
@@ -21,7 +20,7 @@ public class Celda {
         this.transitable = false;
         this.esInicio = false;
         this.esFin = false;
-        this.personaje = false;
+      
 
     }
     
@@ -32,7 +31,7 @@ public class Celda {
         this.transitable = false;
         this.esInicio = false;
         this.esFin = false;
-        this.personaje = false;
+   
 
     }
 
@@ -45,9 +44,7 @@ public class Celda {
         return items;
     }
 
-    public boolean isPersonaje() {
-        return personaje;
-    }
+    
 
     public boolean isTransitable() {
         return transitable;
@@ -62,9 +59,7 @@ public class Celda {
     }
 
     // Setters
-    public void setPersonaje() {
-        this.personaje = true;
-    }
+
     
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

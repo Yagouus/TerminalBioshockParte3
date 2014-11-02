@@ -102,7 +102,6 @@ public class Acciones {
         
         boolean repetir;
 
-        //Mensaje += "\nElige una direccion chico, ¿quieres? ";    
         
         do{
             do{

@@ -26,17 +26,14 @@ public class PrincipalTerminalBioshock {
         aux = showInputDialog("Introduzca el nombre del personaje: ");
         Personaje personaje = new Personaje(map, aux, 5, 100);
 
+        JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
+        
         // Bucle de Juego
         do {
 
             map.imprimeMapa(personaje);
             System.out.println(personaje);
-
-            // Comprueba que existe descripcion y que el jugador no ha pasaso por ahi antes
-            if (map.getMapa().get(personaje.getPosicion()).getDescripcion() != null && !personaje.getMovimientos().contains(personaje.getPosicion()))  
-                JOptionPane.showMessageDialog(null, "\n" + map.getMapa().get(personaje.getPosicion()).getDescripcion());           
-            
-
+         
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 
         } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() != 0);

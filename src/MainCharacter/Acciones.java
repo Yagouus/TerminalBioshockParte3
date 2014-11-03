@@ -7,45 +7,41 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class Acciones {
-    
-    
-    public void SeleccionarOpcion(Personaje personaje){
-        
+
+    public void SeleccionarOpcion(Personaje personaje) {
+
         Object aux1;
         String aux = null;
         ImageIcon icon = new ImageIcon("Images/Atlas.jpg");
-        
-        do{
-        aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);            
-        }while(aux1 == null);
-               
+
+        do {
+            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+        } while (aux1 == null);
+
         aux = aux1.toString();
-        
-        switch(aux){
-            
+
+        switch (aux) {
+
             case "Mover":
             case "mover":
-                
+
                 personaje.getAccionesPersonaje().Mover(personaje, personaje.getMapa());
-                
+
                 break;
-                
+
             case "Mirar":
             case "mirar":
-                
+
                 personaje.getAccionesPersonaje().Mirar(personaje);
-                
+
                 break;
-            
-            
+
         }
-        
-        
-        
+
     }
-    
+
     public void Mover(Personaje personaje, Mapa mapa) {
-        
+
         String Mensaje = "";
 
         Point posicionPersonaje = new Point();
@@ -64,7 +60,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje +=(" Norte(N)");
+                Mensaje += (" Norte(N)");
             }
         }
 
@@ -74,7 +70,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje +=(" Sur(S)");
+                Mensaje += (" Sur(S)");
             }
         }
 
@@ -84,7 +80,7 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-               Mensaje +=(" Este(E)");
+                Mensaje += (" Este(E)");
             }
         }
 
@@ -94,129 +90,126 @@ public class Acciones {
 
         if (mapa.getMapa().get(posicionPersonaje) != null) {
             if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje +=(" Oeste(O)");
+                Mensaje += (" Oeste(O)");
             }
         }
 
-        
-        
         boolean repetir;
 
-        
-        do{
-            do{
-            aux = showInputDialog(null, Mensaje, "Elige una direccion chico, ¿quieres?", JOptionPane.QUESTION_MESSAGE);
-            }while(aux == null);
+        do {
+            do {
+                aux = showInputDialog(null, Mensaje, "Elige una direccion chico, ¿quieres?", JOptionPane.QUESTION_MESSAGE);
+            } while (aux == null);
             repetir = false;
-        
-        switch (aux) {         
-            
 
-            case "n":
-            case "N":
+            switch (aux) {
 
-                posicionPersonaje.x = x - 1;
-                posicionPersonaje.y = y;
+                case "n":
+                case "N":
 
-                if (mapa.getMapa().get(posicionPersonaje) != null) {
-                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                        personaje.setMovimientos(personaje.getPosicion());
-                        personaje.setPosicion(posicionPersonaje);
-                        personaje.setRecorrido("Norte");
-                        personaje.setEnergia(personaje.getEnergia()-3);
-                        
+                    posicionPersonaje.x = x - 1;
+                    posicionPersonaje.y = y;
 
-                    }else{
-                        repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    if (mapa.getMapa().get(posicionPersonaje) != null) {
+                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                            personaje.setMovimientos(personaje.getPosicion());
+                            personaje.setPosicion(posicionPersonaje);
+                            personaje.setRecorrido("Norte");
+                            personaje.setEnergia(personaje.getEnergia() - 3);
+
+                        } else {
+                            repetir = true;
+                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                }
-                break;
-            
-            case "s":    
-            case "S":
+                    break;
 
-                posicionPersonaje.x = x + 1;
-                posicionPersonaje.y = y;
+                case "s":
+                case "S":
 
-                if (mapa.getMapa().get(posicionPersonaje) != null) {
-                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                        personaje.setMovimientos(personaje.getPosicion());
-                        personaje.setPosicion(posicionPersonaje);
-                        personaje.setRecorrido("Sur");
-                        personaje.setEnergia(personaje.getEnergia()-3);
-                        
+                    posicionPersonaje.x = x + 1;
+                    posicionPersonaje.y = y;
 
-                    }else{
-                        repetir = true;
-                       JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    if (mapa.getMapa().get(posicionPersonaje) != null) {
+                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                            personaje.setMovimientos(personaje.getPosicion());
+                            personaje.setPosicion(posicionPersonaje);
+                            personaje.setRecorrido("Sur");
+                            personaje.setEnergia(personaje.getEnergia() - 3);
+
+                        } else {
+                            repetir = true;
+                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                }
-                break;
-                
-            case "e":   
-            case "E":
+                    break;
 
-                posicionPersonaje.x = x;
-                posicionPersonaje.y = y + 1;
+                case "e":
+                case "E":
 
-                if (mapa.getMapa().get(posicionPersonaje) != null) {
-                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                        personaje.setMovimientos(personaje.getPosicion());
-                        personaje.setPosicion(posicionPersonaje);
-                        personaje.setRecorrido("Este");
-                        personaje.setEnergia(personaje.getEnergia()-3);                        
+                    posicionPersonaje.x = x;
+                    posicionPersonaje.y = y + 1;
 
-                    }else{
-                        repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    if (mapa.getMapa().get(posicionPersonaje) != null) {
+                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                            personaje.setMovimientos(personaje.getPosicion());
+                            personaje.setPosicion(posicionPersonaje);
+                            personaje.setRecorrido("Este");
+                            personaje.setEnergia(personaje.getEnergia() - 3);
+
+                        } else {
+                            repetir = true;
+                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case "o":
-            case "O":
+                case "o":
+                case "O":
 
-                posicionPersonaje.x = x;
-                posicionPersonaje.y = y - 1;
+                    posicionPersonaje.x = x;
+                    posicionPersonaje.y = y - 1;
 
-                if (mapa.getMapa().get(posicionPersonaje) != null) {
-                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                        personaje.setMovimientos(personaje.getPosicion());
-                        personaje.setPosicion(posicionPersonaje);
-                        personaje.setRecorrido("Oeste");
-                        personaje.setEnergia(personaje.getEnergia()-3);
-                        
+                    if (mapa.getMapa().get(posicionPersonaje) != null) {
+                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                            personaje.setMovimientos(personaje.getPosicion());
+                            personaje.setPosicion(posicionPersonaje);
+                            personaje.setRecorrido("Oeste");
+                            personaje.setEnergia(personaje.getEnergia() - 3);
 
-                    }else{
-                        repetir = true;
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            repetir = true;
+                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
-                }
-                break;
+                    break;
 
-        }
-        
-        }while(repetir);
+            }
+
+        } while (repetir);
 
     }
 
     public void Mirar(Personaje personaje) {
-        
-        
-        JOptionPane.showMessageDialog(null, "Encuntras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
-        
-   
-        
 
-    }
+        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion() != null && !personaje.getMovimientos().contains(personaje.getPosicion())) {
+            JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
+        }
 
-    public void RestarVida(Personaje personaje){     
-    }
+        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size() != 0) {
+            JOptionPane.showMessageDialog(null, "Encuentras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
+        } else {
+            JOptionPane.showMessageDialog(null, "No has encontrado nada...");
     
-    public void RestarEnergia(Personaje personaje, int resta){
-        
-         personaje.setEnergia(personaje.getEnergia()- resta);
-        
+        }
+    }
+
+    public void RestarVida(Personaje personaje) {
+    }
+
+    public void RestarEnergia(Personaje personaje, int resta) {
+
+        personaje.setEnergia(personaje.getEnergia() - resta);
+
     }
 }

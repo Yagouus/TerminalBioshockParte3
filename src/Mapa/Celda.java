@@ -42,9 +42,7 @@ public class Celda {
 
     public ArrayList<Objeto> getItems() {
         return items;
-    }
-
-    
+    }    
 
     public boolean isTransitable() {
         return transitable;
@@ -58,9 +56,7 @@ public class Celda {
         return esFin;
     }
 
-    // Setters
-
-    
+    // Setters    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

@@ -4,12 +4,16 @@ import MainCharacter.Personaje;
 import Mapa.Mapa;
 import java.awt.Point;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
 public class PrincipalTerminalBioshock {
 
     public static void main(String[] args) {
+        
+        //1. Create the frame.
+        JFrame frame = new JFrame("FrameDemo");
 
         Mapa map = new Mapa(11, 11);
         map.mapaTransitable(map);

@@ -155,7 +155,7 @@ public class Personaje {
     // Metodos propios    
     @Override
     public String toString() {
-        return "\n\n[NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + "]";//To change body of generated methods, choose Tools | Templates.
+        return "\n\n[NOMBRE:" + this.getNombre() + "\033[031m VIDA:" + this.getVida() + " \033[34mENERGIA:" + this.getEnergia() + "\033[30m]";//To change body of generated methods, choose Tools | Templates.
     }
 
 }

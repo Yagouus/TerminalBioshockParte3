@@ -26,8 +26,11 @@ public class PrincipalTerminalBioshock {
         // Imprime logo de Bioschock
         JOptionPane.showMessageDialog(null, "", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE, logo);
 
-        String aux;
-        aux = showInputDialog("Introduzca el nombre del personaje: ");
+        String aux=null;
+        do{
+            aux = showInputDialog("Introduzca el nombre del personaje: ");
+        }while(aux.equals(""));
+        
         Personaje personaje = new Personaje(map, aux, 5, 100);
 
         JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
@@ -40,14 +43,15 @@ public class PrincipalTerminalBioshock {
          
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 
-        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() != 0);
+        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() > 0);
 
         // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
-        if (personaje.getEnergia() == 0) {
+        if (personaje.getEnergia() <= 0) {
             JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
         } else {
+            JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
             map.imprimeMapa(personaje);
-            JOptionPane.showMessageDialog(null, "\nFLICIDADES HAS COMPLETADO EL JUEGO");
+            JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");
             System.out.println("TUS ESTADISTICAS: " + personaje);
             JOptionPane.showMessageDialog(null, "\nHAS DADO: " + personaje.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + personaje.getRecorrido());
         }

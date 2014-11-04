@@ -15,11 +15,14 @@ public class Acciones {
         ImageIcon icon = new ImageIcon("Images/Atlas.jpg");
 
         do {
+           
             aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar, Salir", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                                   
         } while (aux1 == null);
-        if(aux1.equals("Salir") || aux1.equals("salir"))
+        
+        if (aux1.equals("Salir") || aux1.equals("salir")) {
             System.exit(0);
-            
+        }
 
         aux = aux1.toString();
 
@@ -203,7 +206,7 @@ public class Acciones {
             JOptionPane.showMessageDialog(null, "Encuentras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
         } else {
             JOptionPane.showMessageDialog(null, "No has encontrado nada...");
-    
+
         }
     }
 

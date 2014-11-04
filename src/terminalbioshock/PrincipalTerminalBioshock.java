@@ -48,7 +48,7 @@ public class PrincipalTerminalBioshock {
         } else {
             map.imprimeMapa(personaje);
             JOptionPane.showMessageDialog(null, "\nFLICIDADES HAS COMPLETADO EL JUEGO");
-            JOptionPane.showMessageDialog(null, "TUS ESTADISTICAS: " + personaje);
+            System.out.println("TUS ESTADISTICAS: " + personaje);
             JOptionPane.showMessageDialog(null, "\nHAS DADO: " + personaje.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + personaje.getRecorrido());
         }
 

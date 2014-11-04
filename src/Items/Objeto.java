@@ -41,6 +41,8 @@ public class Objeto {
     public Integer getEfecto() {
         return efecto;
     }
+    
+    // Setters
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

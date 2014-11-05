@@ -16,7 +16,6 @@ public class Personaje {
     private ArrayList<String> recorrido;
     private ArrayList<Point> movimientos;
     private Mapa mapa;
-    private String life;
     private Acciones accionesPersonaje;
 
     public Personaje(Mapa mapa) {
@@ -56,28 +55,8 @@ public class Personaje {
         return Nombre;
     }
 
-    public String getVida() {
-
-        switch (vida) {
-            case 5:
-                this.life = "♥♥♥♥♥";
-                break;
-            case 4:
-                this.life = "♥♥♥♥";
-                break;
-            case 3:
-                this.life = "♥♥♥";
-                break;
-            case 2:
-                this.life = "♥♥";
-                break;
-            case 1:
-                this.life = "♥";
-                break;
-
-        }
-        
-        return this.life;  
+    public Integer getVida() {
+        return this.vida;  
     }
 
     public Integer getEnergia() {

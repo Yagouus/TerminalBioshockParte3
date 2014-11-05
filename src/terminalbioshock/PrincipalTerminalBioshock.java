@@ -45,10 +45,10 @@ public class PrincipalTerminalBioshock {
          
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 
-        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() > 0);
+        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() > 0 && personaje.getVida() > 0);
 
         // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
-        if (personaje.getEnergia() <= 0) {
+        if (personaje.getEnergia() <= 0 || personaje.getVida() <=0) {
             JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
         } else {
             JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());

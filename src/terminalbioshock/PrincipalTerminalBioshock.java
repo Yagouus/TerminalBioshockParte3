@@ -4,7 +4,7 @@ import MainCharacter.Personaje;
 import Mapa.Mapa;
 import java.awt.Point;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
@@ -12,10 +12,10 @@ public class PrincipalTerminalBioshock {
 
     public static void main(String[] args) {
         
-        //1. Create the frame.
-        JFrame frame = new JFrame("FrameDemo");
-
+      
         Mapa map = new Mapa(11, 11);
+        map.setNombre("Terminal Bioshock (parte 1)");
+        map.setDescripcion("Rapture, Ciudad Submarina");
         map.mapaTransitable(map);
         map.getMapa().get(new Point(8, 0)).setEsInicio();
         map.getMapa().get(new Point(0, 5)).setEsFin();
@@ -24,6 +24,8 @@ public class PrincipalTerminalBioshock {
         ImageIcon logo = new ImageIcon("Images/Logo.png");
 
         // Imprime logo de Bioschock
+        JOptionPane.showMessageDialog(null, map.getNombre());
+        JOptionPane.showMessageDialog(null, map.getDescripcion());
         JOptionPane.showMessageDialog(null, "", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE, logo);
 
         String aux=null;
@@ -52,7 +54,7 @@ public class PrincipalTerminalBioshock {
             JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
             map.imprimeMapa(personaje);
             JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");
-            System.out.println("TUS ESTADISTICAS: " + personaje);
+            System.out.println("\nTUS ESTADISTICAS: " + personaje);
             JOptionPane.showMessageDialog(null, "\nHAS DADO: " + personaje.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + personaje.getRecorrido());
         }
 

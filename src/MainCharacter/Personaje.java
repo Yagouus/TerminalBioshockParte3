@@ -10,6 +10,8 @@ public class Personaje {
     private String Nombre;
     private Integer vida;
     private Integer energia;
+    private Integer fuerza;
+    private Integer defensa;
     private Integer pasos;
     private Mochila mochila;
     private Point posicion;
@@ -23,6 +25,8 @@ public class Personaje {
         this.Nombre = "Unknown";
         this.vida = 5;
         this.energia = 100;
+        this.fuerza = 10;
+        this.defensa = 7;
         this.pasos = 0;
         this.mochila = new Mochila();
         this.mapa = mapa;
@@ -34,11 +38,13 @@ public class Personaje {
 
     }
 
-    public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia) {
+    public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia, Integer Fuerza, Integer Defensa) {
 
         this.Nombre = Nombre;
         this.vida = vida;
         this.energia = energia;
+        this.fuerza = Fuerza;
+        this.defensa= Defensa;
         this.pasos = 0;
         this.mochila = new Mochila();
         this.mapa = mapa;
@@ -59,8 +65,20 @@ public class Personaje {
         return this.vida;  
     }
 
+    public Mochila getMochila() {
+        return mochila;
+    }
+
     public Integer getEnergia() {
         return energia;
+    }
+
+    public Integer getFuerza() {
+        return fuerza;
+    }
+
+    public Integer getDefensa() {
+        return defensa;
     }
 
     public ArrayList<Point> getMovimientos() {
@@ -94,15 +112,18 @@ public class Personaje {
 
     public void setVida(Integer vida) {
         
-        if(vida < 0 || vida > 5)
+        if(vida < 0 || vida > 100)
             System.out.println("Parametro Invalido");
-        else
+        if (this.vida <0)
+                this.vida=0;
         this.vida = vida;
     }
 
     public void setEnergia(Integer energia) {
         if(energia < 0 || energia > 100)
             System.out.println("Parametro Invalido");
+        if(this.energia <0)
+                this.energia=0;
         this.energia = energia;
     }
 

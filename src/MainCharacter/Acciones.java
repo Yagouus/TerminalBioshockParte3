@@ -122,6 +122,10 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Norte");
                             personaje.setEnergia(personaje.getEnergia() - 3);
+                            if(personaje.getMochila().getPeso()>=5){
+                               int life= personaje.getMochila().getPeso()/5;
+                               personaje.setEnergia(personaje.getEnergia()- life);
+                            }
 
                         } else {
                             repetir = true;
@@ -142,6 +146,10 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Sur");
                             personaje.setEnergia(personaje.getEnergia() - 3);
+                            if(personaje.getMochila().getPeso()>=5){
+                               int life= personaje.getMochila().getPeso()/5;
+                               personaje.setEnergia(personaje.getEnergia()- life);
+                            }
 
                         } else {
                             repetir = true;
@@ -162,6 +170,11 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Este");
                             personaje.setEnergia(personaje.getEnergia() - 3);
+                            if(personaje.getMochila().getPeso()>=5){
+                               int life= personaje.getMochila().getPeso()/5;
+                               personaje.setEnergia(personaje.getEnergia()- life);
+                            }
+                            
 
                         } else {
                             repetir = true;
@@ -182,6 +195,10 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Oeste");
                             personaje.setEnergia(personaje.getEnergia() - 3);
+                            if(personaje.getMochila().getPeso()>=5){
+                               int life= personaje.getMochila().getPeso()/5;
+                               personaje.setEnergia(personaje.getEnergia()- life);
+                            }
 
                         } else {
                             repetir = true;

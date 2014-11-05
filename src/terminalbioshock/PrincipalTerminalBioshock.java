@@ -14,7 +14,7 @@ public class PrincipalTerminalBioshock {
         
       
         Mapa map = new Mapa(11, 11);
-        map.setNombre("Terminal Bioshock (parte 1)");
+        map.setNombre("Terminal Bioshock (parte 2)");
         map.setDescripcion("Rapture, Ciudad Submarina");
         map.mapaTransitable(map);
         map.getMapa().get(new Point(8, 0)).setEsInicio();
@@ -33,7 +33,7 @@ public class PrincipalTerminalBioshock {
             aux = showInputDialog("Introduzca el nombre del personaje: ");
         }while(aux.equals(""));
         
-        Personaje personaje = new Personaje(map, aux, 5, 100);
+        Personaje personaje = new Personaje(map, aux, 100, 7, 10, 7);
 
         JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
         
@@ -45,14 +45,20 @@ public class PrincipalTerminalBioshock {
          
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 
-            //if() si tiene 0 energia puede tomarse una poti
+            if( personaje.getEnergia() <=0){
+                //tomar poti se ten
+                break;
+            }
             
         } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getVida() > 0);
 
         // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
-        if (personaje.getEnergia() <= 0 || personaje.getVida() <=0) {
+        if (personaje.getEnergia() <= 0) {
             JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
-        } else {
+        }else if(personaje.getVida() <=0){
+            JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
+        } 
+        else {
             JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
             map.imprimeMapa(personaje);
             JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");

@@ -45,7 +45,9 @@ public class PrincipalTerminalBioshock {
          
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
 
-        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getEnergia() > 0 && personaje.getVida() > 0);
+            //if() si tiene 0 energia puede tomarse una poti
+            
+        } while (!map.getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getVida() > 0);
 
         // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
         if (personaje.getEnergia() <= 0 || personaje.getVida() <=0) {

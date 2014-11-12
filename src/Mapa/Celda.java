@@ -9,6 +9,7 @@ public class Celda {
     private  String descripcion;
     private  ArrayList<Objeto> items;
     private  boolean transitable;
+    private  boolean descubierta;
     private  boolean esInicio;
     private  boolean esFin;
 
@@ -18,17 +19,19 @@ public class Celda {
         this.descripcion = "Unknown";
         this.items = new ArrayList<>();
         this.transitable = false;
+        this.descubierta = false;
         this.esInicio = false;
         this.esFin = false;
       
 
     }
     
-    public Celda(String descripcion, ArrayList<Objeto> items, boolean personaje, boolean transitable, boolean esInicio, boolean esFin) {
+    public Celda(String descripcion, ArrayList<Objeto> items, boolean transitable, boolean esInicio, boolean esFin) {
 
         this.descripcion = "Unknown";
         this.items = new ArrayList<>();
         this.transitable = false;
+        this.descubierta = false;
         this.esInicio = false;
         this.esFin = false;
    

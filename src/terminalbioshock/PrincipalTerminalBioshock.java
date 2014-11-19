@@ -12,7 +12,7 @@ public class PrincipalTerminalBioshock {
 
     public static void main(String[] args) {
         
-      
+        
         Mapa map = new Mapa(11, 11);
         map.setNombre("Terminal Bioshock (parte 2)");
         map.setDescripcion("Rapture, Ciudad Submarina");
@@ -39,7 +39,7 @@ public class PrincipalTerminalBioshock {
         
         // Bucle de Juego
         do {
-
+            personaje.getAccionesPersonaje().LeerMapa();
             map.imprimeMapa(personaje);
             System.out.println(personaje);
          

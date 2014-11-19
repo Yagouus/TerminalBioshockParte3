@@ -1,7 +1,12 @@
 package MainCharacter;
 
 import Mapa.Mapa;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
@@ -15,11 +20,11 @@ public class Acciones {
         ImageIcon icon = new ImageIcon("Images/Atlas.jpg");
 
         do {
-           
+
             aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar, Salir", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                                   
+
         } while (aux1 == null);
-        
+
         if (aux1.equals("Salir") || aux1.equals("salir")) {
             System.exit(0);
         }
@@ -122,9 +127,9 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Norte");
                             personaje.setEnergia(personaje.getEnergia() - 3);
-                            if(personaje.getMochila().getPeso()>=5){
-                               int life= personaje.getMochila().getPeso()/5;
-                               personaje.setEnergia(personaje.getEnergia()- life);
+                            if (personaje.getMochila().getPeso() >= 5) {
+                                int life = personaje.getMochila().getPeso() / 5;
+                                personaje.setEnergia(personaje.getEnergia() - life);
                             }
 
                         } else {
@@ -146,9 +151,9 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Sur");
                             personaje.setEnergia(personaje.getEnergia() - 3);
-                            if(personaje.getMochila().getPeso()>=5){
-                               int life= personaje.getMochila().getPeso()/5;
-                               personaje.setEnergia(personaje.getEnergia()- life);
+                            if (personaje.getMochila().getPeso() >= 5) {
+                                int life = personaje.getMochila().getPeso() / 5;
+                                personaje.setEnergia(personaje.getEnergia() - life);
                             }
 
                         } else {
@@ -170,11 +175,10 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Este");
                             personaje.setEnergia(personaje.getEnergia() - 3);
-                            if(personaje.getMochila().getPeso()>=5){
-                               int life= personaje.getMochila().getPeso()/5;
-                               personaje.setEnergia(personaje.getEnergia()- life);
+                            if (personaje.getMochila().getPeso() >= 5) {
+                                int life = personaje.getMochila().getPeso() / 5;
+                                personaje.setEnergia(personaje.getEnergia() - life);
                             }
-                            
 
                         } else {
                             repetir = true;
@@ -195,9 +199,9 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Oeste");
                             personaje.setEnergia(personaje.getEnergia() - 3);
-                            if(personaje.getMochila().getPeso()>=5){
-                               int life= personaje.getMochila().getPeso()/5;
-                               personaje.setEnergia(personaje.getEnergia()- life);
+                            if (personaje.getMochila().getPeso() >= 5) {
+                                int life = personaje.getMochila().getPeso() / 5;
+                                personaje.setEnergia(personaje.getEnergia() - life);
                             }
 
                         } else {
@@ -235,4 +239,34 @@ public class Acciones {
         personaje.setEnergia(personaje.getEnergia() - resta);
 
     }
+
+    public void LeerMapa() {
+
+        Scanner scanner = null;
+        String a = "";
+        try {
+            scanner = new Scanner(new File("CSV/mapa.csv"));
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+        while (scanner.hasNext()) {
+            
+            String linea = scanner.nextLine();
+            String[] aux;
+            
+            aux = linea.split(";");            
+            
+            
+            for(int i = 0; i < aux.length; i++){
+                a += "\n" + aux[i];
+            }
+            
+
+        }
+        System.out.println(a);
+        scanner.close();
+    }
+
 }

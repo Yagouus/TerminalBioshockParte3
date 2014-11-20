@@ -255,8 +255,22 @@ public class Acciones {
             
             String linea = scanner.nextLine();
             String[] aux;
+            String[] coordenadas;
+            String descripcion;
+            String tipo;
             
-            aux = linea.split(";");            
+            aux = linea.split(";");    
+            
+            coordenadas = aux[0].split(",");
+            
+            tipo = aux[1];
+            
+            descripcion = aux[2];
+            
+            
+            
+           
+            
             
             
             for(int i = 0; i < aux.length; i++){

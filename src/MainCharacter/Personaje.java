@@ -55,6 +55,20 @@ public class Personaje {
   
 
     }
+    
+    public Personaje(){
+        
+        this.Nombre = "Unknown";
+        this.vida = 5;
+        this.energia = 100;
+        this.fuerza = 10;
+        this.defensa = 7;
+        this.pasos = 0;
+        this.mochila = new Mochila();
+        this.recorrido = new ArrayList<>();
+        this.movimientos = new ArrayList<>();
+        this.accionesPersonaje = new Acciones();
+    }
 
     // Getters
     public String getNombre() {

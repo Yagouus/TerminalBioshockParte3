@@ -1,5 +1,6 @@
 package MainCharacter;
 
+import Mapa.Celda;
 import Mapa.Mapa;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -244,42 +245,41 @@ public class Acciones {
 
         Scanner scanner = null;
         String a = "";
+        Mapa mapa = new Mapa();
+
+        String[] aux;
+        String[] coordenadas = null;
+        String descripcion;
+        String tipo;
+
         try {
             scanner = new Scanner(new File("CSV/mapa.csv"));
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
+
         while (scanner.hasNext()) {
-            
+
             String linea = scanner.nextLine();
-            String[] aux;
-            String[] coordenadas;
-            String descripcion;
-            String tipo;
-            
-            aux = linea.split(";");    
-            
+
+            aux = linea.split(";");
+
             coordenadas = aux[0].split(",");
-            
+
             tipo = aux[1];
-            
+
             descripcion = aux[2];
-            
-            
-            
-           
-            
-            
-            
-            for(int i = 0; i < aux.length; i++){
-                a += "\n" + aux[i];
-            }
-            
+
+            mapa.insertaCelda(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]), new Celda(tipo, descripcion));
+
+            System.out.println(coordenadas[0] + coordenadas[1]);
+            System.out.println(tipo);
 
         }
-        System.out.println(a);
+        mapa.setTamaño(10, 10);
+        mapa.imprimeMapa();
+
         scanner.close();
     }
 

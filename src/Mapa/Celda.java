@@ -12,6 +12,7 @@ public class Celda {
     private  boolean descubierta;
     private  boolean esInicio;
     private  boolean esFin;
+    private  String tipo;
 
     // Constructor    
     public Celda() {
@@ -37,10 +38,25 @@ public class Celda {
    
 
     }
+    
+    public Celda(String tipo, String descripcion){
+        
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.transitable = false;
+        this.descubierta = false;
+        this.esFin = false;
+        this.esFin = false;
+        
+    }
 
     // Getters
     public String getDescripcion() {
         return descripcion;
+    }
+    
+    public String getTipo(){
+        return this.tipo;
     }
 
     public ArrayList<Objeto> getItems() {

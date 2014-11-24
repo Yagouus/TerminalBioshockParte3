@@ -8,12 +8,14 @@ import java.util.ArrayList;
 public class Personaje {
 
     private String Nombre;
+    private String tipo;
     private Integer vida;
     private Integer energia;
     private Integer fuerza;
     private Integer defensa;
     private Integer pasos;
     private Mochila mochila;
+    private String frase;
     private Point posicion;
     private ArrayList<String> recorrido;
     private ArrayList<Point> movimientos;
@@ -23,6 +25,7 @@ public class Personaje {
     public Personaje(Mapa mapa) {
 
         this.Nombre = "Unknown";
+        this.tipo = "Unknown";
         this.vida = 5;
         this.energia = 100;
         this.fuerza = 10;
@@ -37,8 +40,20 @@ public class Personaje {
 
 
     }
+    
+    public Personaje(Point punto, String nombre, String tipo, Integer vida, Integer energia, Integer fuerza, Integer defensa, String frase){
+        this.posicion = punto;
+        this.Nombre = nombre;
+        this.tipo = tipo;
+        this.vida = vida;
+        this.energia = energia;
+        this.fuerza = fuerza;
+        this.defensa = defensa;
+        this.frase = frase;
+        
+    }
 
-    public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia, Integer Fuerza, Integer Defensa) {
+    public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia, Integer Fuerza, Integer Defensa, String tipo) {
 
         this.Nombre = Nombre;
         this.vida = vida;
@@ -52,13 +67,15 @@ public class Personaje {
         this.recorrido = new ArrayList<>();
         this.movimientos = new ArrayList<>();
         this.accionesPersonaje = new Acciones();
+        this.tipo = tipo;
   
 
     }
     
-    public Personaje(){
+    public Personaje() {
         
         this.Nombre = "Unknown";
+        this.tipo = "Unknown";
         this.vida = 5;
         this.energia = 100;
         this.fuerza = 10;

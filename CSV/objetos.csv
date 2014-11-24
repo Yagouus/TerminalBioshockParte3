@@ -1,4 +1,3 @@
-# En el caso de la mochila, el primer num es capacidad (num objetos) y el segundo peso max.
 0,0;jugador;mochila;mochila;tu mochila de aventuras;mochila;5;40
 0,4;.;mapa;mapa;mapa de la zona;-;0;0.1
 1,1;.;arma;espada;una espada molona;fuerza;30;5

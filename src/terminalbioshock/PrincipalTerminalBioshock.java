@@ -1,8 +1,10 @@
 package terminalbioshock;
 
+import Items.Objeto;
 import MainCharacter.Personaje;
 import Mapa.Mapa;
 import java.awt.Point;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import javax.swing.JOptionPane;
@@ -15,6 +17,8 @@ public class PrincipalTerminalBioshock {
         Personaje personaje = new Personaje();        
         
         personaje.getAccionesPersonaje().LeerMapa(personaje);
+        personaje.getAccionesPersonaje().LeerPersonajes("CSV/npcs.csv");
+        ArrayList<Objeto> Objetos = personaje.getAccionesPersonaje().LeerObjetos("CSV/objetos.csv");
         
         personaje.setPosicion(new Point(0,0));
   

@@ -1,28 +1,48 @@
 package Items;
 
+import java.awt.Point;
+
 public class Objeto {
 
     String nombre;
     String tipo;
-    Integer peso;
+    Float peso;
     Integer efecto;
+    Point posicion;
+    String descripcion;
+    String modificador;
+    String propietario;
+    
 
     public Objeto() {
 
         nombre = "Unknown";
         tipo = "Unknown";
-        peso = 0;
+        peso = 0f;
         efecto = 0;
 
     }
 
-    public Objeto(String nombre, String tipo, Integer peso, Integer efecto) {
+    public Objeto(String nombre, String tipo, Float peso, Integer efecto) {
 
         this.nombre = nombre;
         this.tipo = tipo;
         this.peso = peso;
         this.efecto = efecto;
 
+    }
+    
+    public Objeto (Point punto,String propietario, String tipo, String nombre, String descripcion, String modificador, Integer efecto, Float peso){
+        
+        this.posicion = punto;
+        this.propietario = propietario;
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.modificador = modificador;
+        this.efecto = efecto;
+        this.peso = peso;
+        
     }
 
     // Getters
@@ -34,12 +54,16 @@ public class Objeto {
         return tipo;
     }
 
-    public Integer getPeso() {
+    public Float getPeso() {
         return peso;
     }
 
     public Integer getEfecto() {
         return efecto;
+    }
+    
+    public Point getPosicion(){
+        return this.posicion;
     }
     
     // Setters
@@ -52,7 +76,7 @@ public class Objeto {
         this.tipo = tipo;
     }
 
-    public void setPeso(Integer peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 

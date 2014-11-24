@@ -9,7 +9,7 @@ public class Mochila {
    
     private final Integer capacidad;
     private final Integer pesoMax;
-    private Integer peso;   
+    private Float peso;   
     private Integer nObjetos;
     ArrayList<Objeto> contenido;
     
@@ -18,7 +18,7 @@ public class Mochila {
         
     this.capacidad = 10;
     this.pesoMax = 10;
-    this.peso = 0;   
+    this.peso = 0f;   
     this.nObjetos = 0;
     this.contenido = new ArrayList<>();
         
@@ -43,7 +43,7 @@ public class Mochila {
         return pesoMax;
     }
 
-    public Integer getPeso() {
+    public Float getPeso() {
         return this.calculaPeso();
     }
 
@@ -56,7 +56,7 @@ public class Mochila {
     }
     
     // Setters
-    public void setPeso(Integer peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 
@@ -74,8 +74,8 @@ public class Mochila {
     
     
     // Metodos Propios
-    private Integer calculaPeso(){
-        Integer peso = 0;
+    private Float calculaPeso(){
+        Float peso = 0f;
         
         for(int i = 0; i < this.nObjetos; i++){
             peso += this.getContenido().get(i).getPeso();

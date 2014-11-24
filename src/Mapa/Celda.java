@@ -40,7 +40,7 @@ public class Celda {
 
         this.descripcion = descripcion;
         this.tipo = tipo;
-        
+        this.items = new ArrayList<>();
         this.transitable = true;
         this.visible = false;
         this.esFin = false;

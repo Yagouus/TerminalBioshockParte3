@@ -1,11 +1,14 @@
 package MainCharacter;
 
+import Items.Objeto;
 import Mapa.Celda;
 import Mapa.Mapa;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.awt.Point;
+import static java.lang.Math.floor;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -55,6 +58,7 @@ public class Acciones {
     public void Mover(Personaje personaje, Mapa mapa) {
 
         String Mensaje = "";
+        int resta = 3;
 
         Point posicionPersonaje = new Point();
         int x, y;
@@ -127,11 +131,9 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Norte");
-                            personaje.setEnergia(personaje.getEnergia() - 3);
-                            if (personaje.getMochila().getPeso() >= 5) {
-                                int life = personaje.getMochila().getPeso() / 5;
-                                personaje.setEnergia(personaje.getEnergia() - life);
-                            }
+
+                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
                             repetir = true;
@@ -151,11 +153,8 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Sur");
-                            personaje.setEnergia(personaje.getEnergia() - 3);
-                            if (personaje.getMochila().getPeso() >= 5) {
-                                int life = personaje.getMochila().getPeso() / 5;
-                                personaje.setEnergia(personaje.getEnergia() - life);
-                            }
+                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
                             repetir = true;
@@ -175,11 +174,8 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Este");
-                            personaje.setEnergia(personaje.getEnergia() - 3);
-                            if (personaje.getMochila().getPeso() >= 5) {
-                                int life = personaje.getMochila().getPeso() / 5;
-                                personaje.setEnergia(personaje.getEnergia() - life);
-                            }
+                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
                             repetir = true;
@@ -199,11 +195,8 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Oeste");
-                            personaje.setEnergia(personaje.getEnergia() - 3);
-                            if (personaje.getMochila().getPeso() >= 5) {
-                                int life = personaje.getMochila().getPeso() / 5;
-                                personaje.setEnergia(personaje.getEnergia() - life);
-                            }
+                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
                             repetir = true;
@@ -275,11 +268,125 @@ public class Acciones {
         }
 
         scanner.close();
-        
+
         personaje.setMapa(mapa);
-        personaje.getMapa().setTamaño(Integer.parseInt(coordenadas[0]) + 1, Integer.parseInt(coordenadas[1]) + 1 );
+        personaje.getMapa().setTamaño(Integer.parseInt(coordenadas[0]) + 1, Integer.parseInt(coordenadas[1]) + 1);
         personaje.getMapa().crearMuros();
-        
+
+    }
+
+    public void LeerPersonajes(String directorio) {
+
+        Scanner scanner = null;
+        String a = "";
+        Mapa mapa = new Mapa();
+
+        String[] aux;
+        String[] coordenadas = null;
+        String nombre;
+        String tipo;
+        String vida;
+        String energia;
+        String fuerza;
+        String defensa;
+        String frase;
+
+        try {
+            scanner = new Scanner(new File(directorio));
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        while (scanner.hasNext()) {
+
+            String linea = scanner.nextLine();
+
+            aux = linea.split(";");
+
+            coordenadas = aux[0].split(",");
+
+            tipo = aux[1];
+
+            nombre = aux[2];
+
+            vida = aux[3];
+
+            energia = aux[4];
+
+            fuerza = aux[5];
+
+            defensa = aux[6];
+
+            frase = aux[7];
+
+            Point punto = new Point(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
+
+            new Personaje(punto, nombre, tipo, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase);
+
+        }
+
+        scanner.close();
+
+    }
+
+    public ArrayList<Objeto> LeerObjetos(String directorio) {
+
+        ArrayList<Objeto> Objetos = new ArrayList<>();
+
+        Scanner scanner = null;
+        String a = "";
+        Mapa mapa = new Mapa();
+
+        String[] aux;
+        String[] coordenadas = null;
+        String nombre;
+        String tipo;
+        String propietario;
+        String descripcion;
+        String modificador;
+        String efecto;
+        String peso;
+
+        try {
+            scanner = new Scanner(new File(directorio));
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        while (scanner.hasNext()) {
+
+            String linea = scanner.nextLine();
+
+            aux = linea.split(";");
+
+            coordenadas = aux[0].split(",");
+
+            propietario = aux[1];
+
+            tipo = aux[2];
+
+            nombre = aux[3];
+
+            descripcion = aux[4];
+
+            modificador = aux[5];
+
+            efecto = aux[6];
+
+            peso = aux[7];
+
+            Point punto = new Point(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
+
+            Objetos.add(new Objeto(punto, propietario, tipo, nombre, descripcion, modificador, Integer.parseInt(efecto), Float.parseFloat(peso)));
+
+        }
+
+        scanner.close();
+
+        return Objetos;
+
     }
 
 }

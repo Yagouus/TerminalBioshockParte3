@@ -164,6 +164,10 @@ public class Personaje {
     public void setRecorrido(String direccion) {
         this.recorrido.add(direccion);
     }
+    
+    public void setMapa(Mapa mapa){
+        this.mapa = mapa;
+    }
 
 
     // Metodos propios    

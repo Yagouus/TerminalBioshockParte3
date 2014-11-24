@@ -1,4 +1,3 @@
-
 package Mapa;
 
 import Items.Objeto;
@@ -6,13 +5,13 @@ import java.util.ArrayList;
 
 public class Celda {
 
-    private  String descripcion;
-    private  ArrayList<Objeto> items;
-    private  boolean transitable;
-    private  boolean descubierta;
-    private  boolean esInicio;
-    private  boolean esFin;
-    private  String tipo;
+    private String descripcion;
+    private ArrayList<Objeto> items;
+    private boolean transitable;
+    private boolean visible;
+    private boolean esInicio;
+    private boolean esFin;
+    private String tipo;
 
     // Constructor    
     public Celda() {
@@ -20,48 +19,46 @@ public class Celda {
         this.descripcion = "Unknown";
         this.items = new ArrayList<>();
         this.transitable = false;
-        this.descubierta = false;
+        this.visible = false;
         this.esInicio = false;
         this.esFin = false;
-      
 
     }
-    
+
     public Celda(String descripcion, ArrayList<Objeto> items, boolean transitable, boolean esInicio, boolean esFin) {
 
         this.descripcion = "Unknown";
         this.items = new ArrayList<>();
         this.transitable = false;
-        this.descubierta = false;
+        this.visible = false;
         this.esInicio = false;
         this.esFin = false;
-   
 
     }
-    
-    public Celda(String tipo, String descripcion){
-        
+
+    public Celda(String tipo, String descripcion) {
+
         this.descripcion = descripcion;
         this.tipo = tipo;
-        this.transitable = false;
-        this.descubierta = false;
+        this.transitable = true;
+        this.visible = false;
         this.esFin = false;
-        this.esFin = false;
-        
+
+
     }
 
     // Getters
     public String getDescripcion() {
         return descripcion;
     }
-    
-    public String getTipo(){
+
+    public String getTipo() {
         return this.tipo;
     }
 
     public ArrayList<Objeto> getItems() {
         return items;
-    }    
+    }
 
     public boolean isTransitable() {
         return transitable;
@@ -73,6 +70,10 @@ public class Celda {
 
     public boolean isEsFin() {
         return esFin;
+    }
+
+    public boolean isVisible() {
+        return this.visible;
     }
 
     // Setters    
@@ -91,15 +92,20 @@ public class Celda {
     public void setEsFin() {
         this.esFin = true;
     }
+    
+    public void setVisible(){
+        this.visible = true;
+    }
 
     // Metodo para imprimir
     @Override
     public String toString() {
-        if (transitable) 
+        if (transitable) {
             return " ";
-         else 
+        } else {
             return "X";
-        
+        }
+
     }
 
 }

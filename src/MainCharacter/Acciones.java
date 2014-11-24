@@ -241,7 +241,7 @@ public class Acciones {
 
     }
 
-    public void LeerMapa() {
+    public void LeerMapa(Personaje personaje) {
 
         Scanner scanner = null;
         String a = "";
@@ -272,15 +272,14 @@ public class Acciones {
             descripcion = aux[2];
 
             mapa.insertaCelda(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]), new Celda(tipo, descripcion));
-
-            System.out.println(coordenadas[0] + coordenadas[1]);
-            System.out.println(tipo);
-
         }
-        mapa.setTamaño(10, 10);
-        mapa.imprimeMapa();
 
         scanner.close();
+        
+        personaje.setMapa(mapa);
+        personaje.getMapa().setTamaño(10, 10);
+        personaje.getMapa().crearMuros();
+        
     }
 
 }

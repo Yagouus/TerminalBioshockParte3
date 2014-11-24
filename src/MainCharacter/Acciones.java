@@ -277,7 +277,7 @@ public class Acciones {
         scanner.close();
         
         personaje.setMapa(mapa);
-        personaje.getMapa().setTamaño(10, 10);
+        personaje.getMapa().setTamaño(Integer.parseInt(coordenadas[0]) + 1, Integer.parseInt(coordenadas[1]) + 1 );
         personaje.getMapa().crearMuros();
         
     }

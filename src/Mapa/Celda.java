@@ -40,10 +40,12 @@ public class Celda {
 
         this.descripcion = descripcion;
         this.tipo = tipo;
+        
         this.transitable = true;
         this.visible = false;
         this.esFin = false;
 
+         
 
     }
 

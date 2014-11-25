@@ -42,14 +42,14 @@ public class Acciones {
             case "mover":
 
                 personaje.getAccionesPersonaje().Mover(personaje, personaje.getMapa());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Mirar":
             case "mirar":
 
                 personaje.getAccionesPersonaje().Mirar(personaje);
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Coger":
@@ -60,7 +60,7 @@ public class Acciones {
                 String objects = personaje.getAccionesPersonaje().verObjetos(personaje);
                 aux2 = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().cogerObjeto(personaje, aux2.toString());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Tirar":
@@ -70,7 +70,7 @@ public class Acciones {
 
                 aux3 = JOptionPane.showInputDialog(null, personaje.getMochila().getContenido().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().dejarObjeto(personaje, aux3.toString());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Usar":
@@ -79,7 +79,7 @@ public class Acciones {
 
                 aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().usarObjeto(personaje, aux6.toString());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Mirar Objeto":
@@ -89,7 +89,7 @@ public class Acciones {
                 String objects2 = personaje.getAccionesPersonaje().verObjetos(personaje);
                 aux4 = JOptionPane.showInputDialog(null, objects2, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().mirarObjeto(personaje, aux4.toString());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Hablar":
@@ -97,21 +97,21 @@ public class Acciones {
                 Object aux5;
                 aux5 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().hablar(personaje, aux5.toString());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Ojear":
             case "ojear":
 
                 personaje.getAccionesPersonaje().ojearInventario(personaje);
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Ayuda":
             case "ayuda":
 
                 JOptionPane.showMessageDialog(null, "Mover: moverte por el mapa \nMirar: Ver objetos y personajes de la celda  \nCoger: Coger objetos  \nUsar: usar objetos \nTirar: tirar objeto  \nOjear: ver contenido mochila \nAyuda: inception \nSalir: salir del juego", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE);
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
             case "Atacar":
@@ -120,7 +120,7 @@ public class Acciones {
                 Object aux7;
                 aux7 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().atacar(personaje, aux7.toString());
-
+                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
         }
@@ -207,7 +207,7 @@ public class Acciones {
 
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
-                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                            
 
                         } else {
                             repetir = true;
@@ -229,7 +229,7 @@ public class Acciones {
                             personaje.setRecorrido("Sur");
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
-                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                           
 
                         } else {
                             repetir = true;
@@ -251,7 +251,7 @@ public class Acciones {
                             personaje.setRecorrido("Este");
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
-                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                           
 
                         } else {
                             repetir = true;
@@ -273,7 +273,7 @@ public class Acciones {
                             personaje.setRecorrido("Oeste");
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
-                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                          
 
                         } else {
                             repetir = true;

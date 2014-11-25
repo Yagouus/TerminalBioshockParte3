@@ -1,9 +1,10 @@
 package MainCharacter;
 
-
+import Items.Objeto;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Personaje {
 
@@ -38,10 +39,9 @@ public class Personaje {
         this.posicion = mapa.getInicio();
         this.accionesPersonaje = new Acciones();
 
-
     }
-    
-    public Personaje(Point punto, String nombre, String tipo, Integer vida, Integer energia, Integer fuerza, Integer defensa, String frase){
+
+    public Personaje(Point punto, String nombre, String tipo, Integer vida, Integer energia, Integer fuerza, Integer defensa, String frase) {
         this.posicion = punto;
         this.Nombre = nombre;
         this.tipo = tipo;
@@ -50,7 +50,7 @@ public class Personaje {
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.frase = frase;
-        
+
     }
 
     public Personaje(Mapa mapa, String Nombre, Integer vida, Integer energia, Integer Fuerza, Integer Defensa, String tipo) {
@@ -59,7 +59,7 @@ public class Personaje {
         this.vida = vida;
         this.energia = energia;
         this.fuerza = Fuerza;
-        this.defensa= Defensa;
+        this.defensa = Defensa;
         this.pasos = 0;
         this.mochila = new Mochila();
         this.mapa = mapa;
@@ -68,12 +68,11 @@ public class Personaje {
         this.movimientos = new ArrayList<>();
         this.accionesPersonaje = new Acciones();
         this.tipo = tipo;
-  
 
     }
-    
+
     public Personaje() {
-        
+
         this.Nombre = "Unknown";
         this.tipo = "Unknown";
         this.vida = 5;
@@ -93,7 +92,7 @@ public class Personaje {
     }
 
     public Integer getVida() {
-        return this.vida;  
+        return this.vida;
     }
 
     public Mochila getMochila() {
@@ -135,6 +134,11 @@ public class Personaje {
     public Acciones getAccionesPersonaje() {
         return accionesPersonaje;
     }
+    
+    public String getTipo(){
+        return this.tipo;
+    }
+ 
 
     // Setters
     public void setNombre(String Nombre) {
@@ -142,19 +146,23 @@ public class Personaje {
     }
 
     public void setVida(Integer vida) {
-        
-        if(vida < 0 || vida > 100)
+
+        if (vida < 0 || vida > 100) {
             System.out.println("Parametro Invalido");
-        if (this.vida <0)
-                this.vida=0;
+        }
+        if (this.vida < 0) {
+            this.vida = 0;
+        }
         this.vida = vida;
     }
 
     public void setEnergia(Integer energia) {
-        if(energia < 0 || energia > 100)
+        if (energia < 0 || energia > 100) {
             System.out.println("Parametro Invalido");
-        if(this.energia <0)
-                this.energia=0;
+        }
+        if (this.energia < 0) {
+            this.energia = 0;
+        }
         this.energia = energia;
     }
 
@@ -165,32 +173,61 @@ public class Personaje {
     public void setPosicion(Point posicion) {
         this.posicion = posicion;
     }
-    
-     public void setMovimientos(ArrayList<Point> movimientos) {
+
+    public void setMovimientos(ArrayList<Point> movimientos) {
         this.movimientos = movimientos;
     }
-     
-     public void setMovimientos(Point celda) {
+
+    public void setMovimientos(Point celda) {
         this.movimientos.add(celda);
     }
 
     public void setRecorrido(ArrayList<String> recorrido) {
         this.recorrido = recorrido;
     }
-    
+
     public void setRecorrido(String direccion) {
         this.recorrido.add(direccion);
     }
-    
-    public void setMapa(Mapa mapa){
+
+    public void setMapa(Mapa mapa) {
         this.mapa = mapa;
     }
-
+    
+    public void setTipo(String tipo){
+        
+        this.tipo = tipo;
+    }
+    
+    public void setFuerza(Integer fuerza){
+        this.fuerza = fuerza;
+    }
+    
+    public void setDefensa(Integer defensa){
+        this.defensa = defensa;
+    }
 
     // Metodos propios    
+
+    public String getFrase() {
+        return frase;
+    }
+
+    public void setFrase(String frase) {
+        this.frase = frase;
+    }
+    
+    public void anadirMochila(Objeto objeto){
+        
+        this.mochila.setContenido(objeto);
+        this.mochila.actualizarPeso();
+        
+    }
+   
+
     @Override
     public String toString() {
-        return "\n\n[NOMBRE:" + this.getNombre() + "\033[031m VIDA:" + this.getVida() + " \033[34mENERGIA:" + this.getEnergia() + "\033[30m]";//To change body of generated methods, choose Tools | Templates.
+        return "NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia();//To change body of generated methods, choose Tools | Templates.
     }
 
 }

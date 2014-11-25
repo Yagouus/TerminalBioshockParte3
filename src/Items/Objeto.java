@@ -66,6 +66,10 @@ public class Objeto {
         return this.posicion;
     }
     
+    public String getDescripcion(){
+        return this.descripcion;
+    }
+    
     // Setters
 
     public void setNombre(String nombre) {

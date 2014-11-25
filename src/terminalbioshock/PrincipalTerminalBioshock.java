@@ -12,34 +12,22 @@ import static javax.swing.JOptionPane.showInputDialog;
 
 public class PrincipalTerminalBioshock {
 
-    public static void main(String[] args) {
-        
-        Personaje personaje = new Personaje();        
-        
-        personaje.getAccionesPersonaje().LeerMapa(personaje);
-        personaje.getAccionesPersonaje().LeerPersonajes("CSV/npcs.csv");
-        ArrayList<Objeto> Objetos = personaje.getAccionesPersonaje().LeerObjetos("CSV/objetos.csv");
-        
-        personaje.setPosicion(new Point(0,0));
-  
-       
+    public static void main(String[] args) {         
 
-        ImageIcon icon = new ImageIcon("Images/Atlas.jpg");
+        //Inicio de juego
+        ImageIcon icon = new ImageIcon("Images/finn.gif");
         ImageIcon logo = new ImageIcon("Images/Logo.png");
-
-        // Imprime logo de Bioschock
-        //JOptionPane.showMessageDialog(null, map.getNombre());
-        //JOptionPane.showMessageDialog(null, map.getDescripcion());
+  
         JOptionPane.showMessageDialog(null, "", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE, logo);
-
-        String aux=null;
-        do{
-            aux = showInputDialog("Introduzca el nombre del personaje: ");
-        }while(aux.equals(""));
         
-        //Personaje personaje = new Personaje(map, aux, 100, 7, 10, 7);
+        //Creamos personaje y asignamos atributos
+        Personaje personaje = new Personaje();      
+        
+        ArrayList<Objeto> objetos = new ArrayList<>();
+        
+        personaje.getAccionesPersonaje().cargar("CSV", personaje);        
+        personaje.setPosicion(personaje.getMapa().getInicio());
 
-        //JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
         
         // Bucle de Juego
         do {
@@ -62,13 +50,13 @@ public class PrincipalTerminalBioshock {
         }else if(personaje.getVida() <=0){
             JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
         } 
-        else {/*
+        else {
             JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
-            map.imprimeMapa(personaje);
+            personaje.getMapa().imprimeMapa(personaje);
             JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");
             System.out.println("\nTUS ESTADISTICAS: " + personaje);
             JOptionPane.showMessageDialog(null, "\nHAS DADO: " + personaje.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + personaje.getRecorrido());
-        */}
+        }
 
     }
 

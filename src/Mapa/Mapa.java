@@ -13,7 +13,6 @@ public class Mapa {
     private String Nombre;
     private String Descripcion;
     private HashMap<Point, Celda> mapa;
-    private ArrayList<Personaje> NPCS;
     private final Point tamaño;
 
     // Constructor
@@ -49,6 +48,10 @@ public class Mapa {
         return mapa;
     }
 
+    public Point getTamaño() {
+        return this.tamaño;
+    }
+
     // Setters
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
@@ -69,8 +72,16 @@ public class Mapa {
 
     }
 
-    public void setPersonajes(ArrayList<Personaje> personajes) {
-        this.NPCS = personajes;
+    public void setInicio() {
+
+        this.getMapa().get(new Point(0, 0)).setEsInicio();
+
+    }
+
+    public void setFin() {
+
+        this.getMapa().get(new Point(9, 9)).setEsFin();
+
     }
 
     // Metodos propios
@@ -146,7 +157,6 @@ public class Mapa {
         }
 
     }
-    
 
     public Point getInicio() {
         for (int i = 0; i < this.tamaño.x; i++) {
@@ -262,9 +272,28 @@ public class Mapa {
         for (int i = 0; i < objetos.size(); i++) {
 
             this.getMapa().get(objetos.get(i).getPosicion()).getItems().add(objetos.get(i));
-            
+
         }
 
     }
-    
+
+    public void colocaPersonajes(ArrayList<Personaje> personajes, Personaje personaje) {
+
+        for (int i = 0; i < personajes.size(); i++) {
+
+            if (personajes.get(i).getTipo().equals("jugador")) {
+                personaje.setNombre(personajes.get(i).getNombre());
+                personaje.setVida(personajes.get(i).getVida());
+                personaje.setTipo(personajes.get(i).getTipo());
+                personaje.setFuerza(personajes.get(i).getFuerza());
+                personaje.setDefensa(personajes.get(i).getDefensa());
+                personaje.setFrase(personajes.get(i).getFrase());
+
+            }
+            this.getMapa().get(personajes.get(i).getPosicion()).añadirPersonaje(personajes.get(i));
+
+        }
+
+    }
+
 }

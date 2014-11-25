@@ -17,15 +17,16 @@ import static javax.swing.JOptionPane.showInputDialog;
 
 public class Acciones {
 
+    //Seleccionar accion
     public void SeleccionarOpcion(Personaje personaje) {
 
         Object aux1;
         String aux = null;
-        ImageIcon icon = new ImageIcon("Images/Atlas.jpg");
+        ImageIcon icon = new ImageIcon("Images/finn.gif");
 
         do {
 
-            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar, Salir", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar, Coger, Usar, Dejar, \nOjear, Ayuda, Salir", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
 
         } while (aux1 == null);
 
@@ -51,10 +52,64 @@ public class Acciones {
 
                 break;
 
+            case "Coger":
+            case "coger":
+
+                Object aux2;
+
+                String objects = personaje.getAccionesPersonaje().verObjetos(personaje);
+                aux2 = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                personaje.getAccionesPersonaje().cogerObjeto(personaje, aux2.toString());
+
+                break;
+
+            case "Tirar":
+            case "tirar":
+
+                Object aux3;
+
+                aux3 = JOptionPane.showInputDialog(null, personaje.getMochila().getContenido().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                personaje.getAccionesPersonaje().dejarObjeto(personaje, aux3.toString());
+
+                break;
+
+            case "Usar":
+            case "usar":
+
+                personaje.getAccionesPersonaje().Mirar(personaje);
+
+                break;
+
+            case "Mirar Objeto":
+            case "mirar objeto":
+                Object aux4;
+
+                String objects2 = personaje.getAccionesPersonaje().verObjetos(personaje);
+                aux4 = JOptionPane.showInputDialog(null, objects2, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                personaje.getAccionesPersonaje().mirarObjeto(personaje, aux4.toString());
+
+                break;
+
+            case "Hablar":
+            case "hablar":
+                Object aux5;
+                aux5 = JOptionPane.showInputDialog(null,personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                personaje.getAccionesPersonaje().hablar(personaje, aux5.toString());
+
+                break;
+
+            case "Ojear":
+            case "ojear":
+
+                personaje.getAccionesPersonaje().ojearInventario(personaje);
+
+                break;
+
         }
 
     }
 
+    //Acciones posibles
     public void Mover(Personaje personaje, Mapa mapa) {
 
         String Mensaje = "";
@@ -132,7 +187,7 @@ public class Acciones {
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Norte");
 
-                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
@@ -153,7 +208,7 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Sur");
-                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
@@ -174,7 +229,7 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Este");
-                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
@@ -195,7 +250,7 @@ public class Acciones {
                             personaje.setMovimientos(personaje.getPosicion());
                             personaje.setPosicion(posicionPersonaje);
                             personaje.setRecorrido("Oeste");
-                            int a = (int) floor(personaje.getMochila().getPeso() % 5);
+                            int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
 
                         } else {
@@ -213,7 +268,7 @@ public class Acciones {
 
     public void Mirar(Personaje personaje) {
 
-        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion() != null && !personaje.getMovimientos().contains(personaje.getPosicion())) {
+        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion() != null) {
             JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
         }
 
@@ -223,6 +278,61 @@ public class Acciones {
             JOptionPane.showMessageDialog(null, "No has encontrado nada...");
 
         }
+
+        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size() != 0) {
+            JOptionPane.showMessageDialog(null, "Te encuentras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "No te has encontrado con nadie...");
+        }
+    }
+
+    public String verObjetos(Personaje personaje) {
+
+        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size() != 0) {
+            return personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().toString();
+        } else {
+            return "No has encontrado nada...";
+
+        }
+
+    }
+
+    public void mirarObjeto(Personaje personaje, String objeto) {
+
+        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size(); i++) {
+
+            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
+
+                JOptionPane.showMessageDialog(null, "Descripcion:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getDescripcion());
+            }
+
+        }
+    }
+
+    public void cogerObjeto(Personaje personaje, String objeto) {
+
+        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size(); i++) {
+
+            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
+                personaje.anadirMochila(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
+                personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().remove(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
+            }
+
+        }
+
+    }
+
+    public void dejarObjeto(Personaje personaje, String objeto) {
+
+        for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
+
+            if (personaje.getMochila().getContenido().get(i).getNombre().equals(objeto)) {
+                personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().add(personaje.getMochila().getContenido().get(i));
+                personaje.getMochila().getContenido().remove(personaje.getMochila().getContenido().get(i));
+            }
+
+        }
+
     }
 
     public void RestarVida(Personaje personaje) {
@@ -234,10 +344,48 @@ public class Acciones {
 
     }
 
-    public void LeerMapa(Personaje personaje) {
+    public void ojearInventario(Personaje personaje) {
+
+        if (!personaje.getMochila().getContenido().isEmpty()) {
+        JOptionPane.showMessageDialog(null, personaje.getMochila().getContenido().toString() + "\nPeso: " + personaje.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+             JOptionPane.showMessageDialog(null, "Tu mochila esta vacia", "Mochila", JOptionPane.INFORMATION_MESSAGE);
+         }
+    }
+
+    public void hablar(Personaje personaje, String nombre) {
+
+        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
+
+            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre().equals(nombre)) {
+
+                JOptionPane.showMessageDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre() + " dice: \n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFrase());
+            }
+
+        }
+
+    }
+
+    //Carga de datos
+    public void cargar(String directorio, Personaje personaje) {
+
+        personaje.setMapa(LeerMapa(directorio));
+        personaje.getMapa().setTamaño(10, 10);
+        personaje.getMapa().crearMuros();
+        personaje.getMapa().setInicio();
+        personaje.getMapa().setFin();
+        ArrayList<Objeto> objetos = LeerObjetos(directorio);
+        personaje.getMapa().colocaObjetos(objetos);
+        personaje.getMapa().colocaPersonajes(personaje.getAccionesPersonaje().LeerPersonajes(directorio), personaje);
+
+    }
+
+    public Mapa LeerMapa(String directorio) {
 
         Scanner scanner = null;
         String a = "";
+        a = directorio;
+        a += "/mapa.csv";
         Mapa mapa = new Mapa();
 
         String[] aux;
@@ -246,7 +394,7 @@ public class Acciones {
         String tipo;
 
         try {
-            scanner = new Scanner(new File("CSV/mapa.csv"));
+            scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -269,17 +417,16 @@ public class Acciones {
 
         scanner.close();
 
-        personaje.setMapa(mapa);
-        personaje.getMapa().setTamaño(Integer.parseInt(coordenadas[0]) + 1, Integer.parseInt(coordenadas[1]) + 1);
-        personaje.getMapa().crearMuros();
+        return mapa;
 
     }
 
-    public void LeerPersonajes(String directorio) {
+    public ArrayList<Personaje> LeerPersonajes(String directorio) {
 
         Scanner scanner = null;
         String a = "";
-        Mapa mapa = new Mapa();
+        a = directorio;
+        a += "/npcs.csv";
 
         String[] aux;
         String[] coordenadas = null;
@@ -291,8 +438,10 @@ public class Acciones {
         String defensa;
         String frase;
 
+        ArrayList<Personaje> personajes = new ArrayList<>();
+
         try {
-            scanner = new Scanner(new File(directorio));
+            scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
@@ -322,11 +471,13 @@ public class Acciones {
 
             Point punto = new Point(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
 
-            new Personaje(punto, nombre, tipo, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase);
+            personajes.add(new Personaje(punto, nombre, tipo, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
 
         }
 
         scanner.close();
+
+        return personajes;
 
     }
 
@@ -336,6 +487,8 @@ public class Acciones {
 
         Scanner scanner = null;
         String a = "";
+        a = directorio;
+        a += "/objetos.csv";
         Mapa mapa = new Mapa();
 
         String[] aux;
@@ -349,7 +502,7 @@ public class Acciones {
         String peso;
 
         try {
-            scanner = new Scanner(new File(directorio));
+            scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);

@@ -44,7 +44,10 @@ public class Mochila {
     }
 
     public Float getPeso() {
-        return this.calculaPeso();
+        
+        this.actualizarPeso();
+        
+        return this.peso;
     }
 
     public Integer getnObjetos() {
@@ -70,18 +73,18 @@ public class Mochila {
   
     public void setContenido(Objeto contenido) {
         this.contenido.add(contenido);
-    }    
+    }      
     
-    
-    // Metodos Propios
-    private Float calculaPeso(){
-        Float peso = 0f;
+    // Metodos Propios   
+    public void actualizarPeso(){
         
-        for(int i = 0; i < this.nObjetos; i++){
-            peso += this.getContenido().get(i).getPeso();
+        Float pesamen = 0f;
+        
+        for(int i = 0; i < this.contenido.size(); i++){
+            pesamen += this.getContenido().get(i).getPeso();
         }
         
-        return peso;        
+        this.peso = pesamen;
     }
     
 }

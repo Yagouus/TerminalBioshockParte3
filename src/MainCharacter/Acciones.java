@@ -431,11 +431,8 @@ public class Acciones {
         for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
             if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigoactivo") || personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo")) {
 
-                personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).setVida(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() - (personaje.getFuerza() * 10 - personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getDefensa()));
+                personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).setVida(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() - (10 + (personaje.getFuerza()/10) - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getDefensa()/10)));
 
-                personaje.setVida(personaje.getVida() - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 2) - personaje.getDefensa());
-
-                JOptionPane.showMessageDialog(null, "Te han atacado!", "NO!", JOptionPane.ERROR_MESSAGE);
 
             }
         }
@@ -447,7 +444,7 @@ public class Acciones {
 
             if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigoactivo")) {
 
-                personaje.setVida(personaje.getVida() - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 2) - personaje.getDefensa());
+                personaje.setVida(personaje.getVida() - (10 + (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 10) - personaje.getDefensa()/10));
 
                 JOptionPane.showMessageDialog(null, "Te han atacado!", "NO!", JOptionPane.ERROR_MESSAGE);
 

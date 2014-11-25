@@ -85,6 +85,7 @@ public class Objeto {
     public void setPropietario(String propietario) {
         this.propietario = propietario;
     }
+   
     
     // Setters
 

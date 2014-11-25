@@ -207,6 +207,7 @@ public class Acciones {
 
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
+                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
 
                         } else {
                             repetir = true;
@@ -228,6 +229,7 @@ public class Acciones {
                             personaje.setRecorrido("Sur");
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
+                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
 
                         } else {
                             repetir = true;
@@ -249,6 +251,7 @@ public class Acciones {
                             personaje.setRecorrido("Este");
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
+                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
 
                         } else {
                             repetir = true;
@@ -270,6 +273,7 @@ public class Acciones {
                             personaje.setRecorrido("Oeste");
                             int a = (int) (personaje.getMochila().getPeso() % 5);
                             personaje.setEnergia(personaje.getEnergia() - (resta + a));
+                            personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
 
                         } else {
                             repetir = true;
@@ -429,13 +433,28 @@ public class Acciones {
 
                 personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).setVida(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() - (personaje.getFuerza() * 10 - personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getDefensa()));
 
-                
-                personaje.setVida(personaje.getVida() - (personaje.getDefensa() - personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza()*2));
+                personaje.setVida(personaje.getVida() - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 2) - personaje.getDefensa());
 
-            } else {
-                JOptionPane.showMessageDialog(null, "No tienes a nadie a quien atacar", "NO!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Te han atacado!", "NO!", JOptionPane.ERROR_MESSAGE);
+
             }
         }
+    }
+
+    public void ataqueAutomatico(Personaje personaje) {
+
+        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
+
+            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigoactivo")) {
+
+                personaje.setVida(personaje.getVida() - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 2) - personaje.getDefensa());
+
+                JOptionPane.showMessageDialog(null, "Te han atacado!", "NO!", JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        }
+
     }
 
     //Carga de datos

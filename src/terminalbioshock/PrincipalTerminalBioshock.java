@@ -36,7 +36,7 @@ public class PrincipalTerminalBioshock {
             System.out.println(personaje);
          
             personaje.getAccionesPersonaje().SeleccionarOpcion(personaje);
-
+ 
             if( personaje.getEnergia() <=0){
                 //tomar poti se ten
                 break;

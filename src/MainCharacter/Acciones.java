@@ -26,7 +26,7 @@ public class Acciones {
 
         do {
 
-            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar, Coger, Usar, Dejar, \nOjear, Ayuda, Salir", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+            aux1 = JOptionPane.showInputDialog(null, "Mover, Mirar, Coger, Usar, Tirar, \nOjear, Ayuda, Salir", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
 
         } while (aux1 == null);
 
@@ -75,8 +75,10 @@ public class Acciones {
 
             case "Usar":
             case "usar":
+                Object aux6;
 
-                personaje.getAccionesPersonaje().Mirar(personaje);
+                aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                personaje.getAccionesPersonaje().usarObjeto(personaje, aux6.toString());
 
                 break;
 
@@ -93,7 +95,7 @@ public class Acciones {
             case "Hablar":
             case "hablar":
                 Object aux5;
-                aux5 = JOptionPane.showInputDialog(null,personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                aux5 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().hablar(personaje, aux5.toString());
 
                 break;
@@ -102,6 +104,22 @@ public class Acciones {
             case "ojear":
 
                 personaje.getAccionesPersonaje().ojearInventario(personaje);
+
+                break;
+
+            case "Ayuda":
+            case "ayuda":
+
+                JOptionPane.showMessageDialog(null, "Mover: moverte por el mapa \nMirar: Ver objetos y personajes de la celda  \nCoger: Coger objetos  \nUsar: usar objetos \nTirar: tirar objeto  \nOjear: ver contenido mochila \nAyuda: inception \nSalir: salir del juego", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE);
+
+                break;
+
+            case "Atacar":
+            case "atacar":
+
+                Object aux7;
+                aux7 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                personaje.getAccionesPersonaje().atacar(personaje, aux7.toString());
 
                 break;
 
@@ -314,8 +332,20 @@ public class Acciones {
         for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size(); i++) {
 
             if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
-                personaje.anadirMochila(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
-                personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().remove(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
+                if (personaje.getFuerza() > 10 && personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getTipo().equals("arma")) {
+                    JOptionPane.showMessageDialog(null, "No puedes llevar mas de un arma", "NO!", JOptionPane.ERROR_MESSAGE);
+                } else {
+
+                    personaje.anadirMochila(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
+
+                    if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getModificador().equals("fuerza")) {
+                        personaje.setFuerza(personaje.getFuerza() + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getEfecto());
+                    } else if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getModificador().equals("defensa")) {
+                        personaje.setDefensa(personaje.getDefensa() + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getEfecto());
+                    }
+
+                    personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().remove(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
+                }
             }
 
         }
@@ -327,8 +357,16 @@ public class Acciones {
         for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
 
             if (personaje.getMochila().getContenido().get(i).getNombre().equals(objeto)) {
+
+                if (personaje.getMochila().getContenido().get(i).getModificador().equals("fuerza")) {
+                    personaje.setFuerza(personaje.getFuerza() - personaje.getMochila().getContenido().get(i).getEfecto());
+                } else if (personaje.getMochila().getContenido().get(i).getModificador().equals("defensa")) {
+                    personaje.setDefensa(personaje.getDefensa() - personaje.getMochila().getContenido().get(i).getEfecto());
+                }
+
                 personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().add(personaje.getMochila().getContenido().get(i));
                 personaje.getMochila().getContenido().remove(personaje.getMochila().getContenido().get(i));
+
             }
 
         }
@@ -347,10 +385,10 @@ public class Acciones {
     public void ojearInventario(Personaje personaje) {
 
         if (!personaje.getMochila().getContenido().isEmpty()) {
-        JOptionPane.showMessageDialog(null, personaje.getMochila().getContenido().toString() + "\nPeso: " + personaje.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, personaje.getMochila().getContenido().toString() + "\nPeso: " + personaje.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
         } else {
-             JOptionPane.showMessageDialog(null, "Tu mochila esta vacia", "Mochila", JOptionPane.INFORMATION_MESSAGE);
-         }
+            JOptionPane.showMessageDialog(null, "Tu mochila esta vacia", "Mochila", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     public void hablar(Personaje personaje, String nombre) {
@@ -364,6 +402,40 @@ public class Acciones {
 
         }
 
+    }
+
+    public void usarObjeto(Personaje personaje, String objeto) {
+
+        for (int i = 0; i < personaje.getMochila().getConenidoUsable().size(); i++) {
+
+            if (personaje.getMochila().getConenidoUsable().get(i).getModificador().equals("salud")) {
+
+                personaje.setVida(personaje.getVida() + personaje.getMochila().getConenidoUsable().get(i).getEfecto());
+
+            } else if (personaje.getMochila().getConenidoUsable().get(i).getModificador().equals("energia")) {
+
+                personaje.setEnergia(personaje.getEnergia() + personaje.getMochila().getConenidoUsable().get(i).getEfecto());
+
+            }
+
+        }
+
+    }
+
+    public void atacar(Personaje personaje, String nombre) {
+
+        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
+            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigoactivo") || personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo")) {
+
+                personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).setVida(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() - (personaje.getFuerza() * 10 - personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getDefensa()));
+
+                
+                personaje.setVida(personaje.getVida() - (personaje.getDefensa() - personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza()*2));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No tienes a nadie a quien atacar", "NO!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     //Carga de datos

@@ -58,6 +58,20 @@ public class Mochila {
         return contenido;
     }
     
+    public ArrayList<Objeto> getConenidoUsable(){
+        
+        ArrayList<Objeto> usables = new ArrayList<>();
+        
+        for(int i = 0; i < this.contenido.size(); i++){
+            
+            usables.add(this.contenido.get(i));
+            
+        }
+        
+        return usables;
+        
+    }
+    
     // Setters
     public void setPeso(Float peso) {
         this.peso = peso;

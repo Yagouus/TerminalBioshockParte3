@@ -69,6 +69,22 @@ public class Objeto {
     public String getDescripcion(){
         return this.descripcion;
     }
+
+    public String getModificador() {
+        return modificador;
+    }
+
+    public void setModificador(String modificador) {
+        this.modificador = modificador;
+    }
+
+    public String getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(String propietario) {
+        this.propietario = propietario;
+    }
     
     // Setters
 

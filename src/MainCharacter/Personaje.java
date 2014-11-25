@@ -148,12 +148,14 @@ public class Personaje {
     public void setVida(Integer vida) {
 
         if (vida < 0 || vida > 100) {
-            System.out.println("Parametro Invalido");
+           
+        }else{
+            this.vida = vida;
         }
         if (this.vida < 0) {
             this.vida = 0;
         }
-        this.vida = vida;
+        
     }
 
     public void setEnergia(Integer energia) {
@@ -223,11 +225,13 @@ public class Personaje {
         this.mochila.actualizarPeso();
         
     }
+    
+  
    
 
     @Override
     public String toString() {
-        return "NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia();//To change body of generated methods, choose Tools | Templates.
+        return "NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + " FUERZA: " + this.getFuerza() + " DEFENSA: " + this.getDefensa();
     }
 
 }

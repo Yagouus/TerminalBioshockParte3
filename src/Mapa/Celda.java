@@ -87,6 +87,7 @@ public class Celda {
 
     }
 
+
     // Setters    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

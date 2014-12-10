@@ -40,8 +40,12 @@ public class Acciones {
 
             case "Mover":
             case "mover":
-
-                personaje.getAccionesPersonaje().Mover(personaje, personaje.getMapa());
+                
+                Object direccion;
+               
+                direccion = JOptionPane.showInputDialog(null, "A donde quieres ir?", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                
+                personaje.Mover(direccion.toString());
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
@@ -59,7 +63,7 @@ public class Acciones {
 
                 String objects = personaje.getAccionesPersonaje().verObjetos(personaje);
                 aux2 = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                personaje.getAccionesPersonaje().cogerObjeto(personaje, aux2.toString());
+                personaje.Coger(aux2.toString());
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
@@ -100,8 +104,8 @@ public class Acciones {
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
-            case "Inventar":
-            case "inventar":
+            case "Inventario":
+            case "inventario":
 
                 personaje.getAccionesPersonaje().ojearInventario(personaje);
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
@@ -116,10 +120,19 @@ public class Acciones {
 
             case "Atacar":
             case "atacar":
-
+                   
+                int index = 0;
+                Personaje enemigo = new Personaje();
+                
                 Object aux7;
                 aux7 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                personaje.getAccionesPersonaje().atacar(personaje, aux7.toString());
+                do{
+                    
+                   enemigo = personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(index); 
+                    
+                }while(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(index).getNombre().equals(aux7));
+                
+                personaje.atacar(enemigo);
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
@@ -160,7 +173,7 @@ public class Acciones {
             case "Coger":
             case "coger":
 
-                personaje.getAccionesPersonaje().cogerObjeto(personaje, movbjeto);
+                personaje.Coger(movbjeto);
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
@@ -202,7 +215,7 @@ public class Acciones {
             case "Atacar":
             case "atacar":
 
-                personaje.getAccionesPersonaje().atacar(personaje, movbjeto);
+                //personaje.atacar(movbjeto);
                 personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
                 break;
 
@@ -211,162 +224,7 @@ public class Acciones {
     }
 
     //Acciones posibles
-    public void Mover(Personaje personaje, Mapa mapa) {
-
-        String Mensaje = "";
-        int resta = 3;
-
-        Point posicionPersonaje = new Point();
-        int x, y;
-
-        x = personaje.getPosicion().x;
-        y = personaje.getPosicion().y;
-
-        String aux = null;
-
-        Mensaje += ("\nMovimientos disponibles:");
-
-        // Norte
-        posicionPersonaje.x = x - 1;
-        posicionPersonaje.y = y;
-
-        if (mapa.getMapa().get(posicionPersonaje) != null) {
-            if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje += (" Norte(N)");
-            }
-        }
-
-        // Sur
-        posicionPersonaje.x = x + 1;
-        posicionPersonaje.y = y;
-
-        if (mapa.getMapa().get(posicionPersonaje) != null) {
-            if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje += (" Sur(S)");
-            }
-        }
-
-        // Este
-        posicionPersonaje.x = x;
-        posicionPersonaje.y = y + 1;
-
-        if (mapa.getMapa().get(posicionPersonaje) != null) {
-            if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje += (" Este(E)");
-            }
-        }
-
-        // Oeste
-        posicionPersonaje.x = x;
-        posicionPersonaje.y = y - 1;
-
-        if (mapa.getMapa().get(posicionPersonaje) != null) {
-            if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                Mensaje += (" Oeste(O)");
-            }
-        }
-
-        boolean repetir;
-
-        do {
-            do {
-                aux = showInputDialog(null, Mensaje, "Elige una direccion chico, ¿quieres?", JOptionPane.QUESTION_MESSAGE);
-            } while (aux == null);
-            repetir = false;
-
-            switch (aux) {
-
-                case "n":
-                case "N":
-
-                    posicionPersonaje.x = x - 1;
-                    posicionPersonaje.y = y;
-
-                    if (mapa.getMapa().get(posicionPersonaje) != null) {
-                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                            personaje.setMovimientos(personaje.getPosicion());
-                            personaje.setPosicion(posicionPersonaje);
-                            personaje.setRecorrido("Norte");
-
-                            int a = (int) (personaje.getMochila().getPeso() % 5);
-                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
-
-                        } else {
-                            repetir = true;
-                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                    break;
-
-                case "s":
-                case "S":
-
-                    posicionPersonaje.x = x + 1;
-                    posicionPersonaje.y = y;
-
-                    if (mapa.getMapa().get(posicionPersonaje) != null) {
-                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                            personaje.setMovimientos(personaje.getPosicion());
-                            personaje.setPosicion(posicionPersonaje);
-                            personaje.setRecorrido("Sur");
-                            int a = (int) (personaje.getMochila().getPeso() % 5);
-                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
-
-                        } else {
-                            repetir = true;
-                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                    break;
-
-                case "e":
-                case "E":
-
-                    posicionPersonaje.x = x;
-                    posicionPersonaje.y = y + 1;
-
-                    if (mapa.getMapa().get(posicionPersonaje) != null) {
-                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                            personaje.setMovimientos(personaje.getPosicion());
-                            personaje.setPosicion(posicionPersonaje);
-                            personaje.setRecorrido("Este");
-                            int a = (int) (personaje.getMochila().getPeso() % 5);
-                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
-
-                        } else {
-                            repetir = true;
-                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                    break;
-
-                case "o":
-                case "O":
-
-                    posicionPersonaje.x = x;
-                    posicionPersonaje.y = y - 1;
-
-                    if (mapa.getMapa().get(posicionPersonaje) != null) {
-                        if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
-                            personaje.setMovimientos(personaje.getPosicion());
-                            personaje.setPosicion(posicionPersonaje);
-                            personaje.setRecorrido("Oeste");
-                            int a = (int) (personaje.getMochila().getPeso() % 5);
-                            personaje.setEnergia(personaje.getEnergia() - (resta + a));
-
-                        } else {
-                            repetir = true;
-                            JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
-                    break;
-
-            }
-
-        } while (repetir);
-
-    }
-
+  
     public void Mover(Personaje personaje, Mapa mapa, String direccion) {
 
         String Mensaje = "";
@@ -512,35 +370,7 @@ public class Acciones {
             }
 
         }
-    }
-
-    public void cogerObjeto(Personaje personaje, String objeto) {
-
-        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size(); i++) {
-
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
-                if (personaje.getFuerza() > 10 && personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getTipo().equals("arma")) {
-                    JOptionPane.showMessageDialog(null, "No puedes llevar mas de un arma", "NO!", JOptionPane.ERROR_MESSAGE);
-                } else if (personaje.getDefensa() > 0 && personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getTipo().equals("defensa")) {
-                    JOptionPane.showMessageDialog(null, "No puedes llevar mas de un objeto de defensa", "NO!", JOptionPane.ERROR_MESSAGE);
-
-                } else {
-
-                    personaje.anadirMochila(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
-
-                    if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getModificador().equals("fuerza")) {
-                        personaje.setFuerza(personaje.getFuerza() + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getEfecto());
-                    } else if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getModificador().equals("defensa")) {
-                        personaje.setDefensa(personaje.getDefensa() + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getEfecto());
-                    }
-
-                    personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().remove(personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i));
-                }
-            }
-
-        }
-
-    }
+    }  
 
     public void dejarObjeto(Personaje personaje, String objeto) {
 
@@ -616,31 +446,6 @@ public class Acciones {
 
         }
 
-    }
-
-    public void atacar(Personaje personaje, String nombre) {
-
-        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigoactivo") && personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre().equals(nombre) || personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo") && personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre().equals(nombre)) {
-
-                personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).setVida(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() - (20 + (personaje.getFuerza() / 10) - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getDefensa() / 10)));
-                JOptionPane.showMessageDialog(null, "Has atacado a tu enemigo!\n Le has quitado: " + ((20 + (personaje.getFuerza() / 10) - (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getDefensa() / 10))) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
-
-            } else if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("amigo") && personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre().equals(nombre)) {
-
-                JOptionPane.showMessageDialog(null, "No puedes atacar un aliado!", "NO!", JOptionPane.ERROR_MESSAGE);
-
-            }
-
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo") && personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre().equals(nombre) && personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() > 0) {
-
-                personaje.setVida(personaje.getVida() - (2 + (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 10) - personaje.getDefensa() / 10));
-                JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 10) - personaje.getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
-
-            }
-        }
-
-        //gestionCadaveres(personaje);
     }
 
     public void ataqueAutomatico(Personaje personaje) {

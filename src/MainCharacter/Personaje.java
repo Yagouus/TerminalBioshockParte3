@@ -4,7 +4,9 @@ import Items.Objeto;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showInputDialog;
 
 public class Personaje {
 
@@ -206,7 +208,7 @@ public class Personaje {
     public void setDefensa(Integer defensa) {
         this.defensa = defensa;
     }
-    
+
     // Metodos propios    
     public String getFrase() {
         return frase;
@@ -218,14 +220,155 @@ public class Personaje {
 
     public void anadirMochila(Objeto objeto) {
 
-        if((this.mochila.getPeso() + objeto.getPeso()) > this.mochila.getPesoMax()){
-             JOptionPane.showMessageDialog(null, "No puedes coger eso", "NO!", JOptionPane.ERROR_MESSAGE);
-        }else{
-        this.mochila.setContenido(objeto);
-        this.mochila.actualizarPeso();
+        if ((this.mochila.getPeso() + objeto.getPeso()) > this.mochila.getPesoMax()) {
+            JOptionPane.showMessageDialog(null, "No puedes coger eso", "NO!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            this.mochila.setContenido(objeto);
+            this.mochila.actualizarPeso();
         }
     }
 
+    //AHORA LAS ACCIONES VAN EN LOS PERSONAJES
+    public void Mover(String aux) {
+
+        String Mensaje = "";
+        int resta = 3;
+
+        Point posicionPersonaje = new Point();
+        int x, y;
+
+        x = getPosicion().x;
+        y = getPosicion().y;
+
+        switch (aux) {
+
+            case "n":
+            case "N":
+
+                posicionPersonaje.x = x - 1;
+                posicionPersonaje.y = y;
+
+                if (mapa.getMapa().get(posicionPersonaje) != null) {
+                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        setMovimientos(getPosicion());
+                        setPosicion(posicionPersonaje);
+                        setRecorrido("Norte");
+
+                        int a = (int) (getMochila().getPeso() % 5);
+                        setEnergia(getEnergia() - (resta + a));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
+
+            case "s":
+            case "S":
+
+                posicionPersonaje.x = x + 1;
+                posicionPersonaje.y = y;
+
+                if (mapa.getMapa().get(posicionPersonaje) != null) {
+                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        setMovimientos(getPosicion());
+                        setPosicion(posicionPersonaje);
+                        setRecorrido("Sur");
+                        int a = (int) (getMochila().getPeso() % 5);
+                        setEnergia(getEnergia() - (resta + a));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
+
+            case "e":
+            case "E":
+
+                posicionPersonaje.x = x;
+                posicionPersonaje.y = y + 1;
+
+                if (mapa.getMapa().get(posicionPersonaje) != null) {
+                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        setMovimientos(getPosicion());
+                        setPosicion(posicionPersonaje);
+                        setRecorrido("Este");
+                        int a = (int) (getMochila().getPeso() % 5);
+                        setEnergia(getEnergia() - (resta + a));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
+
+            case "o":
+            case "O":
+
+                posicionPersonaje.x = x;
+                posicionPersonaje.y = y - 1;
+
+                if (mapa.getMapa().get(posicionPersonaje) != null) {
+                    if (mapa.getMapa().get(posicionPersonaje).isTransitable()) {
+                        setMovimientos(getPosicion());
+                        setPosicion(posicionPersonaje);
+                        setRecorrido("Oeste");
+                        int a = (int) (getMochila().getPeso() % 5);
+                        setEnergia(getEnergia() - (resta + a));
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                break;
+
+        }
+
+    }
+
+    public void Coger(String objeto) {
+
+        for (int i = 0; i < getMapa().getMapa().get(getPosicion()).getItems().size(); i++) {
+
+            if (getMapa().getMapa().get(getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
+                if (getFuerza() > 10 && getMapa().getMapa().get(getPosicion()).getItems().get(i).getTipo().equals("arma")) {
+                    JOptionPane.showMessageDialog(null, "No puedes llevar mas de un arma", "NO!", JOptionPane.ERROR_MESSAGE);
+                } else if (getDefensa() > 0 && getMapa().getMapa().get(getPosicion()).getItems().get(i).getTipo().equals("defensa")) {
+                    JOptionPane.showMessageDialog(null, "No puedes llevar mas de un objeto de defensa", "NO!", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    anadirMochila(getMapa().getMapa().get(getPosicion()).getItems().get(i));
+
+                    if (getMapa().getMapa().get(getPosicion()).getItems().get(i).getModificador().equals("fuerza")) {
+                        setFuerza(getFuerza() + getMapa().getMapa().get(getPosicion()).getItems().get(i).getEfecto());
+                    } else if (getMapa().getMapa().get(getPosicion()).getItems().get(i).getModificador().equals("defensa")) {
+                        setDefensa(getDefensa() + getMapa().getMapa().get(getPosicion()).getItems().get(i).getEfecto());
+                    }
+
+                    getMapa().getMapa().get(getPosicion()).getItems().remove(getMapa().getMapa().get(getPosicion()).getItems().get(i));
+                }
+            }
+
+        }
+
+    }
+
+    public void atacar(Personaje Enemigo) {
+
+        /*getMapa().getMapa().get(getPosicion()).getNPCS().get(i).setVida(getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() - (20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10)));
+        JOptionPane.showMessageDialog(null, "Has atacado a tu enemigo!\n Le has quitado: " + ((20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10))) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+
+        if (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo") && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getNombre().equals(nombre) && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() > 0) {
+
+            setVida(getVida() - (2 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10));
+            JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+
+        }*/
+    }
+
+        
     @Override
     public String toString() {
         return "NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + " FUERZA: " + this.getFuerza() + " DEFENSA: " + this.getDefensa();

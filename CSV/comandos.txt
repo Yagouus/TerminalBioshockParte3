@@ -51,8 +51,14 @@ mirar pocion-rara
 coger pocion-rara
 mover sur
 mirar
+mirar Gunter
 atacar Gunter
 atacar Gunter
+atacar Gunter
+atacar Gunter
+atacar Gunter
+atacar Gunter
+mirar
 mover sur
 mover este
 coger torito-rojo

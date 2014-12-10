@@ -50,6 +50,8 @@ public class Personaje {
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.frase = frase;
+        this.mochila = new Mochila();
+        this.accionesPersonaje = new Acciones();
 
     }
 
@@ -134,11 +136,10 @@ public class Personaje {
     public Acciones getAccionesPersonaje() {
         return accionesPersonaje;
     }
-    
-    public String getTipo(){
+
+    public String getTipo() {
         return this.tipo;
     }
- 
 
     // Setters
     public void setNombre(String Nombre) {
@@ -147,15 +148,12 @@ public class Personaje {
 
     public void setVida(Integer vida) {
 
-        if (vida < 0 || vida > 100) {
-           
-        }else{
-            this.vida = vida;
-        }
+        this.vida = vida;
+
         if (this.vida < 0) {
             this.vida = 0;
         }
-        
+
     }
 
     public void setEnergia(Integer energia) {
@@ -195,22 +193,21 @@ public class Personaje {
     public void setMapa(Mapa mapa) {
         this.mapa = mapa;
     }
-    
-    public void setTipo(String tipo){
-        
+
+    public void setTipo(String tipo) {
+
         this.tipo = tipo;
     }
-    
-    public void setFuerza(Integer fuerza){
+
+    public void setFuerza(Integer fuerza) {
         this.fuerza = fuerza;
     }
-    
-    public void setDefensa(Integer defensa){
+
+    public void setDefensa(Integer defensa) {
         this.defensa = defensa;
     }
-
+    
     // Metodos propios    
-
     public String getFrase() {
         return frase;
     }
@@ -218,16 +215,16 @@ public class Personaje {
     public void setFrase(String frase) {
         this.frase = frase;
     }
-    
-    public void anadirMochila(Objeto objeto){
-        
+
+    public void anadirMochila(Objeto objeto) {
+
+        if((this.mochila.getPeso() + objeto.getPeso()) > this.mochila.getPesoMax()){
+             JOptionPane.showMessageDialog(null, "No puedes coger eso", "NO!", JOptionPane.ERROR_MESSAGE);
+        }else{
         this.mochila.setContenido(objeto);
         this.mochila.actualizarPeso();
-        
+        }
     }
-    
-  
-   
 
     @Override
     public String toString() {

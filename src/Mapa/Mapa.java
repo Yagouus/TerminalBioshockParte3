@@ -107,27 +107,29 @@ public class Mapa {
             for (int j = 0; j < tamaño.y; j++) {
                 if (this.getMapa().get(new Point(i, j)) != null) {
                     if (this.getMapa().get(new Point(i, j)).equals(personaje.getMapa().getMapa().get(personaje.getPosicion()))) {
-                        System.out.print("@ ");
+                        System.out.print(" @ ");
                     } else {
                         if (this.getMapa().get(new Point(i, j)).isTransitable()) {
                             if (this.getMapa().get(new Point(i, j)).isVisible()) {
-                                if (this.getMapa().get(new Point(i, j)).getTipo().equals("camino")) {
-                                    System.out.print(". ");
+                                if (this.getMapa().get(new Point(i, j)).isEsFin()) {
+                                    System.out.print(" F ");
                                 } else if (this.getMapa().get(new Point(i, j)).getTipo().equals("edificacion")) {
-                                    System.out.print("# ");
+                                    System.out.print(" # ");
                                 } else if (this.getMapa().get(new Point(i, j)).getTipo().equals("bosque")) {
-                                    System.out.print("^ ");
+                                    System.out.print(" ^ ");
                                 } else if (this.getMapa().get(new Point(i, j)).getTipo().equals("prado")) {
-                                    System.out.print("_ ");
+                                    System.out.print(" _ ");
+                                } else if (this.getMapa().get(new Point(i, j)).getTipo().equals("camino")) {
+                                    System.out.print(" . ");
                                 }
                             } else {
-                                System.out.print("? ");
+                                System.out.print(" ? ");
                             }
                         } else {
                             if (this.getMapa().get(new Point(i, j)).isVisible()) {
-                                System.out.print("X ");
+                                System.out.print(" X ");
                             } else {
-                                System.out.print("? ");
+                                System.out.print(" ? ");
                             }
                         }
                     }
@@ -267,11 +269,29 @@ public class Mapa {
         }
     }
 
-    public void colocaObjetos(ArrayList<Objeto> objetos) {
+    public void colocaObjetos(ArrayList<Objeto> objetos, Personaje personaje) {
 
         for (int i = 0; i < objetos.size(); i++) {
 
-            this.getMapa().get(objetos.get(i).getPosicion()).getItems().add(objetos.get(i));
+            if (!objetos.get(i).getTipo().equals("mochila")) {
+
+                if (objetos.get(i).getPropietario().equals(".")) {
+
+                    this.getMapa().get(objetos.get(i).getPosicion()).getItems().add(objetos.get(i));
+
+                } else {
+                    for (int j = 0; j < personaje.getMapa().getMapa().get(objetos.get(i).getPosicion()).getNPCS().size(); j++) {
+                        if (personaje.getMapa().getMapa().get(objetos.get(i).getPosicion()).getNPCS().get(j).getNombre().equals(objetos.get(i).getPropietario())) {
+                            personaje.getMapa().getMapa().get(objetos.get(i).getPosicion()).getNPCS().get(j).anadirMochila(objetos.get(i));
+                        }
+                    }
+                }
+            } else {
+
+                personaje.getMochila().setCapacidad(objetos.get(i).getEfecto());
+                personaje.getMochila().setPesoMax(objetos.get(i).getPeso());
+
+            }
 
         }
 
@@ -289,11 +309,25 @@ public class Mapa {
                 personaje.setDefensa(personajes.get(i).getDefensa());
                 personaje.setFrase(personajes.get(i).getFrase());
 
+            } else {
+                this.getMapa().get(personajes.get(i).getPosicion()).añadirPersonaje(personajes.get(i));
             }
-            this.getMapa().get(personajes.get(i).getPosicion()).añadirPersonaje(personajes.get(i));
-
         }
 
+    }
+
+    public void tienesMapa(Personaje personaje) {
+
+        for (int i = 0; i < tamaño.x; i++) {
+            for (int j = 0; j < tamaño.y; j++) {
+                if (this.getMapa().get(new Point(i, j)) != null) {
+
+                    this.getMapa().get(new Point(i, j)).setVisible();
+
+                }
+
+            }
+        }
     }
 
 }

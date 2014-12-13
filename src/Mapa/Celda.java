@@ -1,7 +1,7 @@
 package Mapa;
 
 import Items.Objeto;
-import MainCharacter.Personaje;
+import Personajes.Personaje;
 import java.util.ArrayList;
 
 public class Celda {

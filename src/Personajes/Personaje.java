@@ -1,4 +1,4 @@
-package MainCharacter;
+package Personajes;
 
 import Items.Objeto;
 import Mapa.Mapa;
@@ -228,7 +228,7 @@ public class Personaje {
         }
     }
 
-    //AHORA LAS ACCIONES VAN EN LOS PERSONAJES
+    //ACCIONES
     public void Mover(String aux) {
 
         String Mensaje = "";
@@ -358,17 +358,36 @@ public class Personaje {
     public void atacar(Personaje Enemigo) {
 
         /*getMapa().getMapa().get(getPosicion()).getNPCS().get(i).setVida(getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() - (20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10)));
-        JOptionPane.showMessageDialog(null, "Has atacado a tu enemigo!\n Le has quitado: " + ((20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10))) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+         JOptionPane.showMessageDialog(null, "Has atacado a tu enemigo!\n Le has quitado: " + ((20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10))) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
 
-        if (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo") && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getNombre().equals(nombre) && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() > 0) {
+         if (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo") && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getNombre().equals(nombre) && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() > 0) {
 
-            setVida(getVida() - (2 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10));
-            JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+         setVida(getVida() - (2 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10));
+         JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
 
-        }*/
+         }*/
     }
 
-        
+    public void Tirar(Objeto objeto) {
+
+        if (objeto.getModificador().equals("fuerza")) {
+            setFuerza(getFuerza() - objeto.getEfecto());
+        } else if (objeto.getModificador().equals("defensa")) {
+            setDefensa(getDefensa() - objeto.getEfecto());
+        }
+
+        for (int i = 0; i < getMochila().getContenido().size(); i++) {
+
+            if (getMochila().getContenido().get(i).equals(objeto)) {
+
+                getMapa().getMapa().get(getPosicion()).getItems().add(getMochila().getContenido().get(i));
+                getMochila().getContenido().remove(getMochila().getContenido().get(i));
+
+            }
+
+        }
+    }
+
     @Override
     public String toString() {
         return "NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + " FUERZA: " + this.getFuerza() + " DEFENSA: " + this.getDefensa();

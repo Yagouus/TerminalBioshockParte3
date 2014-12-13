@@ -1,7 +1,7 @@
 package terminalbioshock;
 
 import Items.Objeto;
-import MainCharacter.Personaje;
+import Personajes.Personaje;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;

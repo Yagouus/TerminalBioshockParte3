@@ -1,6 +1,7 @@
 package Personajes;
 
 import Items.Objeto;
+import Personajes.Personaje;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 

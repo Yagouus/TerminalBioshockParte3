@@ -1,8 +1,15 @@
-package Personajes;
+package terminalbioshock;
 
 import Items.Objeto;
 import Mapa.Celda;
 import Mapa.Mapa;
+import Personajes.Amigo;
+import Personajes.EnemigoActivo;
+import Personajes.EnemigoPasivo;
+import Personajes.Guerrero;
+import Personajes.Jugador;
+import Personajes.Mago;
+import Personajes.Personaje;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -15,7 +22,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
 
-public class Acciones {
+public class Juego {
+
+    Mapa MapaJuego = new Mapa();
+    Jugador Jugador;
+
+    //Getters
+    public Mapa getMapaJuego() {
+        return MapaJuego;
+    }
+
+    public Personaje getJugador() {
+        return Jugador;
+    }
 
     //Seleccionar accion
     public void SeleccionarOpcion(Personaje personaje) {
@@ -46,14 +65,14 @@ public class Acciones {
                 direccion = JOptionPane.showInputDialog(null, "A donde quieres ir?", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
 
                 personaje.Mover(direccion.toString());
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Mirar":
             case "mirar":
 
                 personaje.getAccionesPersonaje().Mirar(personaje);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Coger":
@@ -65,7 +84,7 @@ public class Acciones {
                 aux2 = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.Coger(aux2.toString());
 
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Tirar":
@@ -81,7 +100,7 @@ public class Acciones {
                     }
                 }
 
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Usar":
@@ -90,7 +109,7 @@ public class Acciones {
 
                 aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().usarObjeto(personaje, aux6.toString());
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Mirar Objeto":
@@ -100,7 +119,7 @@ public class Acciones {
                 String objects2 = personaje.getAccionesPersonaje().verObjetos(personaje);
                 aux4 = JOptionPane.showInputDialog(null, objects2, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().mirarObjeto(personaje, aux4.toString());
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Hablar":
@@ -108,21 +127,21 @@ public class Acciones {
                 Object aux5;
                 aux5 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().hablar(personaje, aux5.toString());
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Inventario":
             case "inventario":
 
                 personaje.getAccionesPersonaje().ojearInventario(personaje);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Ayuda":
             case "ayuda":
 
                 JOptionPane.showMessageDialog(null, "Mover: moverte por el mapa \nMirar: Ver objetos y personajes de la celda  \nCoger: Coger objetos  \nUsar: usar objetos \nTirar: tirar objeto  \nOjear: ver contenido mochila \nAyuda: inception \nSalir: salir del juego", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Atacar":
@@ -140,7 +159,7 @@ public class Acciones {
                 } while (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(index).getNombre().equals(aux7));
 
                 personaje.atacar(enemigo);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
         }
@@ -156,8 +175,8 @@ public class Acciones {
             case "Mover":
             case "mover":
 
-                personaje.getAccionesPersonaje().Mover(personaje, personaje.getMapa(), movbjeto);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                Jugador.Mover(movbjeto);
+                this.ataqueAutomatico();
                 break;
 
             case "Mirar":
@@ -166,13 +185,12 @@ public class Acciones {
                 if (!movbjeto.equals("")) {
 
                     personaje.getAccionesPersonaje().mirarObjeto(personaje, movbjeto);
-                    personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                    this.ataqueAutomatico();
 
                 } else {
 
                     personaje.getAccionesPersonaje().Mirar(personaje);
-                    personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
-
+                    this.ataqueAutomatico();
                 }
 
                 break;
@@ -181,54 +199,54 @@ public class Acciones {
             case "coger":
 
                 personaje.Coger(movbjeto);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Tirar":
             case "tirar":
-                
+
                 for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
                     if (personaje.getMochila().getContenido().get(i).getNombre().equals(movbjeto)) {
                         personaje.Tirar(personaje.getMochila().getContenido().get(i));
                     }
                 }
 
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Usar":
             case "usar":
 
                 personaje.getAccionesPersonaje().usarObjeto(personaje, movbjeto);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Hablar":
             case "hablar":
 
                 personaje.getAccionesPersonaje().hablar(personaje, movbjeto);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Inventario":
             case "inventario":
 
                 personaje.getAccionesPersonaje().ojearInventario(personaje);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Ayuda":
             case "ayuda":
 
                 JOptionPane.showMessageDialog(null, "Mover: moverte por el mapa \nMirar: Ver objetos y personajes de la celda  \nCoger: Coger objetos  \nUsar: usar objetos \nTirar: tirar objeto  \nOjear: ver contenido mochila \nAyuda: inception \nSalir: salir del juego", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                this.ataqueAutomatico();
                 break;
 
             case "Atacar":
             case "atacar":
 
                 //personaje.atacar(movbjeto);
-                personaje.getAccionesPersonaje().ataqueAutomatico(personaje);
+                ataqueAutomatico();
                 break;
 
         }
@@ -438,15 +456,15 @@ public class Acciones {
 
     }
 
-    public void ataqueAutomatico(Personaje personaje) {
+    public void ataqueAutomatico() {
 
-        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
+        for (int i = 0; i < MapaJuego.getMapa().get(Jugador.getPosicion()).getNPCS().size(); i++) {
 
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getTipo().equals("enemigoactivo") && personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() > 0) {
+            if (MapaJuego.getMapa().get(Jugador.getPosicion()).getNPCS().get(i) instanceof EnemigoActivo && MapaJuego.getMapa().get(Jugador.getPosicion()).getNPCS().get(i).getVida() > 0) {
 
-                personaje.setVida(personaje.getVida() - (10 + (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 10) - personaje.getDefensa() / 10));
+                Jugador.setVida(Jugador.getVida() - (10 + (MapaJuego.getMapa().get(Jugador.getPosicion()).getNPCS().get(i).getFuerza() / 10) - Jugador.getDefensa() / 10));
 
-                JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFuerza() / 10) - personaje.getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (MapaJuego.getMapa().get(Jugador.getPosicion()).getNPCS().get(i).getFuerza() / 10) - Jugador.getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
 
             }
 
@@ -456,33 +474,32 @@ public class Acciones {
 
     /*public void gestionCadaveres(Personaje personaje) {
 
-        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
+     for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
 
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() <= 0) {
+     if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getVida() <= 0) {
 
-                for (int j = 0; j < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getMochila().getContenido().size(); j++) {
+     for (int j = 0; j < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getMochila().getContenido().size(); j++) {
 
-                    personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getAccionesPersonaje().dejarObjeto(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i), personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getMochila().getContenido().get(j).getNombre());
+     personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getAccionesPersonaje().dejarObjeto(personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i), personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getMochila().getContenido().get(j).getNombre());
 
-                }
+     }
 
-            }
+     }
 
-        }
+     }
 
-    }*/
-
+     }*/
     //Carga de datos
-    public void cargar(String directorio, Personaje personaje) {
+    public void cargar(String directorio) {
 
-        personaje.setMapa(LeerMapa(directorio));
-        personaje.getMapa().setTamaño(10, 10);
-        personaje.getMapa().crearMuros();
-        personaje.getMapa().setInicio();
-        personaje.getMapa().setFin();
-        personaje.getMapa().colocaPersonajes(personaje.getAccionesPersonaje().LeerPersonajes(directorio), personaje);
+        MapaJuego = LeerMapa(directorio);
+        MapaJuego.setTamaño(10, 10);
+        MapaJuego.crearMuros();
+        MapaJuego.setInicio();
+        MapaJuego.setFin();
+        colocaPersonajes(LeerPersonajes(directorio));
         ArrayList<Objeto> objetos = LeerObjetos(directorio);
-        personaje.getMapa().colocaObjetos(objetos, personaje);
+        MapaJuego.colocaObjetos(objetos, Jugador);
 
     }
 
@@ -503,7 +520,7 @@ public class Acciones {
             scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         while (scanner.hasNext()) {
@@ -550,7 +567,7 @@ public class Acciones {
             scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         while (scanner.hasNext()) {
@@ -577,7 +594,50 @@ public class Acciones {
 
             Point punto = new Point(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
 
-            personajes.add(new Personaje(punto, nombre, tipo, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+            switch (tipo) {
+
+                case "jugador":
+
+                    personajes.add(Jugador = new Jugador(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+                    Jugador.setPosicion(MapaJuego.getInicio());
+                    Jugador.setMapa(MapaJuego);
+                    break;
+
+                case "mago":
+
+                    personajes.add(Jugador = new Mago(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+                    Jugador.setPosicion(MapaJuego.getInicio());
+                    Jugador.setMapa(MapaJuego);
+                    break;
+
+                case "gerrero":
+
+                    personajes.add(Jugador = new Guerrero(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+                    Jugador.setPosicion(MapaJuego.getInicio());
+                    Jugador.setMapa(MapaJuego);
+                    break;
+
+                case "enemigoactivo":
+
+                    personajes.add(new EnemigoActivo(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+
+                    break;
+
+                case "enemigopasivo":
+
+                    personajes.add(new EnemigoPasivo(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+
+                    break;
+
+                case "amigo":
+
+                    personajes.add(new Amigo(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+
+                    break;
+
+            }
+
+            personajes.add(new Personaje(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
 
         }
 
@@ -611,7 +671,7 @@ public class Acciones {
             scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         while (scanner.hasNext()) {
@@ -668,7 +728,7 @@ public class Acciones {
             scanner = new Scanner(new File(a));
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Acciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         while (scanner.hasNext()) {
@@ -692,7 +752,7 @@ public class Acciones {
 
     }
 
-    public void UsarComando(ArrayList<String> comandos, Personaje personaje) {
+    public void UsarComando(ArrayList<String> comandos) {
 
         int i = 0;
 
@@ -704,27 +764,45 @@ public class Acciones {
 
             i++;
 
-            personaje.getMapa().imprimeMapa(personaje);
-            System.out.println(personaje);
+            MapaJuego.imprimeMapa(Jugador);
+            System.out.println(Jugador);
 
             if (aux.length > 1) {
-                personaje.getAccionesPersonaje().SeleccionarOpcion(personaje, aux[0], aux[1]);
+                SeleccionarOpcion(Jugador, aux[0], aux[1]);
             } else {
-                personaje.getAccionesPersonaje().SeleccionarOpcion(personaje, aux[0], "");
+                SeleccionarOpcion(Jugador, aux[0], "");
             }
 
-        } while (!personaje.getMapa().getMapa().get((personaje.getPosicion())).isEsFin() && personaje.getVida() >= 0 || i < comandos.size());
+        } while (!MapaJuego.getMapa().get((Jugador.getPosicion())).isEsFin() && Jugador.getVida() >= 0 || i < comandos.size());
 
-        if (personaje.getEnergia() <= 0) {
+        if (Jugador.getEnergia() <= 0) {
             JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
-        } else if (personaje.getVida() <= 0) {
+        } else if (Jugador.getVida() <= 0) {
             JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
         } else {
-            JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
-            personaje.getMapa().imprimeMapa(personaje);
+            JOptionPane.showMessageDialog(null, "\n" + Jugador.getMapa().getMapa().get(Jugador.getPosicion()).getDescripcion());
+            Jugador.getMapa().imprimeMapa(Jugador);
             JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");
-            System.out.println("\nTUS ESTADISTICAS: " + personaje);
-            JOptionPane.showMessageDialog(null, "\nHAS DADO: " + personaje.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + personaje.getRecorrido());
+            System.out.println("\nTUS ESTADISTICAS: " + Jugador);
+            JOptionPane.showMessageDialog(null, "\nHAS DADO: " + Jugador.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + Jugador.getRecorrido());
+        }
+
+    }
+
+    public void colocaPersonajes(ArrayList<Personaje> personajes) {
+
+        for (int i = 0; i < personajes.size(); i++) {
+
+            if (personajes.get(i) instanceof Jugador) {
+                Jugador.setNombre(personajes.get(i).getNombre());
+                Jugador.setVida(personajes.get(i).getVida());
+                Jugador.setFuerza(personajes.get(i).getFuerza());
+                Jugador.setDefensa(personajes.get(i).getDefensa());
+                Jugador.setFrase(personajes.get(i).getFrase());
+
+            } else {
+                MapaJuego.getMapa().get(personajes.get(i).getPosicion()).añadirPersonaje(personajes.get(i));
+            }
         }
 
     }

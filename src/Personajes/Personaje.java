@@ -1,34 +1,32 @@
 package Personajes;
 
+import terminalbioshock.Juego;
 import Items.Objeto;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
+
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.showInputDialog;
 
 public class Personaje {
 
-    private String Nombre;
-    private String tipo;
-    private Integer vida;
-    private Integer energia;
-    private Integer fuerza;
-    private Integer defensa;
-    private Integer pasos;
-    private Mochila mochila;
-    private String frase;
-    private Point posicion;
-    private ArrayList<String> recorrido;
-    private ArrayList<Point> movimientos;
-    private Mapa mapa;
-    private Acciones accionesPersonaje;
+    protected String Nombre;
+    protected Integer vida;
+    protected Integer energia;
+    protected Integer fuerza;
+    protected Integer defensa;
+    protected Integer pasos;
+    protected Mochila mochila;
+    protected String frase;
+    protected Point posicion;
+    protected ArrayList<String> recorrido;
+    protected ArrayList<Point> movimientos;
+    protected Mapa mapa;
+    protected Juego accionesPersonaje;
 
     public Personaje(Mapa mapa) {
 
         this.Nombre = "Unknown";
-        this.tipo = "Unknown";
         this.vida = 5;
         this.energia = 100;
         this.fuerza = 10;
@@ -39,21 +37,22 @@ public class Personaje {
         this.recorrido = new ArrayList<>();
         this.movimientos = new ArrayList<>();
         this.posicion = mapa.getInicio();
-        this.accionesPersonaje = new Acciones();
+        this.accionesPersonaje = new Juego();
 
     }
 
-    public Personaje(Point punto, String nombre, String tipo, Integer vida, Integer energia, Integer fuerza, Integer defensa, String frase) {
+    public Personaje(Point punto, String nombre, Integer vida, Integer energia, Integer fuerza, Integer defensa, String frase) {
         this.posicion = punto;
         this.Nombre = nombre;
-        this.tipo = tipo;
         this.vida = vida;
         this.energia = energia;
         this.fuerza = fuerza;
         this.defensa = defensa;
         this.frase = frase;
         this.mochila = new Mochila();
-        this.accionesPersonaje = new Acciones();
+        this.accionesPersonaje = new Juego();
+        this.recorrido = new ArrayList<>();
+        this.movimientos = new ArrayList<>();
 
     }
 
@@ -70,15 +69,13 @@ public class Personaje {
         this.posicion = mapa.getInicio();
         this.recorrido = new ArrayList<>();
         this.movimientos = new ArrayList<>();
-        this.accionesPersonaje = new Acciones();
-        this.tipo = tipo;
+        this.accionesPersonaje = new Juego();
 
     }
 
     public Personaje() {
 
         this.Nombre = "Unknown";
-        this.tipo = "Unknown";
         this.vida = 5;
         this.energia = 100;
         this.fuerza = 10;
@@ -87,7 +84,21 @@ public class Personaje {
         this.mochila = new Mochila();
         this.recorrido = new ArrayList<>();
         this.movimientos = new ArrayList<>();
-        this.accionesPersonaje = new Acciones();
+        this.accionesPersonaje = new Juego();
+    }
+
+    public Personaje(String nombre) {
+
+        this.Nombre = nombre;
+        this.vida = 5;
+        this.energia = 100;
+        this.fuerza = 10;
+        this.defensa = 7;
+        this.pasos = 0;
+        this.mochila = new Mochila();
+        this.recorrido = new ArrayList<>();
+        this.movimientos = new ArrayList<>();
+        this.accionesPersonaje = new Juego();
     }
 
     // Getters
@@ -135,12 +146,8 @@ public class Personaje {
         return mapa;
     }
 
-    public Acciones getAccionesPersonaje() {
+    public Juego getAccionesPersonaje() {
         return accionesPersonaje;
-    }
-
-    public String getTipo() {
-        return this.tipo;
     }
 
     // Setters
@@ -196,11 +203,6 @@ public class Personaje {
         this.mapa = mapa;
     }
 
-    public void setTipo(String tipo) {
-
-        this.tipo = tipo;
-    }
-
     public void setFuerza(Integer fuerza) {
         this.fuerza = fuerza;
     }
@@ -243,7 +245,8 @@ public class Personaje {
         switch (aux) {
 
             case "n":
-            case "N":
+            case "norte":
+            case "Norte":
 
                 posicionPersonaje.x = x - 1;
                 posicionPersonaje.y = y;
@@ -264,7 +267,8 @@ public class Personaje {
                 break;
 
             case "s":
-            case "S":
+            case "sur":
+            case "Sur":
 
                 posicionPersonaje.x = x + 1;
                 posicionPersonaje.y = y;
@@ -284,7 +288,8 @@ public class Personaje {
                 break;
 
             case "e":
-            case "E":
+            case "este":
+            case "Este":
 
                 posicionPersonaje.x = x;
                 posicionPersonaje.y = y + 1;
@@ -304,7 +309,8 @@ public class Personaje {
                 break;
 
             case "o":
-            case "O":
+            case "oeste":
+            case "Oeste":
 
                 posicionPersonaje.x = x;
                 posicionPersonaje.y = y - 1;

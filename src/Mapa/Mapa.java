@@ -1,12 +1,12 @@
 package Mapa;
 
 import Items.Objeto;
+import Personajes.Jugador;
 import Personajes.Personaje;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.showInputDialog;
+
 
 public class Mapa {
 
@@ -98,15 +98,15 @@ public class Mapa {
 
     }
 
-    public void imprimeMapa(Personaje personaje) {
+    public void imprimeMapa(Jugador jugador) {
 
-        personaje.getMapa().visibilidad(personaje);
+        this.visibilidad(jugador);
 
         for (int i = 0; i < tamaño.x; i++) {
             System.out.print("\n");
             for (int j = 0; j < tamaño.y; j++) {
                 if (this.getMapa().get(new Point(i, j)) != null) {
-                    if (this.getMapa().get(new Point(i, j)).equals(personaje.getMapa().getMapa().get(personaje.getPosicion()))) {
+                    if (this.getMapa().get(new Point(i, j)).equals(this.getMapa().get(jugador.getPosicion()))) {
                         System.out.print(" @ ");
                     } else {
                         if (this.getMapa().get(new Point(i, j)).isTransitable()) {
@@ -185,72 +185,72 @@ public class Mapa {
         posicionPersonaje.x = x;
         posicionPersonaje.y = y;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         // Norte
         posicionPersonaje.x = x - 1;
         posicionPersonaje.y = y;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //Sur
         posicionPersonaje.x = x + 1;
         posicionPersonaje.y = y;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //Este
         posicionPersonaje.x = x;
         posicionPersonaje.y = y + 1;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //Oeste
         posicionPersonaje.x = x;
         posicionPersonaje.y = y - 1;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //NorOeste
         posicionPersonaje.x = x;
         posicionPersonaje.y = y - 1;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //NorEste
         posicionPersonaje.x = x - 1;
         posicionPersonaje.y = y - 1;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //SurEste
         posicionPersonaje.x = x + 1;
         posicionPersonaje.y = y + 1;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
         //SurOeste
         posicionPersonaje.x = x + 1;
         posicionPersonaje.y = y - 1;
 
-        if (personaje.getMapa().getMapa().get(posicionPersonaje) != null) {
-            personaje.getMapa().getMapa().get(posicionPersonaje).setVisible();
+        if (this.getMapa().get(posicionPersonaje) != null) {
+            this.getMapa().get(posicionPersonaje).setVisible();
         }
 
     }
@@ -280,11 +280,11 @@ public class Mapa {
                     this.getMapa().get(objetos.get(i).getPosicion()).getItems().add(objetos.get(i));
 
                 } else {
-                    for (int j = 0; j < personaje.getMapa().getMapa().get(objetos.get(i).getPosicion()).getNPCS().size(); j++) {
-                        if (personaje.getMapa().getMapa().get(objetos.get(i).getPosicion()).getNPCS().get(j).getNombre().equals(objetos.get(i).getPropietario())) {
-                            personaje.getMapa().getMapa().get(objetos.get(i).getPosicion()).getNPCS().get(j).anadirMochila(objetos.get(i));
-                        }
-                    }
+                    /*for (int j = 0; j < this.getMapa().get(objetos.get(i).getPosicion()).getNPCS().size(); j++) {
+                        if (this.getMapa().get(objetos.get(i).getPosicion()).getNPCS().get(j).getNombre().equals(objetos.get(i).getPropietario())) {
+                            this.getMapa().get(objetos.get(i).getPosicion()).getNPCS().get(j).anadirMochila(objetos.get(i));
+                        
+                    }*/
                 }
             } else {
 
@@ -297,24 +297,7 @@ public class Mapa {
 
     }
 
-    public void colocaPersonajes(ArrayList<Personaje> personajes, Personaje personaje) {
-
-        for (int i = 0; i < personajes.size(); i++) {
-
-            if (personajes.get(i).getTipo().equals("jugador")) {
-                personaje.setNombre(personajes.get(i).getNombre());
-                personaje.setVida(personajes.get(i).getVida());
-                personaje.setTipo(personajes.get(i).getTipo());
-                personaje.setFuerza(personajes.get(i).getFuerza());
-                personaje.setDefensa(personajes.get(i).getDefensa());
-                personaje.setFrase(personajes.get(i).getFrase());
-
-            } else {
-                this.getMapa().get(personajes.get(i).getPosicion()).añadirPersonaje(personajes.get(i));
-            }
-        }
-
-    }
+    
 
     public void tienesMapa(Personaje personaje) {
 

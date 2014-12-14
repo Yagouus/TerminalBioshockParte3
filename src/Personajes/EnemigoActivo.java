@@ -1,5 +1,11 @@
 package Personajes;
 
-public class EnemigoActivo extends Enemigo{
+import java.awt.Point;
+
+public class EnemigoActivo extends NPC{
+    
+    public EnemigoActivo(Point punto, String nombre, Integer vida, Integer energia, Integer fuerza, Integer defensa, String frase){
+    super(punto, nombre, vida, energia, fuerza, defensa, frase);
+    }
     
 }

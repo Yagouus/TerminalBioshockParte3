@@ -2,6 +2,8 @@ package Personajes;
 
 import terminalbioshock.Juego;
 import Items.Objeto;
+import Items.objetoarma;
+import Items.objetodefensivo;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -338,18 +340,18 @@ public class Personaje {
         for (int i = 0; i < getMapa().getMapa().get(getPosicion()).getItems().size(); i++) {
 
             if (getMapa().getMapa().get(getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
-                if (getFuerza() > 10 && getMapa().getMapa().get(getPosicion()).getItems().get(i).getTipo().equals("arma")) {
+                if (getFuerza() > 10 && getMapa().getMapa().get(getPosicion()).getItems().get(i) instanceof objetoarma) {
                     JOptionPane.showMessageDialog(null, "No puedes llevar mas de un arma", "NO!", JOptionPane.ERROR_MESSAGE);
-                } else if (getDefensa() > 0 && getMapa().getMapa().get(getPosicion()).getItems().get(i).getTipo().equals("defensa")) {
+                } else if (getDefensa() > 0 && getMapa().getMapa().get(getPosicion()).getItems().get(i) instanceof objetodefensivo) {
                     JOptionPane.showMessageDialog(null, "No puedes llevar mas de un objeto de defensa", "NO!", JOptionPane.ERROR_MESSAGE);
 
                 } else {
 
                     anadirMochila(getMapa().getMapa().get(getPosicion()).getItems().get(i));
 
-                    if (getMapa().getMapa().get(getPosicion()).getItems().get(i).getModificador().equals("fuerza")) {
+                    if (getMapa().getMapa().get(getPosicion()).getItems().get(i) instanceof objetoarma) {
                         setFuerza(getFuerza() + getMapa().getMapa().get(getPosicion()).getItems().get(i).getEfecto());
-                    } else if (getMapa().getMapa().get(getPosicion()).getItems().get(i).getModificador().equals("defensa")) {
+                    } else if (getMapa().getMapa().get(getPosicion()).getItems().get(i) instanceof objetodefensivo) {
                         setDefensa(getDefensa() + getMapa().getMapa().get(getPosicion()).getItems().get(i).getEfecto());
                     }
 
@@ -376,9 +378,9 @@ public class Personaje {
 
     public void Tirar(Objeto objeto) {
 
-        if (objeto.getModificador().equals("fuerza")) {
+        if (objeto instanceof objetoarma) {
             setFuerza(getFuerza() - objeto.getEfecto());
-        } else if (objeto.getModificador().equals("defensa")) {
+        } else if (objeto instanceof objetodefensivo) {
             setDefensa(getDefensa() - objeto.getEfecto());
         }
 

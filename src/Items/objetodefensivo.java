@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Items;
 
-/**
- *
- * @author yagouus
- */
-public class objetodefensivo {
-    
+import java.awt.Point;
+
+public class objetodefensivo extends Objeto {
+
+    public objetodefensivo(Point punto, String propietario, String nombre, String descripcion, Integer efecto, Float peso) {
+        super(punto, propietario, nombre, descripcion, efecto, peso);
+    }
+
 }

@@ -273,7 +273,7 @@ public class Mapa {
 
         for (int i = 0; i < objetos.size(); i++) {
 
-            if (!objetos.get(i).getTipo().equals("mochila")) {
+            if (!objetos.get(i).getNombre().equals("mochila")) {
 
                 if (objetos.get(i).getPropietario().equals(".")) {
 
@@ -295,17 +295,15 @@ public class Mapa {
 
         }
 
-    }
-
-    
+    }    
 
     public void tienesMapa(Personaje personaje) {
 
         for (int i = 0; i < tamaño.x; i++) {
             for (int j = 0; j < tamaño.y; j++) {
-                if (this.getMapa().get(new Point(i, j)) != null) {
+                if (personaje.getMapa().getMapa().get(new Point(i, j)) != null) {
 
-                    this.getMapa().get(new Point(i, j)).setVisible();
+                    personaje.getMapa().getMapa().get(new Point(i, j)).setVisible();
 
                 }
 

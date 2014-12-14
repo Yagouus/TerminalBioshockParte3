@@ -1,6 +1,11 @@
 package terminalbioshock;
 
 import Items.Objeto;
+import Items.objetoarma;
+import Items.objetodefensivo;
+import Items.objetomapa;
+import Items.pocimaenergia;
+import Items.pocimasalud;
 import Mapa.Celda;
 import Mapa.Mapa;
 import Personajes.Amigo;
@@ -108,7 +113,12 @@ public class Juego {
                 Object aux6;
 
                 aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                personaje.getAccionesPersonaje().usarObjeto(personaje, aux6.toString());
+
+                for (int i = 0; i < Jugador.getMochila().getContenido().size(); i++) {
+                    if (Jugador.getMochila().getContenido().get(i).getNombre().equals(aux6.toString())) {
+                        Jugador.getMochila().getContenido().get(i).Usar(personaje);
+                    }
+                }
                 this.ataqueAutomatico();
                 break;
 
@@ -217,7 +227,6 @@ public class Juego {
             case "Usar":
             case "usar":
 
-                personaje.getAccionesPersonaje().usarObjeto(personaje, movbjeto);
                 this.ataqueAutomatico();
                 break;
 
@@ -432,30 +441,6 @@ public class Juego {
 
     }
 
-    public void usarObjeto(Personaje personaje, String objeto) {
-
-        for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
-
-            if (personaje.getMochila().getContenido().get(i).getModificador().equals("salud") && personaje.getMochila().getContenido().get(i).getNombre().equals(objeto)) {
-
-                personaje.setVida(personaje.getVida() + personaje.getMochila().getContenido().get(i).getEfecto());
-                personaje.getMochila().getContenido().remove(personaje.getMochila().getContenido().get(i));
-
-            } else if (personaje.getMochila().getContenido().get(i).getModificador().equals("energia") && personaje.getMochila().getContenido().get(i).getNombre().equals(objeto)) {
-
-                personaje.setEnergia(personaje.getEnergia() + personaje.getMochila().getContenido().get(i).getEfecto());
-                personaje.getMochila().getContenido().remove(personaje.getMochila().getContenido().get(i));
-
-            } else if (personaje.getMochila().getContenido().get(i).getTipo().equals("mapa") && personaje.getMochila().getContenido().get(i).getNombre().equals(objeto)) {
-
-                personaje.getMapa().tienesMapa(personaje);
-
-            }
-
-        }
-
-    }
-
     public void ataqueAutomatico() {
 
         for (int i = 0; i < MapaJuego.getMapa().get(Jugador.getPosicion()).getNPCS().size(); i++) {
@@ -637,7 +622,7 @@ public class Juego {
 
             }
 
-            personajes.add(new Personaje(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
+            //personajes.add(new Personaje(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
 
         }
 
@@ -700,7 +685,45 @@ public class Juego {
 
                 Point punto = new Point(Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
 
-                Objetos.add(new Objeto(punto, propietario, tipo, nombre, descripcion, modificador, Integer.parseInt(efecto), Float.parseFloat(peso)));
+                switch (modificador) {
+
+                    case "energia":
+
+                        Objetos.add(new pocimaenergia(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+                        
+                        break;
+
+                    case "salud":
+
+                        Objetos.add(new pocimasalud(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+                        
+                        break;
+
+                    case "defensa":
+
+                        Objetos.add(new objetodefensivo(punto, propietario, nombre, descripcion,Integer.parseInt(efecto), Float.parseFloat(peso)));
+                        
+                        break;
+
+                    case "fuerza":
+
+                        Objetos.add(new objetoarma(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+                        
+                        break;
+                        
+                    default:
+                        
+                        if(tipo.equals("mapa")){
+                            
+                            Objetos.add(new objetomapa(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+                            
+                        }
+                        
+                        break;
+
+                }
+
+                //Objetos.add(new Objeto(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
             }
         }
 

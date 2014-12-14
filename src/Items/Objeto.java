@@ -1,23 +1,20 @@
 package Items;
 
+import Personajes.Personaje;
 import java.awt.Point;
 
 public class Objeto {
 
-    String nombre;
-    String tipo;
-    Float peso;
-    Integer efecto;
-    Point posicion;
-    String descripcion;
-    String modificador;
-    String propietario;
-    
+    protected String nombre;
+    protected Float peso;
+    protected Integer efecto;
+    protected Point posicion;
+    protected String descripcion;
+    protected String propietario;
 
     public Objeto() {
 
         nombre = "Unknown";
-        tipo = "Unknown";
         peso = 0f;
         efecto = 0;
 
@@ -26,32 +23,25 @@ public class Objeto {
     public Objeto(String nombre, String tipo, Float peso, Integer efecto) {
 
         this.nombre = nombre;
-        this.tipo = tipo;
         this.peso = peso;
         this.efecto = efecto;
 
     }
-    
-    public Objeto (Point punto,String propietario, String tipo, String nombre, String descripcion, String modificador, Integer efecto, Float peso){
-        
+
+    public Objeto(Point punto, String propietario, String nombre, String descripcion, Integer efecto, Float peso) {
+
         this.posicion = punto;
         this.propietario = propietario;
-        this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.modificador = modificador;
         this.efecto = efecto;
         this.peso = peso;
-        
+
     }
 
     // Getters
     public String getNombre() {
         return nombre;
-    }
-
-    public String getTipo() {
-        return tipo;
     }
 
     public Float getPeso() {
@@ -61,21 +51,13 @@ public class Objeto {
     public Integer getEfecto() {
         return efecto;
     }
-    
-    public Point getPosicion(){
+
+    public Point getPosicion() {
         return this.posicion;
     }
-    
-    public String getDescripcion(){
+
+    public String getDescripcion() {
         return this.descripcion;
-    }
-
-    public String getModificador() {
-        return modificador;
-    }
-
-    public void setModificador(String modificador) {
-        this.modificador = modificador;
     }
 
     public String getPropietario() {
@@ -85,16 +67,10 @@ public class Objeto {
     public void setPropietario(String propietario) {
         this.propietario = propietario;
     }
-   
-    
-    // Setters
 
+    // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public void setPeso(Float peso) {
@@ -103,6 +79,12 @@ public class Objeto {
 
     public void setEfecto(Integer efecto) {
         this.efecto = efecto;
+    }
+
+    //Acciones
+    //METODO ABSTRACTO
+    public void Usar(Personaje personaje) {
+
     }
 
     @Override

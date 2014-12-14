@@ -73,7 +73,7 @@ public class PrincipalTerminalBioshock {
                     if (juego.Jugador.getMochila().contener(juego.Jugador, "pocima-energia")) {
                         Object decision = JOptionPane.showInputDialog(null, "Tienes una: pocima-energia" + "\nQuieres usarla (Y/N)?", "Usar!", JOptionPane.WARNING_MESSAGE);
                         if (decision.toString().contains("Y")) {
-                            juego.Jugador.getAccionesPersonaje().usarObjeto(juego.Jugador, "pocima-energia");
+                            //juego.Jugador.getAccionesPersonaje().usarObjeto(juego.Jugador, "pocima-energia");
                         } else {
 
                             break;

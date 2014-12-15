@@ -32,11 +32,11 @@ public class PrincipalTerminalBioshock {
 
         //Creamos personaje y asignamos atributos
         ArrayList<Objeto> objetos = new ArrayList<>();
-
+        
+        //Cargamos una partida
         Object aux1 = JOptionPane.showInputDialog(null, "Quieres cargar una partida? (Y/N)", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
 
         if (aux1.toString().contains("Y")) {
-
             juego.cargar("CSV");
             juego.UsarComando(juego.Comandos("CSV"));
 
@@ -91,7 +91,6 @@ public class PrincipalTerminalBioshock {
                         if (decision.toString().contains("Y")) {
                             //juego.Jugador.getAccionesPersonaje().usarObjeto(juego.Jugador, "pocima-energia");
                         } else {
-
                             break;
                         }
                     } else {

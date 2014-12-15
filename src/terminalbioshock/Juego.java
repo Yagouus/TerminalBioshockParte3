@@ -35,7 +35,7 @@ public class Juego {
 
     Mapa MapaJuego = new Mapa();
     Jugador Jugador;
-    
+
     //Getters
     public Mapa getMapaJuego() {
         return MapaJuego;
@@ -101,14 +101,24 @@ public class Juego {
 
                 Object aux3;
                 Objeto objeto;
+                int w = 0;
 
                 aux3 = JOptionPane.showInputDialog(null, personaje.getMochila().getContenido().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+
+                if (personaje.getMochila().getContenido().isEmpty()) {
+                    throw new ExcepcionTirar();
+                }
+
                 for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
                     if (personaje.getMochila().getContenido().get(i).getNombre().equals(aux3)) {
-                        try{
-                        personaje.Tirar(personaje.getMochila().getContenido().get(i));
-                        }catch(ExcepcionTirar n){
+                        try {
+                            personaje.Tirar(personaje.getMochila().getContenido().get(i));
+                            w++;
+                        } catch (ExcepcionTirar n) {
                             throw new ExcepcionTirar();
+                        }
+                        if (w == 0) {
+                            throw new ExcepcionUsar();
                         }
                     }
                 }
@@ -123,12 +133,14 @@ public class Juego {
                 aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
 
                 for (int i = 0; i < Jugador.getMochila().getContenido().size(); i++) {
+
                     if (Jugador.getMochila().getContenido().get(i).getNombre().equals(aux6.toString())) {
-                        try{
-                        Jugador.getMochila().getContenido().get(i).Usar(personaje);
-                        }catch(ExcepcionUsar m){
-                                throw new ExcepcionUsar();
+                        try {
+                            Jugador.getMochila().getContenido().get(i).Usar(personaje);
+                        } catch (ExcepcionUsar m) {
+                            throw new ExcepcionUsar();
                         }
+
                     }
                 }
                 this.ataqueAutomatico();
@@ -229,9 +241,9 @@ public class Juego {
 
                 for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
                     if (personaje.getMochila().getContenido().get(i).getNombre().equals(movbjeto)) {
-                        try{
-                        personaje.Tirar(personaje.getMochila().getContenido().get(i));
-                        }catch(ExcepcionTirar j){
+                        try {
+                            personaje.Tirar(personaje.getMochila().getContenido().get(i));
+                        } catch (ExcepcionTirar j) {
                             throw new ExcepcionTirar();
                         }
                     }
@@ -719,7 +731,7 @@ public class Juego {
                             Objetos.add(new pocimasalud(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
 
                         }
-              
+
                         break;
 
                     case "defensa":

@@ -1,5 +1,6 @@
 package Comandos;
 
+import Excepciones.ExcepcionMovimiento;
 import Personajes.Jugador;
 import javax.swing.ImageIcon;
 
@@ -16,11 +17,17 @@ public class ComandoMover implements Comando {
     }
 
     @Override
-    public void ejecutar() {
+    public void ejecutar() throws ExcepcionMovimiento {
 
         ImageIcon icon = new ImageIcon("Images/finn.gif");
 
-        jugador.Mover(direccion);
+        try {
+            jugador.Mover(direccion);
+        } catch (ExcepcionMovimiento m) {
+
+            throw new ExcepcionMovimiento();
+
+        }
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package Comandos;
 
+import Excepciones.ExcepcionHablar;
 import Personajes.Jugador;
 import javax.swing.ImageIcon;
 
@@ -26,7 +27,7 @@ public class ComandoHablar implements Comando{
     }
 
     @Override
-    public void ejecutar() {
+    public void ejecutar() throws ExcepcionHablar {
 
         ImageIcon icon = new ImageIcon("Images/finn.gif");
 

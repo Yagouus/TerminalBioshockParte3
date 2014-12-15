@@ -1,6 +1,7 @@
 package Personajes;
 
 import Excepciones.ExcepcionHablar;
+import Excepciones.ExcepcionMovimiento;
 import Excepciones.ExcepcionTirar;
 import terminalbioshock.Juego;
 import Items.Objeto;
@@ -234,7 +235,7 @@ public class Personaje {
     }
 
     //ACCIONES
-    public void Mover(String aux) {
+    public void Mover(String aux) throws ExcepcionMovimiento {
 
         String Mensaje = "";
         int resta = 3;
@@ -264,8 +265,10 @@ public class Personaje {
                         setEnergia(getEnergia() - (resta + a));
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        throw new ExcepcionMovimiento();
                     }
+                } else {
+                    throw new ExcepcionMovimiento();
                 }
                 break;
 
@@ -285,9 +288,10 @@ public class Personaje {
                         setEnergia(getEnergia() - (resta + a));
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
-
+                        throw new ExcepcionMovimiento();
                     }
+                } else {
+                    throw new ExcepcionMovimiento();
                 }
                 break;
 
@@ -307,8 +311,10 @@ public class Personaje {
                         setEnergia(getEnergia() - (resta + a));
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        throw new ExcepcionMovimiento();
                     }
+                } else {
+                    throw new ExcepcionMovimiento();
                 }
                 break;
 
@@ -328,8 +334,10 @@ public class Personaje {
                         setEnergia(getEnergia() - (resta + a));
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        throw new ExcepcionMovimiento();
                     }
+                } else {
+                    throw new ExcepcionMovimiento();
                 }
                 break;
 
@@ -434,13 +442,13 @@ public class Personaje {
     }
 
     public void hablar(String nombre) throws ExcepcionHablar {
-        
-        if(this.getMapa().getMapa().get(this.getPosicion()).getNPCS().isEmpty()){
-            
+
+        if (this.getMapa().getMapa().get(this.getPosicion()).getNPCS().isEmpty()) {
+
             throw new ExcepcionHablar();
-            
+
         }
-        
+
         int w = 0;
 
         for (int i = 0; i < this.getMapa().getMapa().get(this.getPosicion()).getNPCS().size(); i++) {
@@ -451,11 +459,11 @@ public class Personaje {
             }
 
         }
-        
-        if(w == 0){
-            
+
+        if (w == 0) {
+
             throw new ExcepcionHablar();
-              
+
         }
     }
 

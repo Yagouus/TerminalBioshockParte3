@@ -19,7 +19,7 @@ public class ComandoTirar implements Comando {
 
 
     @Override
-    public void ejecutar()throws ExcepcionTirar{
+    public void ejecutar() throws ExcepcionTirar{
 
         ImageIcon icon = new ImageIcon("Images/finn.gif");
         int w = 0;

@@ -1,8 +1,10 @@
 package terminalbioshock;
 
+import Comandos.ComandoAyuda;
 import Comandos.ComandoCoger;
 import Comandos.ComandoHablar;
 import Comandos.ComandoInventario;
+import Comandos.ComandoMirar;
 import Comandos.ComandoMirarObjeto;
 import Comandos.ComandoMover;
 import Comandos.ComandoTirar;
@@ -86,7 +88,8 @@ public class Juego {
             case "Mirar":
             case "mirar":
 
-                personaje.Mirar();
+                ComandoMirar comando9 = new ComandoMirar(Jugador);
+                comando9.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
@@ -98,7 +101,6 @@ public class Juego {
                 objeto = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 ComandoCoger comando2 = new ComandoCoger(Jugador, objeto.toString());
                 comando2.ejecutar();
-
                 this.ataqueAutomatico();
                 break;
 
@@ -153,7 +155,8 @@ public class Juego {
             case "Ayuda":
             case "ayuda":
 
-                JOptionPane.showMessageDialog(null, "Mover: moverte por el mapa \nMirar: Ver objetos y personajes de la celda  \nCoger: Coger objetos  \nUsar: usar objetos \nTirar: tirar objeto  \nOjear: ver contenido mochila \nAyuda: inception \nSalir: salir del juego", "Welcome to Rapture", JOptionPane.INFORMATION_MESSAGE);
+                ComandoAyuda comando8 = new ComandoAyuda();
+                comando8.ejecutar();
                 this.ataqueAutomatico();
                 break;
 

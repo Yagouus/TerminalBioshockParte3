@@ -443,11 +443,7 @@ public class Personaje {
 
     public void hablar(String nombre) throws ExcepcionHablar {
 
-        if (this.getMapa().getMapa().get(this.getPosicion()).getNPCS().isEmpty()) {
-
-            throw new ExcepcionHablar();
-
-        }
+        
 
         int w = 0;
 

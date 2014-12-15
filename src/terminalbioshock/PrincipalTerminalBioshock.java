@@ -35,15 +35,13 @@ public class PrincipalTerminalBioshock {
         ImageIcon icon = new ImageIcon("Images/finn.gif");
         ImageIcon logo = new ImageIcon("Images/inicio.jpg");
 
-        //Pantalla de bienvenida
-        //JOptionPane.showMessageDialog(null, "", "Hora de aventuras", JOptionPane.INFORMATION_MESSAGE, logo);
         //Creamos personaje y asignamos atributos
         ArrayList<Objeto> objetos = new ArrayList<>();
 
         //OPCIONES DE JUEGO              
         String aux1 = recoger.leer("Quieres cargar una partida? (Y/N)");
 
-        if (aux1.toString().contains("Y")) {
+        if (aux1.contains("Y")) {
             String aux3 = recoger.leer("Que partida quieres cargar?");
             CargadorJuegoDeFicheros cargador = new CargadorJuegoDeFicheros(aux3);
             juego = cargador.cargarJuego();
@@ -52,7 +50,7 @@ public class PrincipalTerminalBioshock {
         } else {
 
             String aux2 = recoger.leer("Quieres cargar un Mapa (Y/N)?");
-            if (aux2.toString().contains("Y")) {
+            if (aux2.contains("Y")) {
                 String aux4 = recoger.leer("Que mapa quieres cargar?");
                 CargadorJuegoDeFicheros cargador = new CargadorJuegoDeFicheros(aux4);
                 juego = cargador.cargarJuego();
@@ -90,7 +88,7 @@ public class PrincipalTerminalBioshock {
                 if (juego.Jugador.getEnergia() <= 0) {
                     if (juego.Jugador.getMochila().contener(juego.Jugador, "pocima-energia")) {
                         String decision = recoger.leer("Tienes una: pocima-energia" + "\nQuieres usarla (Y/N)?");
-                        if (decision.toString().contains("Y")) {
+                        if (decision.contains("Y")) {
                             juego.SeleccionarOpcion(juego.Jugador, "Usar", "pocima-energia");
                         } else {
                             break;

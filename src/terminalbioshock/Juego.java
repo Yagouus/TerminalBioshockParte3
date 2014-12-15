@@ -147,7 +147,11 @@ public class Juego {
 
             case "Hablar":
             case "hablar":
+                if (Jugador.getMapa().getMapa().get(Jugador.getPosicion()).getNPCS().isEmpty()) {
 
+                    throw new ExcepcionHablar();
+
+                }
                 Object aux5;
                 aux5 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 ComandoHablar comando7 = new ComandoHablar(Jugador, aux5.toString());

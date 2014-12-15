@@ -31,10 +31,11 @@ public class ComandoTirar implements Comando {
                 } catch (ExcepcionTirar n) {
                     throw new ExcepcionTirar();
                 }
-                if (w == 0) {
-                    throw new ExcepcionTirar();
-                }
+
             }
+        }
+        if (w == 0) {
+            throw new ExcepcionTirar();
         }
 
     }

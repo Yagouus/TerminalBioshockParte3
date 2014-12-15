@@ -7,7 +7,6 @@ import Items.objetodefensivo;
 import Mapa.Mapa;
 import java.awt.Point;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 public class Personaje {
@@ -285,6 +284,7 @@ public class Personaje {
 
                     } else {
                         JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
+                        
                     }
                 }
                 break;

@@ -1,11 +1,15 @@
 package terminalbioshock;
 
+import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionUsar;
 import Items.Objeto;
 import Personajes.Personaje;
 import Mapa.Mapa;
 import Personajes.Mago;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showInputDialog;
@@ -67,7 +71,13 @@ public class PrincipalTerminalBioshock {
                 juego.MapaJuego.imprimeMapa(juego.Jugador);
                 System.out.println(juego.Jugador);
 
-                juego.SeleccionarOpcion(juego.Jugador);
+                try {
+                    juego.SeleccionarOpcion(juego.Jugador);
+                } catch (ExcepcionJuego ex) {
+                    if(ex instanceof ExcepcionUsar){
+                    JOptionPane.showMessageDialog(null, "No puedes usar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
 
                 if (juego.Jugador.getEnergia() <= 0) {
                     if (juego.Jugador.getMochila().contener(juego.Jugador, "pocima-energia")) {

@@ -1,11 +1,14 @@
 package terminalbioshock;
 
+import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionUsar;
 import Items.Objeto;
 import Items.objetoarma;
 import Items.objetodefensivo;
 import Items.objetomapa;
 import Items.pocimaenergia;
 import Items.pocimasalud;
+import Items.pocimaveneno;
 import Mapa.Celda;
 import Mapa.Mapa;
 import Personajes.Amigo;
@@ -31,7 +34,7 @@ public class Juego {
 
     Mapa MapaJuego = new Mapa();
     Jugador Jugador;
-
+    
     //Getters
     public Mapa getMapaJuego() {
         return MapaJuego;
@@ -42,7 +45,7 @@ public class Juego {
     }
 
     //Seleccionar accion
-    public void SeleccionarOpcion(Personaje personaje) {
+    public void SeleccionarOpcion(Personaje personaje) throws ExcepcionJuego {
 
         Object aux1;
         String aux = null;
@@ -116,7 +119,11 @@ public class Juego {
 
                 for (int i = 0; i < Jugador.getMochila().getContenido().size(); i++) {
                     if (Jugador.getMochila().getContenido().get(i).getNombre().equals(aux6.toString())) {
+                        try{
                         Jugador.getMochila().getContenido().get(i).Usar(personaje);
+                        }catch(ExcepcionUsar m){
+                                throw new ExcepcionUsar();
+                        }
                     }
                 }
                 this.ataqueAutomatico();
@@ -623,7 +630,6 @@ public class Juego {
             }
 
             //personajes.add(new Personaje(punto, nombre, Integer.parseInt(vida), Integer.parseInt(energia), Integer.parseInt(fuerza), Integer.parseInt(defensa), frase));
-
         }
 
         scanner.close();
@@ -690,35 +696,43 @@ public class Juego {
                     case "energia":
 
                         Objetos.add(new pocimaenergia(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
-                        
+
                         break;
 
                     case "salud":
 
-                        Objetos.add(new pocimasalud(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
-                        
+                        if (efecto.contains("-")) {
+
+                            Objetos.add(new pocimaveneno(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+
+                        } else {
+
+                            Objetos.add(new pocimasalud(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+
+                        }
+              
                         break;
 
                     case "defensa":
 
-                        Objetos.add(new objetodefensivo(punto, propietario, nombre, descripcion,Integer.parseInt(efecto), Float.parseFloat(peso)));
-                        
+                        Objetos.add(new objetodefensivo(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
+
                         break;
 
                     case "fuerza":
 
                         Objetos.add(new objetoarma(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
-                        
+
                         break;
-                        
+
                     default:
-                        
-                        if(tipo.equals("mapa")){
-                            
+
+                        if (tipo.equals("mapa")) {
+
                             Objetos.add(new objetomapa(punto, propietario, nombre, descripcion, Integer.parseInt(efecto), Float.parseFloat(peso)));
-                            
+
                         }
-                        
+
                         break;
 
                 }

@@ -1,5 +1,7 @@
 package Items;
 
+import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionUsar;
 import Personajes.Personaje;
 import java.awt.Point;
 
@@ -83,7 +85,9 @@ public class Objeto {
 
     //Acciones
     //METODO ABSTRACTO
-    public void Usar(Personaje personaje) {
+    public void Usar(Personaje personaje) throws ExcepcionJuego, ExcepcionUsar {
+        
+        throw new ExcepcionUsar();
 
     }
 

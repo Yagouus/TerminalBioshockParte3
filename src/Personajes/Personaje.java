@@ -285,7 +285,7 @@ public class Personaje {
 
                     } else {
                         JOptionPane.showMessageDialog(null, "No puedes ir por ahi chico", "NO!", JOptionPane.ERROR_MESSAGE);
-                        
+
                     }
                 }
                 break;
@@ -377,8 +377,8 @@ public class Personaje {
          }*/
     }
 
-    public void Tirar(Objeto objeto) throws ExcepcionTirar{
-        
+    public void Tirar(Objeto objeto) throws ExcepcionTirar {
+
         int j = 0;
 
         if (objeto instanceof objetoarma) {
@@ -398,11 +398,31 @@ public class Personaje {
             }
 
         }
-        
-        if(j == 0){
-            
+
+        if (j == 0) {
+
             throw new ExcepcionTirar();
-            
+
+        }
+    }
+
+    public void Mirar() {
+
+        if (this.getMapa().getMapa().get(this.getPosicion()).getDescripcion() != null) {
+            JOptionPane.showMessageDialog(null, "\n" + this.getMapa().getMapa().get(this.getPosicion()).getDescripcion());
+        }
+
+        if (this.getMapa().getMapa().get(this.getPosicion()).getItems().size() != 0) {
+            JOptionPane.showMessageDialog(null, "Encuentras:\n" + this.getMapa().getMapa().get(this.getPosicion()).getItems());
+        } else {
+            JOptionPane.showMessageDialog(null, "No has encontrado nada...");
+
+        }
+
+        if (this.getMapa().getMapa().get(this.getPosicion()).getNPCS().size() != 0) {
+            JOptionPane.showMessageDialog(null, "Te encuentras:\n" + this.getMapa().getMapa().get(this.getPosicion()).getNPCS().toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "No te has encontrado con nadie...");
         }
     }
 

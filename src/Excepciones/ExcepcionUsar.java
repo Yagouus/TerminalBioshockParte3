@@ -1,13 +1,10 @@
-
 package Excepciones;
 
-public class ExcepcionUsar extends ExcepcionJuego{
-    
-     @Override
-public void ExcepcionJuego(){
-    
-   
-    
-}
-    
+public class ExcepcionUsar extends ExcepcionJuego {
+
+    @Override
+    public void ExcepcionJuego() {
+
+    }
+
 }

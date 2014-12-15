@@ -4,6 +4,7 @@ import Excepciones.ExcepcionJuego;
 import Excepciones.ExcepcionUsar;
 import Personajes.Personaje;
 import java.awt.Point;
+import javax.swing.JOptionPane;
 
 public class Objeto {
 
@@ -85,9 +86,15 @@ public class Objeto {
 
     //Acciones
     //METODO ABSTRACTO
-    public void Usar(Personaje personaje) throws ExcepcionJuego, ExcepcionUsar {
-        
+    public void Usar(Personaje personaje) throws ExcepcionUsar {
+
         throw new ExcepcionUsar();
+
+    }
+
+    public void mirarObjeto(Personaje personaje) {
+
+        JOptionPane.showMessageDialog(null, "Descripcion:\n" + this.descripcion);
 
     }
 

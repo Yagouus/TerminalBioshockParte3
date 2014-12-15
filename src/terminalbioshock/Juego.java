@@ -1,5 +1,10 @@
 package terminalbioshock;
 
+import Comandos.ComandoCoger;
+import Comandos.ComandoMirarObjeto;
+import Comandos.ComandoMover;
+import Comandos.ComandoTirar;
+import Comandos.ComandoUsar;
 import Excepciones.ExcepcionJuego;
 import Excepciones.ExcepcionTirar;
 import Excepciones.ExcepcionUsar;
@@ -70,28 +75,27 @@ public class Juego {
             case "mover":
 
                 Object direccion;
-
                 direccion = JOptionPane.showInputDialog(null, "A donde quieres ir?", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-
-                personaje.Mover(direccion.toString());
+                ComandoMover comando = new ComandoMover(Jugador, direccion.toString());
+                comando.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
             case "Mirar":
             case "mirar":
 
-                personaje.getAccionesPersonaje().Mirar(personaje);
+                personaje.Mirar();
                 this.ataqueAutomatico();
                 break;
 
             case "Coger":
             case "coger":
 
-                Object aux2;
-
+                Object objeto;
                 String objects = personaje.getAccionesPersonaje().verObjetos(personaje);
-                aux2 = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                personaje.Coger(aux2.toString());
+                objeto = JOptionPane.showInputDialog(null, objects, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                ComandoCoger comando2 = new ComandoCoger(Jugador, objeto.toString());
+                comando2.ejecutar();
 
                 this.ataqueAutomatico();
                 break;
@@ -100,64 +104,35 @@ public class Juego {
             case "tirar":
 
                 Object aux3;
-                Objeto objeto;
-                int w = 0;
-
                 aux3 = JOptionPane.showInputDialog(null, personaje.getMochila().getContenido().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-
-                if (personaje.getMochila().getContenido().isEmpty()) {
-                    throw new ExcepcionTirar();
-                }
-
-                for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
-                    if (personaje.getMochila().getContenido().get(i).getNombre().equals(aux3)) {
-                        try {
-                            personaje.Tirar(personaje.getMochila().getContenido().get(i));
-                            w++;
-                        } catch (ExcepcionTirar n) {
-                            throw new ExcepcionTirar();
-                        }
-                        if (w == 0) {
-                            throw new ExcepcionUsar();
-                        }
-                    }
-                }
-
+                ComandoTirar comando3 = new ComandoTirar(Jugador, aux3.toString());
+                comando3.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
             case "Usar":
             case "usar":
+
                 Object aux6;
-
                 aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-
-                for (int i = 0; i < Jugador.getMochila().getContenido().size(); i++) {
-
-                    if (Jugador.getMochila().getContenido().get(i).getNombre().equals(aux6.toString())) {
-                        try {
-                            Jugador.getMochila().getContenido().get(i).Usar(personaje);
-                        } catch (ExcepcionUsar m) {
-                            throw new ExcepcionUsar();
-                        }
-
-                    }
-                }
+                ComandoUsar comando4 = new ComandoUsar(Jugador, aux6.toString());
+                comando4.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
             case "Mirar Objeto":
             case "mirar objeto":
-                Object aux4;
 
-                String objects2 = personaje.getAccionesPersonaje().verObjetos(personaje);
-                aux4 = JOptionPane.showInputDialog(null, objects2, "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                personaje.getAccionesPersonaje().mirarObjeto(personaje, aux4.toString());
+                Object aux4;
+                aux4 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                ComandoMirarObjeto comando5 = new ComandoMirarObjeto(Jugador, aux4.toString());
+                comando5.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
             case "Hablar":
             case "hablar":
+
                 Object aux5;
                 aux5 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 personaje.getAccionesPersonaje().hablar(personaje, aux5.toString());
@@ -217,13 +192,13 @@ public class Juego {
             case "mirar":
 
                 if (!movbjeto.equals("")) {
-
-                    personaje.getAccionesPersonaje().mirarObjeto(personaje, movbjeto);
+                    ComandoMirarObjeto comando5 = new ComandoMirarObjeto(Jugador, movbjeto);
+                    comando5.ejecutar();
                     this.ataqueAutomatico();
 
                 } else {
 
-                    personaje.getAccionesPersonaje().Mirar(personaje);
+                    personaje.Mirar();
                     this.ataqueAutomatico();
                 }
 
@@ -395,26 +370,6 @@ public class Juego {
 
     }
 
-    public void Mirar(Personaje personaje) {
-
-        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion() != null) {
-            JOptionPane.showMessageDialog(null, "\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getDescripcion());
-        }
-
-        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size() != 0) {
-            JOptionPane.showMessageDialog(null, "Encuentras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems());
-        } else {
-            JOptionPane.showMessageDialog(null, "No has encontrado nada...");
-
-        }
-
-        if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size() != 0) {
-            JOptionPane.showMessageDialog(null, "Te encuentras:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString());
-        } else {
-            JOptionPane.showMessageDialog(null, "No te has encontrado con nadie...");
-        }
-    }
-
     public String verObjetos(Personaje personaje) {
 
         if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size() != 0) {
@@ -424,18 +379,6 @@ public class Juego {
 
         }
 
-    }
-
-    public void mirarObjeto(Personaje personaje, String objeto) {
-
-        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().size(); i++) {
-
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getNombre().equals(objeto)) {
-
-                JOptionPane.showMessageDialog(null, "Descripcion:\n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getItems().get(i).getDescripcion());
-            }
-
-        }
     }
 
     public void RestarVida(Personaje personaje) {

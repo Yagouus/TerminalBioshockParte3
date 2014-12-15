@@ -1,6 +1,7 @@
 package terminalbioshock;
 
 import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionMirar;
 import Excepciones.ExcepcionMovimiento;
 import Excepciones.ExcepcionTirar;
 import Excepciones.ExcepcionUsar;
@@ -82,6 +83,8 @@ public class PrincipalTerminalBioshock {
                     JOptionPane.showMessageDialog(null, "No puedes ir por ahi!", "NO!", JOptionPane.ERROR_MESSAGE);
                     }else if(ex instanceof ExcepcionTirar){
                     JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }else if(ex instanceof ExcepcionMirar){
+                    JOptionPane.showMessageDialog(null, "No puedes mirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

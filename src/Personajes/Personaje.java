@@ -426,6 +426,12 @@ public class Personaje {
         }
     }
 
+    public void ojearInventario() {
+
+            JOptionPane.showMessageDialog(null, this.getMochila().getContenido().toString() + "\nPeso: " + this.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
+    
+    }
+
     @Override
     public String toString() {
         return "NOMBRE:" + this.getNombre() + " VIDA:" + this.getVida() + " ENERGIA:" + this.getEnergia() + " FUERZA: " + this.getFuerza() + " DEFENSA: " + this.getDefensa();

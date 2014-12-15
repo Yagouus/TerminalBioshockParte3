@@ -142,7 +142,7 @@ public class Juego {
             case "Inventario":
             case "inventario":
 
-                personaje.getAccionesPersonaje().ojearInventario(personaje);
+                personaje.ojearInventario();
                 this.ataqueAutomatico();
                 break;
 
@@ -243,7 +243,7 @@ public class Juego {
             case "Inventario":
             case "inventario":
 
-                personaje.getAccionesPersonaje().ojearInventario(personaje);
+                personaje.ojearInventario();
                 this.ataqueAutomatico();
                 break;
 
@@ -388,15 +388,6 @@ public class Juego {
 
         personaje.setEnergia(personaje.getEnergia() - resta);
 
-    }
-
-    public void ojearInventario(Personaje personaje) {
-
-        if (!personaje.getMochila().getContenido().isEmpty()) {
-            JOptionPane.showMessageDialog(null, personaje.getMochila().getContenido().toString() + "\nPeso: " + personaje.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Tu mochila esta vacia", "Mochila", JOptionPane.INFORMATION_MESSAGE);
-        }
     }
 
     public void hablar(Personaje personaje, String nombre) {

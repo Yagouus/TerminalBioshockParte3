@@ -877,7 +877,7 @@ public class Juego {
             case "G":
             case "Guerrero":{
                 
-                Jugador = new Guerrero(MapaJuego.getInicio(), aux2.toString(), 100, 100, 20, 5, ".");
+                Jugador = new Guerrero(MapaJuego.getInicio(), aux2.toString(), 100, 100, 10, 5, ".");
 
                 Objetos.add(new objetoarma(new Point(1, 1), ".", "Espada de los hombres", "Espada creada por el pueblo de los hombres", 25, 10f));
             
@@ -887,7 +887,7 @@ public class Juego {
             case "M":
             case "Mago":{
                 
-                Jugador = new Mago(MapaJuego.getInicio(),aux2.toString(),100,100,10,0,".");
+                Jugador = new Mago(MapaJuego.getInicio(),aux2.toString(),100,100,5,0,".");
                 
                 Objetos.add(new objetoarma(new Point(1, 1), ".", "Baston de mago", "Largo baston magico que fue pasando de generacion en generacion de magos", 40, 10f));
                 
@@ -902,7 +902,10 @@ public class Juego {
         Objetos.add(new objetoarma(new Point(3, 1), "Gimli", "Hacha de enano", "Gran hacha de guerra creada por el pueblo de los enanos", 50, 20f));
 
         Objetos.add(new objetodefensivo(new Point(4, 2), ".", "Armadura de tela elfica", "Camiseta magica creada por los ancestros de los elfos", 50, 10f));
+        MapaJuego.colocaObjetos(Objetos, Jugador);
+        colocaPersonajes(Personajes);
 
+        
        // Jugador.setMapa(MapaJuego);
         
     }

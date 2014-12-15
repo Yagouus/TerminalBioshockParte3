@@ -1,5 +1,6 @@
 package Personajes;
 
+import Excepciones.ExcepcionHablar;
 import Excepciones.ExcepcionTirar;
 import terminalbioshock.Juego;
 import Items.Objeto;
@@ -428,8 +429,34 @@ public class Personaje {
 
     public void ojearInventario() {
 
-            JOptionPane.showMessageDialog(null, this.getMochila().getContenido().toString() + "\nPeso: " + this.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
-    
+        JOptionPane.showMessageDialog(null, this.getMochila().getContenido().toString() + "\nPeso: " + this.getMochila().getPeso(), "Mochila", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+    public void hablar(String nombre) throws ExcepcionHablar {
+        
+        if(this.getMapa().getMapa().get(this.getPosicion()).getNPCS().isEmpty()){
+            
+            throw new ExcepcionHablar();
+            
+        }
+        
+        int w = 0;
+
+        for (int i = 0; i < this.getMapa().getMapa().get(this.getPosicion()).getNPCS().size(); i++) {
+
+            if (this.getMapa().getMapa().get(this.getPosicion()).getNPCS().get(i).getNombre().equals(nombre)) {
+                w++;
+                JOptionPane.showMessageDialog(null, this.getMapa().getMapa().get(this.getPosicion()).getNPCS().get(i).getNombre() + " dice: \n" + this.getMapa().getMapa().get(this.getPosicion()).getNPCS().get(i).getFrase());
+            }
+
+        }
+        
+        if(w == 0){
+            
+            throw new ExcepcionHablar();
+              
+        }
     }
 
     @Override

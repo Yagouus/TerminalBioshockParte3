@@ -1,21 +1,15 @@
 package terminalbioshock;
 
+import Excepciones.ExcepcionHablar;
 import Excepciones.ExcepcionJuego;
 import Excepciones.ExcepcionMirar;
 import Excepciones.ExcepcionMovimiento;
 import Excepciones.ExcepcionTirar;
 import Excepciones.ExcepcionUsar;
 import Items.Objeto;
-import Personajes.Personaje;
-import Mapa.Mapa;
-import Personajes.Mago;
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.showInputDialog;
 
 public class PrincipalTerminalBioshock {
 
@@ -71,6 +65,8 @@ public class PrincipalTerminalBioshock {
                         JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
                     } else if (ex instanceof ExcepcionMirar) {
                         JOptionPane.showMessageDialog(null, "No puedes mirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }else if (ex instanceof ExcepcionHablar) {
+                        JOptionPane.showMessageDialog(null, "No puedes hablar, no hay nadie!", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

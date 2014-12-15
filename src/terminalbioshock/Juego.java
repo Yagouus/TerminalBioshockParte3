@@ -1,6 +1,8 @@
 package terminalbioshock;
 
 import Comandos.ComandoCoger;
+import Comandos.ComandoHablar;
+import Comandos.ComandoInventario;
 import Comandos.ComandoMirarObjeto;
 import Comandos.ComandoMover;
 import Comandos.ComandoTirar;
@@ -135,14 +137,16 @@ public class Juego {
 
                 Object aux5;
                 aux5 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                personaje.getAccionesPersonaje().hablar(personaje, aux5.toString());
+                ComandoHablar comando7 = new ComandoHablar(Jugador, aux5.toString());
+                comando7.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
             case "Inventario":
             case "inventario":
 
-                personaje.ojearInventario();
+                ComandoInventario comando6 = new ComandoInventario(Jugador);
+                comando6.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
@@ -236,7 +240,8 @@ public class Juego {
             case "Hablar":
             case "hablar":
 
-                personaje.getAccionesPersonaje().hablar(personaje, movbjeto);
+                ComandoHablar comando7 = new ComandoHablar(Jugador, movbjeto);
+                comando7.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
@@ -387,19 +392,6 @@ public class Juego {
     public void RestarEnergia(Personaje personaje, int resta) {
 
         personaje.setEnergia(personaje.getEnergia() - resta);
-
-    }
-
-    public void hablar(Personaje personaje, String nombre) {
-
-        for (int i = 0; i < personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().size(); i++) {
-
-            if (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre().equals(nombre)) {
-
-                JOptionPane.showMessageDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getNombre() + " dice: \n" + personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(i).getFrase());
-            }
-
-        }
 
     }
 

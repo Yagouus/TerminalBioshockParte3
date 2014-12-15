@@ -1,14 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Comandos;
 
-/**
- *
- * @author yagouus
- */
-public class ComandoInventario {
-    
-}
+import Personajes.Jugador;
+
+public class ComandoInventario implements Comando{
+ 
+    private Jugador jugador;
+    private String objeto;
+
+    public ComandoInventario(Jugador jugador) {
+
+        this.jugador = jugador;
+
+
+    }
+
+    @Override
+    public void ejecutar() {
+
+        jugador.ojearInventario();
+    }
+    }
+
+   

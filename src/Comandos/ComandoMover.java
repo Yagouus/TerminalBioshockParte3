@@ -16,6 +16,7 @@ public class ComandoMover implements Comando {
 
     }
 
+
     @Override
     public void ejecutar() throws ExcepcionMovimiento {
 

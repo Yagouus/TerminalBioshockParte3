@@ -18,9 +18,7 @@ public class ComandoUsar implements Comando {
     @Override
     public void ejecutar() throws ExcepcionUsar {
 
-        if (jugador.getMochila().getContenido().isEmpty()) {
-            throw new ExcepcionUsar();
-        }
+      
 
         for (int i = 0; i < jugador.getMochila().getContenido().size(); i++) {
 

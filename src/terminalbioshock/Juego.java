@@ -1,5 +1,6 @@
 package terminalbioshock;
 
+import Comandos.ComandoAtacar;
 import Comandos.ComandoAyuda;
 import Comandos.ComandoCoger;
 import Comandos.ComandoHablar;
@@ -9,7 +10,13 @@ import Comandos.ComandoMirarObjeto;
 import Comandos.ComandoMover;
 import Comandos.ComandoTirar;
 import Comandos.ComandoUsar;
+import Consola.ConsolaCutre;
+import Consola.ConsolaInformativa;
+import Excepciones.ExcepcionAtacar;
+import Excepciones.ExcepcionHablar;
 import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionMirar;
+import Excepciones.ExcepcionMovimiento;
 import Excepciones.ExcepcionTirar;
 import Excepciones.ExcepcionUsar;
 import Items.Objeto;
@@ -32,13 +39,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.awt.Point;
-import static java.lang.Math.floor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.showInputDialog;
 
 public class Juego {
 
@@ -106,7 +111,9 @@ public class Juego {
 
             case "Tirar":
             case "tirar":
-
+                if (Jugador.getMochila().getContenido().isEmpty()) {
+                    throw new ExcepcionTirar();
+                }
                 Object aux3;
                 aux3 = JOptionPane.showInputDialog(null, personaje.getMochila().getContenido().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 ComandoTirar comando3 = new ComandoTirar(Jugador, aux3.toString());
@@ -116,6 +123,10 @@ public class Juego {
 
             case "Usar":
             case "usar":
+
+                if (Jugador.getMochila().getContenido().isEmpty()) {
+                    throw new ExcepcionUsar();
+                }
 
                 Object aux6;
                 aux6 = JOptionPane.showInputDialog(null, personaje.getMochila().getConenidoUsable().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
@@ -166,15 +177,17 @@ public class Juego {
                 int index = 0;
                 Personaje enemigo = new Personaje();
 
-                Object aux7;
-                aux7 = JOptionPane.showInputDialog(null, personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().toString(), "Con quien quieres hablar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-                do {
+                if (Jugador.getMapa().getMapa().get(Jugador.getPosicion()).getNPCS().isEmpty()) {
 
-                    enemigo = personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(index);
+                    throw new ExcepcionAtacar();
 
-                } while (personaje.getMapa().getMapa().get(personaje.getPosicion()).getNPCS().get(index).getNombre().equals(aux7));
+                } else {
 
-                personaje.atacar(enemigo);
+                    Object aux7;
+                    aux7 = JOptionPane.showInputDialog(null, Jugador.getMapa().getMapa().get(Jugador.getPosicion()).getNPCS().toString(), "A quien quieres atacar?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+                    ComandoAtacar comando10 = new ComandoAtacar(Jugador, aux7.toString());
+                    comando10.ejecutar();
+                }
                 this.ataqueAutomatico();
                 break;
 
@@ -191,8 +204,8 @@ public class Juego {
             case "Mover":
             case "mover":
 
-                Jugador.Mover(movbjeto);
-                this.ataqueAutomatico();
+                ComandoMover comando = new ComandoMover(Jugador, movbjeto);
+                comando.ejecutar();
                 break;
 
             case "Mirar":
@@ -205,7 +218,8 @@ public class Juego {
 
                 } else {
 
-                    personaje.Mirar();
+                    ComandoMirar comando9 = new ComandoMirar(Jugador);
+                    comando9.ejecutar();
                     this.ataqueAutomatico();
                 }
 
@@ -214,29 +228,29 @@ public class Juego {
             case "Coger":
             case "coger":
 
-                personaje.Coger(movbjeto);
-                this.ataqueAutomatico();
+                ComandoCoger comando2 = new ComandoCoger(Jugador, movbjeto);
+                comando2.ejecutar();
                 break;
 
             case "Tirar":
             case "tirar":
-
-                for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
-                    if (personaje.getMochila().getContenido().get(i).getNombre().equals(movbjeto)) {
-                        try {
-                            personaje.Tirar(personaje.getMochila().getContenido().get(i));
-                        } catch (ExcepcionTirar j) {
-                            throw new ExcepcionTirar();
-                        }
-                    }
+                if (Jugador.getMochila().getContenido().isEmpty()) {
+                    throw new ExcepcionTirar();
                 }
-
+                ComandoTirar comando3 = new ComandoTirar(Jugador, movbjeto);
+                comando3.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
             case "Usar":
             case "usar":
 
+                if (Jugador.getMochila().getContenido().isEmpty()) {
+                    throw new ExcepcionUsar();
+                }
+
+                ComandoUsar comando4 = new ComandoUsar(Jugador, movbjeto);
+                comando4.ejecutar();
                 this.ataqueAutomatico();
                 break;
 
@@ -251,8 +265,8 @@ public class Juego {
             case "Inventario":
             case "inventario":
 
-                personaje.ojearInventario();
-                this.ataqueAutomatico();
+                ComandoInventario comando6 = new ComandoInventario(Jugador);
+                comando6.ejecutar();
                 break;
 
             case "Ayuda":
@@ -265,7 +279,8 @@ public class Juego {
             case "Atacar":
             case "atacar":
 
-                //personaje.atacar(movbjeto);
+                ComandoAtacar comando10 = new ComandoAtacar(Jugador, movbjeto);
+                comando10.ejecutar();
                 ataqueAutomatico();
                 break;
 
@@ -442,6 +457,7 @@ public class Juego {
         colocaPersonajes(LeerPersonajes(directorio));
         ArrayList<Objeto> objetos = LeerObjetos(directorio);
         MapaJuego.colocaObjetos(objetos, Jugador);
+        Jugador.setMapa(MapaJuego);
 
     }
 
@@ -742,6 +758,8 @@ public class Juego {
     public void UsarComando(ArrayList<String> comandos) {
 
         int i = 0;
+        ConsolaCutre hud = new ConsolaCutre();
+        ConsolaInformativa informacion = new ConsolaInformativa();
 
         do {
 
@@ -752,13 +770,25 @@ public class Juego {
             i++;
 
             MapaJuego.imprimeMapa(Jugador);
-            System.out.println(Jugador);
+            hud.imprimir(Jugador.toString());
 
             if (aux.length > 1) {
                 try {
                     SeleccionarOpcion(Jugador, aux[0], aux[1]);
                 } catch (ExcepcionJuego ex) {
-                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex instanceof ExcepcionUsar) {
+                        JOptionPane.showMessageDialog(null, "No puedes usar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionMovimiento) {
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionTirar) {
+                        JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionMirar) {
+                        JOptionPane.showMessageDialog(null, "No puedes mirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionHablar) {
+                        JOptionPane.showMessageDialog(null, "No puedes hablar, no hay nadie!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionAtacar) {
+                        JOptionPane.showMessageDialog(null, "No puedes atacar, no hay nadie!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             } else {
                 try {
@@ -770,16 +800,17 @@ public class Juego {
 
         } while (!MapaJuego.getMapa().get((Jugador.getPosicion())).isEsFin() && Jugador.getVida() >= 0 || i < comandos.size());
 
+        // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
         if (Jugador.getEnergia() <= 0) {
-            JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
+            informacion.imprimir("\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
         } else if (Jugador.getVida() <= 0) {
-            JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
+            informacion.imprimir("\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
         } else {
             JOptionPane.showMessageDialog(null, "\n" + Jugador.getMapa().getMapa().get(Jugador.getPosicion()).getDescripcion());
             Jugador.getMapa().imprimeMapa(Jugador);
-            JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");
-            System.out.println("\nTUS ESTADISTICAS: " + Jugador);
-            JOptionPane.showMessageDialog(null, "\nHAS DADO: " + Jugador.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + Jugador.getRecorrido());
+            informacion.imprimir("\nFELICIDADES HAS COMPLETADO EL JUEGO");
+            informacion.imprimir("\nTUS ESTADISTICAS: " + Jugador);
+            informacion.imprimir("\nHAS DADO: " + Jugador.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + Jugador.getRecorrido());
         }
 
     }
@@ -801,9 +832,9 @@ public class Juego {
         }
 
     }
-    
+
     public void Partidanueva() {
-        
+
         MapaJuego = new Mapa(8, 8);
 
         MapaJuego.getMapa().get(new Point(0, 0)).setTransitable(true);
@@ -863,31 +894,31 @@ public class Juego {
 
         ArrayList<Personaje> Personajes = new ArrayList<>();
         ArrayList<Objeto> Objetos = new ArrayList<>();
-        
+
         Object aux = JOptionPane.showInputDialog(null, "Elige una clase: \n Guerrero(G) o Mago (M)", "Introduce tu clase chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, null, null, null);
         Object aux2 = JOptionPane.showInputDialog(null, "Gandalf pregunta: \n'¿Como te llamas valiente?'", "Introduce tu nombre chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-        switch(aux.toString()) {
+        switch (aux.toString()) {
 
             case "G":
-            case "Guerrero":{
-                
+            case "Guerrero": {
+
                 Jugador = new Guerrero(MapaJuego.getInicio(), aux2.toString(), 100, 100, 10, 5, ".");
 
                 Objetos.add(new objetoarma(new Point(1, 1), ".", "Espada de los hombres", "Espada creada por el pueblo de los hombres", 25, 10f));
-            
+
             }
-                break;
+            break;
 
             case "M":
-            case "Mago":{
-                
-                Jugador = new Mago(MapaJuego.getInicio(),aux2.toString(),100,100,5,0,".");
-                
+            case "Mago": {
+
+                Jugador = new Mago(MapaJuego.getInicio(), aux2.toString(), 100, 100, 5, 0, ".");
+
                 Objetos.add(new objetoarma(new Point(1, 1), ".", "Baston de mago", "Largo baston magico que fue pasando de generacion en generacion de magos", 40, 10f));
-                
+
             }
-                break;
+            break;
 
         }
 
@@ -900,9 +931,7 @@ public class Juego {
         MapaJuego.colocaObjetos(Objetos, Jugador);
         colocaPersonajes(Personajes);
 
-        
-       // Jugador.setMapa(MapaJuego);
-        
+        Jugador.setMapa(MapaJuego);
     }
 
 }

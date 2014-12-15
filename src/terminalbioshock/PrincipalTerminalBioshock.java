@@ -1,5 +1,12 @@
 package terminalbioshock;
 
+import CargarPartida.CargadorJuegoDeFicheros;
+import CargarPartida.CargadorJuegoPorDefecto;
+import Consola.ConsolaCutre;
+import Consola.ConsolaExcepciones;
+import Consola.ConsolaInformativa;
+import Consola.ConsolaOpciones;
+import Excepciones.ExcepcionAtacar;
 import Excepciones.ExcepcionHablar;
 import Excepciones.ExcepcionJuego;
 import Excepciones.ExcepcionMirar;
@@ -13,68 +20,78 @@ import javax.swing.JOptionPane;
 
 public class PrincipalTerminalBioshock {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExcepcionJuego {
 
         //Ceamos instancia de juego        
-        Juego juego = new Juego();
+        Juego juego;
+
+        //Consolas para el juego
+        ConsolaExcepciones pantalla = new ConsolaExcepciones();
+        ConsolaOpciones recoger = new ConsolaOpciones();
+        ConsolaInformativa informacion = new ConsolaInformativa();
+        ConsolaCutre hud = new ConsolaCutre();
 
         //Inconos para la gui
         ImageIcon icon = new ImageIcon("Images/finn.gif");
         ImageIcon logo = new ImageIcon("Images/inicio.jpg");
 
         //Pantalla de bienvenida
-        JOptionPane.showMessageDialog(null, "", "Hora de aventuras", JOptionPane.INFORMATION_MESSAGE, logo);
-
+        //JOptionPane.showMessageDialog(null, "", "Hora de aventuras", JOptionPane.INFORMATION_MESSAGE, logo);
         //Creamos personaje y asignamos atributos
         ArrayList<Objeto> objetos = new ArrayList<>();
 
-        //Cargamos una partida
-        Object aux1 = JOptionPane.showInputDialog(null, "Quieres cargar una partida? (Y/N)", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
+        //OPCIONES DE JUEGO              
+        String aux1 = recoger.leer("Quieres cargar una partida? (Y/N)");
 
         if (aux1.toString().contains("Y")) {
-            juego.cargar("CSV");
-            juego.UsarComando(juego.Comandos("CSV"));
+            String aux3 = recoger.leer("Que partida quieres cargar?");
+            CargadorJuegoDeFicheros cargador = new CargadorJuegoDeFicheros(aux3);
+            juego = cargador.cargarJuego();
+            juego.UsarComando(juego.Comandos(aux3));
 
         } else {
 
-            Object aux2 = JOptionPane.showInputDialog(null, "Quieres cargar un Mapa (Y/N)?", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-
+            String aux2 = recoger.leer("Quieres cargar un Mapa (Y/N)?");
             if (aux2.toString().contains("Y")) {
-                juego.cargar("CSV");
-                juego.Jugador.setMapa(juego.MapaJuego);
+                String aux4 = recoger.leer("Que mapa quieres cargar?");
+                CargadorJuegoDeFicheros cargador = new CargadorJuegoDeFicheros(aux4);
+                juego = cargador.cargarJuego();
+
             } else {
 
-                juego.Partidanueva();
-                juego.Jugador.setMapa(juego.MapaJuego);
+                CargadorJuegoPorDefecto cargador = new CargadorJuegoPorDefecto();
+                juego = cargador.cargarJuego();
+
             }
 
-            // juego.Jugador.setMapa(juego.MapaJuego); // Bucle de Juego
             do {
 
                 juego.MapaJuego.imprimeMapa(juego.Jugador);
-                System.out.println(juego.Jugador);
+                hud.imprimir(juego.Jugador.toString());
 
                 try {
                     juego.SeleccionarOpcion(juego.Jugador);
                 } catch (ExcepcionJuego ex) {
                     if (ex instanceof ExcepcionUsar) {
-                        JOptionPane.showMessageDialog(null, "No puedes usar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                        pantalla.imprimir("No puedes usar eso!");
                     } else if (ex instanceof ExcepcionMovimiento) {
-                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi!", "NO!", JOptionPane.ERROR_MESSAGE);
+                        pantalla.imprimir("No puedes ir por ahi!");
                     } else if (ex instanceof ExcepcionTirar) {
-                        JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                        pantalla.imprimir("No puedes tirar eso!");
                     } else if (ex instanceof ExcepcionMirar) {
-                        JOptionPane.showMessageDialog(null, "No puedes mirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
-                    }else if (ex instanceof ExcepcionHablar) {
-                        JOptionPane.showMessageDialog(null, "No puedes hablar, no hay nadie!", "NO!", JOptionPane.ERROR_MESSAGE);
+                        pantalla.imprimir("No puedes mirar eso!");
+                    } else if (ex instanceof ExcepcionHablar) {
+                        pantalla.imprimir("No puedes hablar, no hay nadie!");
+                    } else if (ex instanceof ExcepcionAtacar) {
+                        pantalla.imprimir("No puedes atacar, no hay nadie!");
                     }
                 }
 
                 if (juego.Jugador.getEnergia() <= 0) {
                     if (juego.Jugador.getMochila().contener(juego.Jugador, "pocima-energia")) {
-                        Object decision = JOptionPane.showInputDialog(null, "Tienes una: pocima-energia" + "\nQuieres usarla (Y/N)?", "Usar!", JOptionPane.WARNING_MESSAGE);
+                        String decision = recoger.leer("Tienes una: pocima-energia" + "\nQuieres usarla (Y/N)?");
                         if (decision.toString().contains("Y")) {
-                            //juego.Jugador.getAccionesPersonaje().usarObjeto(juego.Jugador, "pocima-energia");
+                            juego.SeleccionarOpcion(juego.Jugador, "Usar", "pocima-energia");
                         } else {
                             break;
                         }
@@ -88,15 +105,15 @@ public class PrincipalTerminalBioshock {
 
             // Mostramos el resultado final de la partida dependiendo de por que razon acaba el juego
             if (juego.Jugador.getEnergia() <= 0) {
-                JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
+                informacion.imprimir("\nTE HAS QUEDADO SIN ENERGIA\n EL JUEGO HA TERMINADO");
             } else if (juego.Jugador.getVida() <= 0) {
-                JOptionPane.showMessageDialog(null, "\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
+                informacion.imprimir("\nTE HAS QUEDADO SIN VIDA\n EL JUEGO HA TERMINADO");
             } else {
                 JOptionPane.showMessageDialog(null, "\n" + juego.Jugador.getMapa().getMapa().get(juego.Jugador.getPosicion()).getDescripcion());
                 juego.Jugador.getMapa().imprimeMapa(juego.Jugador);
-                JOptionPane.showMessageDialog(null, "\nFELICIDADES HAS COMPLETADO EL JUEGO");
-                System.out.println("\nTUS ESTADISTICAS: " + juego.Jugador);
-                JOptionPane.showMessageDialog(null, "\nHAS DADO: " + juego.Jugador.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + juego.Jugador.getRecorrido());
+                informacion.imprimir("\nFELICIDADES HAS COMPLETADO EL JUEGO");
+                informacion.imprimir("\nTUS ESTADISTICAS: " + juego.Jugador);
+                informacion.imprimir("\nHAS DADO: " + juego.Jugador.getRecorrido().size() + " PASOS" + "\nEL RECORRIDO QUE HAS SEGUIDO ES: " + juego.Jugador.getRecorrido());
             }
 
         }

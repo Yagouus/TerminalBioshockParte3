@@ -171,7 +171,7 @@ public class Personaje {
 
     public void setEnergia(Integer energia) {
         if (energia < 0 || energia > 100) {
-            System.out.println("Parametro Invalido");
+            
         }
         if (this.energia < 0) {
             this.energia = 0;
@@ -375,15 +375,15 @@ public class Personaje {
 
     public void atacar(Personaje Enemigo) {
 
-        /*getMapa().getMapa().get(getPosicion()).getNPCS().get(i).setVida(getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() - (20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10)));
-         JOptionPane.showMessageDialog(null, "Has atacado a tu enemigo!\n Le has quitado: " + ((20 + (getFuerza() / 10) - (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getDefensa() / 10))) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+        Enemigo.setVida(Enemigo.getVida() - (20 + (getFuerza() / 10) - (Enemigo.getDefensa() / 10)));
+         JOptionPane.showMessageDialog(null, "Has atacado a tu enemigo!\n Le has quitado: " + ((20 + (getFuerza() / 10) - (Enemigo.getDefensa() / 10))) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
 
-         if (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getTipo().equals("enemigopasivo") && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getNombre().equals(nombre) && getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getVida() > 0) {
+         if (Enemigo instanceof EnemigoPasivo && Enemigo.getVida() > 0) {
 
-         setVida(getVida() - (2 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10));
-         JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (getMapa().getMapa().get(getPosicion()).getNPCS().get(i).getFuerza() / 10) - getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
+         setVida(getVida() - (2 + (Enemigo.getFuerza() / 10) - getDefensa() / 10));
+         JOptionPane.showMessageDialog(null, "Te han atacado!\n Te han quitado: " + (10 + (Enemigo.getFuerza() / 10) - getDefensa() / 10) + " puntos de vida", "NO!", JOptionPane.ERROR_MESSAGE);
 
-         }*/
+         }
     }
 
     public void Tirar(Objeto objeto) throws ExcepcionTirar {

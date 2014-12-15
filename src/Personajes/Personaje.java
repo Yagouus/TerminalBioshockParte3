@@ -1,5 +1,6 @@
 package Personajes;
 
+import Excepciones.ExcepcionTirar;
 import terminalbioshock.Juego;
 import Items.Objeto;
 import Items.objetoarma;
@@ -376,7 +377,9 @@ public class Personaje {
          }*/
     }
 
-    public void Tirar(Objeto objeto) {
+    public void Tirar(Objeto objeto) throws ExcepcionTirar{
+        
+        int j = 0;
 
         if (objeto instanceof objetoarma) {
             setFuerza(getFuerza() - objeto.getEfecto());
@@ -391,8 +394,15 @@ public class Personaje {
                 getMapa().getMapa().get(getPosicion()).getItems().add(getMochila().getContenido().get(i));
                 getMochila().getContenido().remove(getMochila().getContenido().get(i));
 
+                j++;
             }
 
+        }
+        
+        if(j == 0){
+            
+            throw new ExcepcionTirar();
+            
         }
     }
 

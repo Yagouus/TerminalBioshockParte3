@@ -1,6 +1,7 @@
 package terminalbioshock;
 
 import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionTirar;
 import Excepciones.ExcepcionUsar;
 import Items.Objeto;
 import Items.objetoarma;
@@ -104,7 +105,11 @@ public class Juego {
                 aux3 = JOptionPane.showInputDialog(null, personaje.getMochila().getContenido().toString(), "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
                 for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
                     if (personaje.getMochila().getContenido().get(i).getNombre().equals(aux3)) {
+                        try{
                         personaje.Tirar(personaje.getMochila().getContenido().get(i));
+                        }catch(ExcepcionTirar n){
+                            throw new ExcepcionTirar();
+                        }
                     }
                 }
 
@@ -183,7 +188,7 @@ public class Juego {
 
     }
 
-    public void SeleccionarOpcion(Personaje personaje, String opcion, String movbjeto) {
+    public void SeleccionarOpcion(Personaje personaje, String opcion, String movbjeto) throws ExcepcionJuego {
 
         ImageIcon icon = new ImageIcon("Images/finn.gif");
 
@@ -224,7 +229,11 @@ public class Juego {
 
                 for (int i = 0; i < personaje.getMochila().getContenido().size(); i++) {
                     if (personaje.getMochila().getContenido().get(i).getNombre().equals(movbjeto)) {
+                        try{
                         personaje.Tirar(personaje.getMochila().getContenido().get(i));
+                        }catch(ExcepcionTirar j){
+                            throw new ExcepcionTirar();
+                        }
                     }
                 }
 
@@ -805,9 +814,17 @@ public class Juego {
             System.out.println(Jugador);
 
             if (aux.length > 1) {
-                SeleccionarOpcion(Jugador, aux[0], aux[1]);
+                try {
+                    SeleccionarOpcion(Jugador, aux[0], aux[1]);
+                } catch (ExcepcionJuego ex) {
+                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
-                SeleccionarOpcion(Jugador, aux[0], "");
+                try {
+                    SeleccionarOpcion(Jugador, aux[0], "");
+                } catch (ExcepcionJuego ex) {
+                    Logger.getLogger(Juego.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         } while (!MapaJuego.getMapa().get((Jugador.getPosicion())).isEsFin() && Jugador.getVida() >= 0 || i < comandos.size());

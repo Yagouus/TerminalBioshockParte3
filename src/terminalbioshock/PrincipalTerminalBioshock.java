@@ -1,6 +1,8 @@
 package terminalbioshock;
 
 import Excepciones.ExcepcionJuego;
+import Excepciones.ExcepcionMovimiento;
+import Excepciones.ExcepcionTirar;
 import Excepciones.ExcepcionUsar;
 import Items.Objeto;
 import Personajes.Personaje;
@@ -76,6 +78,10 @@ public class PrincipalTerminalBioshock {
                 } catch (ExcepcionJuego ex) {
                     if(ex instanceof ExcepcionUsar){
                     JOptionPane.showMessageDialog(null, "No puedes usar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }else if(ex instanceof ExcepcionMovimiento){
+                    JOptionPane.showMessageDialog(null, "No puedes ir por ahi!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    }else if(ex instanceof ExcepcionTirar){
+                    JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

@@ -806,5 +806,105 @@ public class Juego {
         }
 
     }
+    
+    public void Partidanueva() {
+        
+        MapaJuego = new Mapa(8, 8);
+
+        MapaJuego.getMapa().get(new Point(0, 0)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(0, 0)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(0, 1)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(0, 1)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(1, 0)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(1, 0)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(1, 1)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(1, 1)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(2, 1)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(2, 1)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(3, 1)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(3, 1)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(4, 1)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(4, 1)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(4, 2)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(4, 2)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(4, 3)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(4, 3)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(5, 3)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(5, 3)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(6, 3)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(6, 3)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(6, 2)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(6, 2)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(6, 1)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(6, 1)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(3, 3)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(3, 3)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(2, 3)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(2, 3)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(1, 3)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(1, 3)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(1, 4)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(1, 4)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(1, 5)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(1, 5)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(2, 4)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(2, 4)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(2, 5)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(2, 5)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(5, 4)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(5, 4)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(5, 5)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(5, 5)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(6, 5)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(6, 5)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(7, 5)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(7, 5)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(7, 6)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(7, 6)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(7, 7)).setTransitable(true);
+        MapaJuego.getMapa().get(new Point(7, 7)).setTipo("camino");
+        MapaJuego.getMapa().get(new Point(0, 0)).setEsInicio();
+        MapaJuego.getMapa().get(new Point(7, 7)).setEsFin();
+
+        ArrayList<Personaje> Personajes = new ArrayList<>();
+        ArrayList<Objeto> Objetos = new ArrayList<>();
+        
+        Object aux = JOptionPane.showInputDialog(null, "Elige una clase: \n Guerrero(G) o Mago (M)", "Introduce tu clase chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, null, null, null);
+        Object aux2 = JOptionPane.showInputDialog(null, "Gandalf pregunta: \n'¿Como te llamas valiente?'", "Introduce tu nombre chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+        switch(aux.toString()) {
+
+            case "G":
+            case "Guerrero":{
+                
+                Jugador = new Guerrero(MapaJuego.getInicio(), aux2.toString(), 100, 100, 20, 5, ".");
+
+                Objetos.add(new objetoarma(new Point(1, 1), ".", "Espada de los hombres", "Espada creada por el pueblo de los hombres", 25, 10f));
+            
+            }
+                break;
+
+            case "M":
+            case "Mago":{
+                
+                Jugador = new Mago(MapaJuego.getInicio(),aux2.toString(),100,100,10,0,".");
+                
+                Objetos.add(new objetoarma(new Point(1, 1), ".", "Baston de mago", "Largo baston magico que fue pasando de generacion en generacion de magos", 40, 10f));
+                
+            }
+                break;
+
+        }
+
+        Personajes.add(new Amigo(new Point(3, 1), "Gimli", 100, 100, 10, 40, "¡Cuenta con mi hacha!"));
+        Personajes.add(new EnemigoActivo(new Point(5, 3), "Rey Brujo", 50, 50, 60, 30, "Preparate para morir..."));
+
+        Objetos.add(new objetoarma(new Point(3, 1), "Gimli", "Hacha de enano", "Gran hacha de guerra creada por el pueblo de los enanos", 50, 20f));
+
+        Objetos.add(new objetodefensivo(new Point(4, 2), ".", "Armadura de tela elfica", "Camiseta magica creada por los ancestros de los elfos", 50, 10f));
+
+       // Jugador.setMapa(MapaJuego);
+        
+    }
 
 }

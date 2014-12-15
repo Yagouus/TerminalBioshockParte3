@@ -33,7 +33,7 @@ public class PrincipalTerminalBioshock {
 
         //Creamos personaje y asignamos atributos
         ArrayList<Objeto> objetos = new ArrayList<>();
-        
+
         //Cargamos una partida
         Object aux1 = JOptionPane.showInputDialog(null, "Quieres cargar una partida? (Y/N)", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
 
@@ -47,28 +47,14 @@ public class PrincipalTerminalBioshock {
 
             if (aux2.toString().contains("Y")) {
                 juego.cargar("CSV");
-
+                juego.Jugador.setMapa(juego.MapaJuego);
             } else {
 
-                Object aux3 = JOptionPane.showInputDialog(null, "Elige tu clase: \n Guerrero (G) \n Mago (M)", "Elige una opcion chico, ¿quieres?:", JOptionPane.QUESTION_MESSAGE, icon, null, null);
-
-                switch (aux3.toString()) {
-
-                    case "G":
-                    case "Guerrero":
-
-                        break;
-
-                    case "M":
-                    case "Mago":
-
-                        break;
-
-                }
+                juego.Partidanueva();
+                juego.Jugador.setMapa(juego.MapaJuego);
             }
-            juego.Jugador.setMapa(juego.MapaJuego);
 
-            // Bucle de Juego
+            // juego.Jugador.setMapa(juego.MapaJuego); // Bucle de Juego
             do {
 
                 juego.MapaJuego.imprimeMapa(juego.Jugador);
@@ -77,14 +63,14 @@ public class PrincipalTerminalBioshock {
                 try {
                     juego.SeleccionarOpcion(juego.Jugador);
                 } catch (ExcepcionJuego ex) {
-                    if(ex instanceof ExcepcionUsar){
-                    JOptionPane.showMessageDialog(null, "No puedes usar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
-                    }else if(ex instanceof ExcepcionMovimiento){
-                    JOptionPane.showMessageDialog(null, "No puedes ir por ahi!", "NO!", JOptionPane.ERROR_MESSAGE);
-                    }else if(ex instanceof ExcepcionTirar){
-                    JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
-                    }else if(ex instanceof ExcepcionMirar){
-                    JOptionPane.showMessageDialog(null, "No puedes mirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    if (ex instanceof ExcepcionUsar) {
+                        JOptionPane.showMessageDialog(null, "No puedes usar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionMovimiento) {
+                        JOptionPane.showMessageDialog(null, "No puedes ir por ahi!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionTirar) {
+                        JOptionPane.showMessageDialog(null, "No puedes tirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
+                    } else if (ex instanceof ExcepcionMirar) {
+                        JOptionPane.showMessageDialog(null, "No puedes mirar eso!", "NO!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 

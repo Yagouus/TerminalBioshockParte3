@@ -97,6 +97,10 @@ public class Celda {
         this.transitable = transitable;
     }
 
+    public void setTipo(String tipo){
+        this.tipo = tipo;
+    }
+    
     public void setEsInicio() {
         this.esInicio = true;
     }
